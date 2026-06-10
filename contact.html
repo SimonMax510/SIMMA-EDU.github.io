@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="grain-overlay"></div>
-    
+
     <!-- Navigation -->
     <nav class="nav-system">
         <div class="nav-logo">
@@ -24,6 +24,7 @@
             <a href="projects.html" class="nav-link">Projects</a>
             <a href="skills.html" class="nav-link">Skills/Certificates</a>
             <a href="experience.html" class="nav-link">Experience</a>
+            <a href="visits.html" class="nav-link">Visits &amp; Events</a>
             <a href="contact.html" class="nav-link active">Contact</a>
             <a href="flyer.html" class="nav-link">Flyer</a>
         </div>
@@ -42,167 +43,115 @@
         </div>
     </header>
 
-    <!-- Contact Container -->
-    <main class="contact-container">
-        
-        <div class="contact-layout">
-            
-            <!-- Contact Info -->
-            <div class="contact-info-section">
-                <div class="info-intro">
-                    <h2 class="info-title">Get in Touch</h2>
-                    <p class="info-description">
-                        I'm currently available for freelance projects, internships, and full-time 
-                        opportunities in cloud computing, DevOps, and web development.
-                    </p>
-                </div>
+    <main class="contact-page-main">
 
-                <div class="contact-methods">
-                    
-                    <a href="mailto:maxs4114@proton.me" class="contact-method">
-                        <div class="method-icon">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                <rect x="4" y="8" width="24" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
-                                <path d="M4 10L16 18L28 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                        <div class="method-content">
-                            <h3 class="method-label">Email</h3>
-                            <p class="method-value">maxs4114@proton.me</p>
-                            <span class="method-status">Primary contact</span>
-                        </div>
-                        <div class="method-arrow">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </div>
+        <!-- Availability Banner -->
+        <div class="contact-availability">
+            <span class="avail-dot"></span>
+            <span class="avail-text">Currently available for internships and project collaborations</span>
+        </div>
+
+        <!-- Contact Methods -->
+        <div class="contact-methods-grid">
+
+            <a href="mailto:maxs4114@proton.me" class="contact-card">
+                <div class="contact-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                        <rect x="4" y="8" width="24" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M4 10L16 18L28 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="contact-card-body">
+                    <div class="contact-card-label">Email</div>
+                    <div class="contact-card-value">maxs4114@proton.me</div>
+                    <div class="contact-card-note">Primary contact — response within 24h</div>
+                </div>
+                <div class="contact-card-arrow">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                        <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/max-simon-230757387/" target="_blank" rel="noopener" class="contact-card">
+                <div class="contact-card-icon">
+                    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                        <rect x="6" y="6" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <line x1="11" y1="14" x2="11" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="11" cy="10.5" r="1.5" fill="currentColor"/>
+                        <path d="M15 14V22M15 14C15 14 16 12 19 12C21 12 21 14 21 16V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <div class="contact-card-body">
+                    <div class="contact-card-label">LinkedIn</div>
+                    <div class="contact-card-value">max-simon-230757387</div>
+                    <div class="contact-card-note">Professional network</div>
+                </div>
+                <div class="contact-card-arrow">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                        <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Info Strip -->
+        <div class="contact-info-strip">
+            <div class="info-strip-item">
+                <span class="info-strip-label">Location</span>
+                <span class="info-strip-value">Luxembourg</span>
+            </div>
+            <div class="info-strip-divider"></div>
+            <div class="info-strip-item">
+                <span class="info-strip-label">Education</span>
+                <span class="info-strip-value">BTS Cloud Computing</span>
+            </div>
+            <div class="info-strip-divider"></div>
+            <div class="info-strip-item">
+                <span class="info-strip-label">Projects</span>
+                <span class="info-strip-value">14 completed &amp; ongoing</span>
+            </div>
+            <div class="info-strip-divider"></div>
+            <div class="info-strip-item">
+                <span class="info-strip-label">Languages</span>
+                <span class="info-strip-value">LU · DE · EN · FR</span>
+            </div>
+        </div>
+
+        <!-- CV Download + QR -->
+        <div class="contact-lower-grid">
+
+            <div class="contact-cv-block">
+                <div class="cv-block-header">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 13L10 3M10 13L6 9M10 13L14 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M3 17H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>Download CV</span>
+                </div>
+                <p class="cv-block-sub">Available in French and English</p>
+                <div class="cv-block-buttons">
+                    <a href="Downloads/cv/FR-CV-Simon-Max.pdf" target="_blank" class="cv-lang-btn">
+                        <span class="cv-lang-flag">FR</span>
+                        Français
                     </a>
-
-                    <a href="https://www.linkedin.com/in/max-simon-230757387/" 
-                       target="_blank" 
-                       class="contact-method">
-                        <div class="method-icon">
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                                <rect x="6" y="6" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
-                                <line x1="11" y1="14" x2="11" y2="22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                <circle cx="11" cy="10.5" r="1.5" fill="currentColor"/>
-                                <path d="M15 14V22M15 14C15 14 16 12 19 12C21 12 21 14 21 16V22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </div>
-                        <div class="method-content">
-                            <h3 class="method-label">LinkedIn</h3>
-                            <p class="method-value">linkedin.com/in/max-simon-230757387</p>
-                            <span class="method-status">Professional network</span>
-                        </div>
-                        <div class="method-arrow">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </div>
+                    <a href="Downloads/cv/EN-CV-Simon-Max.pdf" target="_blank" class="cv-lang-btn">
+                        <span class="cv-lang-flag">EN</span>
+                        English
                     </a>
-
-                </div>
-
-                <!-- LinkedIn QR Code -->
-                <div class="linkedin-qr-block">
-                    <div id="linkedin-qr"></div>
-                    <div class="qr-text-block">
-                        <p class="qr-label">Scan to connect</p>
-                        <p class="qr-title">LinkedIn Profile</p>
-                        <p class="qr-sub">Max Simon</p>
-                    </div>
-                </div>
-
-                <!-- Quick Info -->
-                <div class="quick-info-grid">
-                    <div class="quick-info-item">
-                        <div class="info-icon">🎓</div>
-                        <div class="info-text">
-                            <span class="info-key">Education</span>
-                            <span class="info-val">BTS Cloud Computing</span>
-                        </div>
-                    </div>
-                    <div class="quick-info-item">
-                        <div class="info-icon">📍</div>
-                        <div class="info-text">
-                            <span class="info-key">Location</span>
-                            <span class="info-val">Luxembourg</span>
-                        </div>
-                    </div>
-                    <div class="quick-info-item">
-                        <div class="info-icon">💼</div>
-                        <div class="info-text">
-                            <span class="info-key">Status</span>
-                            <span class="info-val">Available</span>
-                        </div>
-                    </div>
-                    <div class="quick-info-item">
-                        <div class="info-icon">⏰</div>
-                        <div class="info-text">
-                            <span class="info-key">Response Time</span>
-                            <span class="info-val">24 Hours</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Visual Section -->
-            <div class="contact-visual-section">
-                <div class="visual-container">
-                    <div class="visual-card-main">
-                        <div class="card-top">
-                            <div class="profile-image">
-                                <img src="./img/me.jpg" alt="Max Simon">
-                            </div>
-                        </div>
-                        <div class="card-info">
-                            <h3 class="card-name">Max Simon</h3>
-                            <p class="card-role">Cloud Computing Student</p>
-                        </div>
-                        <a href="#" class="cv-download-btn-contact cv-download-trigger">
-                            <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                                <path d="M10 13L10 3M10 13L6 9M10 13L14 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                <path d="M3 17H17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                            <span>Download CV</span>
-                        </a>
-                    </div>
-
-                    <!-- Stats Cards -->
-                    <div class="visual-stats">
-                        <div class="mini-stat">
-                            <span class="mini-stat-value">04</span>
-                            <span class="mini-stat-label">Certifications</span>
-                        </div>
-                        <div class="mini-stat">
-                            <span class="mini-stat-value">09</span>
-                            <span class="mini-stat-label">Projects</span>
-                        </div>
-                    </div>
+            <div class="contact-qr-block">
+                <div id="contact-linkedin-qr"></div>
+                <div class="qr-block-text">
+                    <p class="qr-block-title">LinkedIn</p>
+                    <p class="qr-block-sub">Scan to connect with Max Simon</p>
                 </div>
             </div>
 
         </div>
-
-        <!-- Bottom CTA -->
-        <section class="contact-cta">
-            <div class="cta-content">
-                <h2 class="cta-title">Interested in working together?</h2>
-                <p class="cta-text">
-                    I'm always open to discussing new projects, creative ideas, or opportunities 
-                    to contribute to innovative cloud solutions.
-                </p>
-                <div class="cta-buttons">
-                    <a href="mailto:maxs4114@proton.me" class="btn-primary">
-                        <span>Send Email</span>
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M4 10H16M16 10L10 4M16 10L10 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </a>
-                    <a href="projects.html" class="btn-secondary">View Projects</a>
-                </div>
-            </div>
-        </section>
 
     </main>
 
@@ -266,12 +215,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="js/main.js"></script>
     <script>
-        new QRCode(document.getElementById('linkedin-qr'), {
+        new QRCode(document.getElementById('contact-linkedin-qr'), {
             text: 'https://www.linkedin.com/in/max-simon-230757387/',
-            width: 140,
-            height: 140,
+            width: 130,
+            height: 130,
             colorDark: '#00FFA3',
-            colorLight: '#0d1117',
+            colorLight: '#141824',
             correctLevel: QRCode.CorrectLevel.H
         });
         new QRCode(document.getElementById('footer-linkedin-qr'), {

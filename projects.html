@@ -57,6 +57,448 @@
             </select>
         </div>
 
+        <!-- OwnAI Project -->
+        <article class="project-detail" id="project-ownai" data-status="development">
+            <div class="project-header-section">
+                <div class="project-icon-large">
+                    <div class="tech-icon" style="font-size: 3rem;">🤖</div>
+                </div>
+                <div class="project-meta">
+                    <h2 class="project-name">OwnAI</h2>
+                    <p class="project-tagline">Self-Hosted Local AI Server</p>
+                    <p class="project-cours">Personal / Homelab</p>
+                    <div class="project-status">
+                        <span class="status-badge status-development">In Development</span>
+                    </div>
+                </div>
+                <div class="project-toggle">▼</div>
+            </div>
+
+            <div class="project-body">
+                <div class="project-overview">
+                    <h3 class="section-heading">Overview</h3>
+                    <p class="overview-text">
+                        A fully self-hosted AI assistant running on local hardware — no cloud APIs, no data leaving the machine.
+                        Built on a Supermicro server with an RTX 2060, it runs Ollama for LLM inference and AnythingLLM as the
+                        chat interface with RAG (Retrieval-Augmented Generation) over private documentation. The current knowledge
+                        base covers the full Proxmox VE Administration Guide and LME infrastructure notes.
+                    </p>
+                    <p class="overview-text" style="margin-top: 1rem; font-style: italic; color: var(--color-text-dim);">
+                        Next step: integrate a messenger bot (Signal / Telegram via n8n) for a personal assistant that handles
+                        reminders, notes, and weekly planning — with LLM as the language frontend to fixed deterministic logic.
+                    </p>
+                </div>
+
+                <div class="tech-stack-section">
+                    <h3 class="section-heading">Technology Stack</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-icon">🖥️</div>
+                            <div class="tech-info">
+                                <h4>Supermicro + RTX 2060</h4>
+                                <p>Intel Xeon 12-core, 16 GB DDR4 ECC, NVIDIA RTX 2060 6 GB VRAM</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🦙</div>
+                            <div class="tech-info">
+                                <h4>Ollama</h4>
+                                <p>LLM runtime — runs natively (not containerised) for direct GPU access. Models: llama3.1:8b + qwen2.5-coder:7b</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">💬</div>
+                            <div class="tech-info">
+                                <h4>AnythingLLM</h4>
+                                <p>Chat UI and RAG pipeline in Docker — LanceDB vector store, document ingestion, workspace management</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🐧</div>
+                            <div class="tech-info">
+                                <h4>Ubuntu Server 22.04</h4>
+                                <p>Host OS with NVIDIA drivers, systemd service management</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🐳</div>
+                            <div class="tech-info">
+                                <h4>Docker</h4>
+                                <p>Container isolation for AnythingLLM; Ollama runs native to avoid NVIDIA Container Toolkit overhead</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-section">
+                    <h3 class="section-heading">Key Features</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-number">01</div>
+                            <h4>100% Local — No Cloud</h4>
+                            <p>All inference runs on the RTX 2060. No API keys, no data leaving the server, full data sovereignty</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">02</div>
+                            <h4>RAG over Private Docs</h4>
+                            <p>Proxmox VE Administration Guide (685 pages, split into 21 chapters) ingested as a knowledge base. RAG returns contextually relevant answers in German and English</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">03</div>
+                            <h4>GPU Optimisation</h4>
+                            <p>KV-cache quantisation (q8_0) + Flash Attention keeps llama3.1:8b at 100% GPU with 8192 context — no CPU spill</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">04</div>
+                            <h4>Multi-Model Workspaces</h4>
+                            <p>llama3.1:8b for general Q&A in German/English; qwen2.5-coder:7b for code and infrastructure tasks</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learned-section">
+                    <h3 class="section-heading">What I Learned</h3>
+                    <ul class="learned-list">
+                        <li>GPU resource management — VRAM budgeting, KV-cache quantisation, context-window tuning to keep the model 100% on GPU</li>
+                        <li>Docker networking — bridging containers to natively-running host services via <code>host.docker.internal</code></li>
+                        <li>RAG pipeline design — chunking strategy, PDF-to-Markdown pre-processing, embedder vs. LLM VRAM trade-offs</li>
+                        <li>Systemd unit overrides — exposing Ollama on 0.0.0.0 instead of loopback so Docker can reach it</li>
+                        <li>Model selection — a code-specialised model (qwen2.5-coder) is not a stronger general model, it is a different model</li>
+                        <li>Methodical root-cause debugging — reading container logs to trace an OOM kill back to chunk size, not model size</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- Azure 104 Project -->
+        <article class="project-detail" id="project-azure-104" data-status="development">
+            <div class="project-header-section">
+                <div class="project-icon-large">
+                    <div class="tech-icon" style="font-size: 3rem;">☁️</div>
+                </div>
+                <div class="project-meta">
+                    <h2 class="project-name">Azure 104</h2>
+                    <p class="project-tagline">Azure Administrator Associate Preparation</p>
+                    <p class="project-cours"><!-- TODO: add course name --></p>
+                    <div class="project-status">
+                        <span class="status-badge status-development">In Development</span>
+                    </div>
+                </div>
+                <div class="project-toggle">▼</div>
+            </div>
+
+            <div class="project-body">
+                <div class="project-overview">
+                    <h3 class="section-heading">Overview</h3>
+                    <p class="overview-text">
+                        Preparation and hands-on work toward the Microsoft Azure Administrator Associate (AZ-104) certification.
+                        The project focuses on two core areas: deploying and managing Azure compute resources, and administering
+                        Azure identities and governance.
+                    </p>
+                </div>
+
+                <div class="tech-stack-section">
+                    <h3 class="section-heading">Technology Stack</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-icon">☁️</div>
+                            <div class="tech-info">
+                                <h4>Microsoft Azure</h4>
+                                <p>Cloud platform — VMs, resource groups, identity services</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔐</div>
+                            <div class="tech-info">
+                                <h4>Azure Active Directory</h4>
+                                <p>Identity and access management</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-section">
+                    <h3 class="section-heading">Key Topics</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-number">01</div>
+                            <h4>Deploy & Manage Compute Resources</h4>
+                            <p>Implement and manage virtual machines, scale sets, containers, and app services on Azure</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">02</div>
+                            <h4>Identity & Governance Management</h4>
+                            <p>Manage Azure AD identities, RBAC, policies, subscriptions, and governance controls</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learned-section">
+                    <h3 class="section-heading">What I Learned</h3>
+                    <ul class="learned-list">
+                        <!-- TODO: fill in as the project progresses -->
+                        <li>Working toward AZ-104 certification — details will be added as learning progresses</li>
+                    </ul>
+                </div>
+            </div>
+        </article>
+
+        <!-- Pi 5 Cluster – K3s Load Balancer -->
+        <article class="project-detail" id="project-pi5-cluster" data-status="development">
+            <div class="project-header-section">
+                <div class="project-icon-large">
+                    <img src="img/pyCluster/Cluster.jpg" alt="Pi 5 Cluster" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+                </div>
+                <div class="project-meta">
+                    <h2 class="project-name">Pi 5 Cluster</h2>
+                    <p class="project-tagline">K3s Load Balancer for Porte Ouverte LGK</p>
+                    <p class="project-cours"><!-- TODO: add course name --></p>
+                    <div class="project-status">
+                        <span class="status-badge status-completed">Completed</span>
+                    </div>
+                </div>
+                <div class="project-toggle">▼</div>
+            </div>
+
+            <div class="project-body">
+                <div class="project-overview">
+                    <h3 class="section-heading">Overview</h3>
+                    <p class="overview-text">
+                        A Raspberry Pi 5 cluster running K3s (lightweight Kubernetes) to host a load balancer
+                        for the Porte Ouverte event at Lycée Guillaume Kroll. The system automatically routes
+                        visitors to different websites, distributing traffic across multiple nodes.
+                    </p>
+                </div>
+
+                <div class="tech-stack-section">
+                    <h3 class="section-heading">Technology Stack</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-icon">🍓</div>
+                            <div class="tech-info">
+                                <h4>Raspberry Pi 5</h4>
+                                <p>Cluster nodes running the K3s workload</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">⚙️</div>
+                            <div class="tech-info">
+                                <h4>K3s</h4>
+                                <p>Lightweight Kubernetes distribution for edge and IoT</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🔀</div>
+                            <div class="tech-info">
+                                <h4>Load Balancer</h4>
+                                <p>Automated traffic distribution across cluster nodes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-section">
+                    <h3 class="section-heading">Key Features</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-number">01</div>
+                            <h4>Load Balancer</h4>
+                            <p>Manages the network and distributes visitors across multiple websites to balance the load</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">02</div>
+                            <h4>Automated Routing</h4>
+                            <p>Visitors are automatically redirected without manual intervention</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">03</div>
+                            <h4>Porte Ouverte Integration</h4>
+                            <p>Specifically built to handle visitor traffic for the LGK open day event</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learned-section">
+                    <h3 class="section-heading">What I Learned</h3>
+                    <ul class="learned-list">
+                        <!-- TODO: fill in as the project progresses -->
+                        <li>Setting up a multi-node K3s cluster on Raspberry Pi hardware</li>
+                        <li>Kubernetes load balancing concepts and practical configuration</li>
+                    </ul>
+                </div>
+
+                <div class="downloads-section">
+                    <h3 class="section-heading">Downloads</h3>
+                    <div class="downloads-grid">
+                        <a href="img/pyCluster/Pi_cluster_project_proposal (1).pdf" class="download-card" download>
+                            <div class="download-icon">📄</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Project Proposal</h4>
+                                <p class="download-description">Pi 5 Cluster project proposal (PDF)</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- VMware & Proxmox – High Availability -->
+        <article class="project-detail" id="project-vmware-proxmox" data-status="development">
+            <div class="project-header-section">
+                <div class="project-icon-large">
+                    <div class="tech-icon" style="font-size: 3rem;">🖥️</div>
+                </div>
+                <div class="project-meta">
+                    <h2 class="project-name">VMware & Proxmox</h2>
+                    <p class="project-tagline">Hypervisor Deep-Dive with High Availability</p>
+                    <p class="project-cours"><!-- TODO: add course name --></p>
+                    <div class="project-status">
+                        <span class="status-badge status-development">In Development</span>
+                    </div>
+                </div>
+                <div class="project-toggle">▼</div>
+            </div>
+
+            <div class="project-body">
+                <div class="project-overview">
+                    <h3 class="section-heading">Overview</h3>
+                    <p class="overview-text">
+                        An in-depth study of two major hypervisor platforms — VMware and Proxmox VE — with a
+                        focus on High Availability (HA) configurations. The project explores how to keep virtual
+                        machines running with minimal downtime in case of node failure.
+                    </p>
+                </div>
+
+                <div class="tech-stack-section">
+                    <h3 class="section-heading">Technology Stack</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-icon">🖥️</div>
+                            <div class="tech-info">
+                                <h4>VMware</h4>
+                                <p>Industry-standard hypervisor platform for enterprise virtualization</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📦</div>
+                            <div class="tech-info">
+                                <h4>Proxmox VE</h4>
+                                <p>Open-source virtualization platform with clustering and HA support</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-section">
+                    <h3 class="section-heading">Key Topics</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-number">01</div>
+                            <h4>High Availability</h4>
+                            <p>Ensuring VM availability by automatically restarting VMs on another node in case of failure — minimizing service interruptions</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">02</div>
+                            <h4>Hypervisor Comparison</h4>
+                            <p>Side-by-side comparison of VMware and Proxmox features, licensing, and HA capabilities</p>
+                        </div>
+                        <!-- TODO: add more topics as project progresses -->
+                    </div>
+                </div>
+
+                <div class="learned-section">
+                    <h3 class="section-heading">What I Learned</h3>
+                    <ul class="learned-list">
+                        <!-- TODO: fill in as the project progresses -->
+                        <li>Differences between VMware and Proxmox HA implementation</li>
+                        <li>Configuring cluster nodes and HA groups in Proxmox</li>
+                    </ul>
+                </div>
+
+                <div class="team-roles-section">
+                    <h3 class="section-heading">Team</h3>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <span class="member-name">Max</span>
+                            <span class="member-role">VMware configuration · Video editing (partial)</span>
+                        </div>
+                        <div class="team-member">
+                            <span class="member-name">Eric</span>
+                            <span class="member-role">Proxmox — full configuration</span>
+                        </div>
+                        <div class="team-member">
+                            <span class="member-name">Sven</span>
+                            <span class="member-role">Video editing (primary)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="downloads-section">
+                    <h3 class="section-heading">Downloads & Resources</h3>
+                    <div class="downloads-grid">
+                        <a href="img/VmWare/Project_Server Virtualization Systems (1).docx" class="download-card" download>
+                            <div class="download-icon">📄</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Project Documentation</h4>
+                                <p class="download-description">Server Virtualization Systems — project document (DOCX)</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                        <a href="img/VmWare/high-availability-presentation.html" class="download-card" target="_blank">
+                            <div class="download-icon">🌐</div>
+                            <div class="download-info">
+                                <h4 class="download-title">HA Presentation</h4>
+                                <p class="download-description">High Availability presentation (HTML)</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Rad System der Schule -->
+        <article class="project-detail" id="project-rad-system" data-status="development">
+            <div class="project-header-section">
+                <div class="project-icon-large">
+                    <div class="tech-icon" style="font-size: 3rem;">🚲</div>
+                </div>
+                <div class="project-meta">
+                    <h2 class="project-name">School Bike System</h2>
+                    <p class="project-tagline">New System for the School's Bicycle Management</p>
+                    <p class="project-cours"><!-- TODO: add course name --></p>
+                    <div class="project-status">
+                        <span class="status-badge status-development">In Development</span>
+                    </div>
+                </div>
+                <div class="project-toggle">▼</div>
+            </div>
+
+            <div class="project-body">
+                <div class="project-overview">
+                    <h3 class="section-heading">Overview</h3>
+                    <p class="overview-text">
+                        Development of a new system for managing the school's bicycle program at Lycée Guillaume Kroll.
+                        <!-- TODO: add full description once more details are available -->
+                        More details will be added as the project progresses.
+                    </p>
+                </div>
+
+                <div class="features-section">
+                    <h3 class="section-heading">Key Features</h3>
+                    <div class="features-grid">
+                        <!-- TODO: fill in features once project details are finalized -->
+                        <div class="feature-card">
+                            <div class="feature-number">01</div>
+                            <h4>Details Coming Soon</h4>
+                            <p>Project is currently in early development — features will be documented as they are implemented</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
         <!-- Grading Dino Project -->
         <article class="project-detail" id="project-grading-dino">
             <div class="project-header-section">
@@ -692,10 +1134,10 @@
                 </div>
                 <div class="project-meta">
                     <h2 class="project-name">Python Monitor</h2>
-                    <p class="project-tagline">Server Log Analyzer</p>
+                    <p class="project-tagline">Server Log Analyzer — Discontinued</p>
                     <p class="project-cours">PYTWO</p>
                     <div class="project-status">
-                        <span class="status-badge status-development">In Development</span>
+                        <span class="status-badge status-discontinued">Discontinued</span>
                     </div>
                 </div>
                 <div class="project-toggle">▼</div>
@@ -1043,281 +1485,6 @@
                             </div>
                             <div class="download-arrow">→</div>
                         </a>
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <!-- Azure 104 Project -->
-        <article class="project-detail" id="project-azure-104" data-status="development">
-            <div class="project-header-section">
-                <div class="project-icon-large">
-                    <div class="tech-icon" style="font-size: 3rem;">☁️</div>
-                </div>
-                <div class="project-meta">
-                    <h2 class="project-name">Azure 104</h2>
-                    <p class="project-tagline">Azure Administrator Associate Preparation</p>
-                    <p class="project-cours"><!-- TODO: add course name --></p>
-                    <div class="project-status">
-                        <span class="status-badge status-development">In Development</span>
-                    </div>
-                </div>
-                <div class="project-toggle">▼</div>
-            </div>
-
-            <div class="project-body">
-                <div class="project-overview">
-                    <h3 class="section-heading">Overview</h3>
-                    <p class="overview-text">
-                        Preparation and hands-on work toward the Microsoft Azure Administrator Associate (AZ-104) certification.
-                        The project focuses on two core areas: deploying and managing Azure compute resources, and administering
-                        Azure identities and governance.
-                    </p>
-                </div>
-
-                <div class="tech-stack-section">
-                    <h3 class="section-heading">Technology Stack</h3>
-                    <div class="tech-grid">
-                        <div class="tech-item">
-                            <div class="tech-icon">☁️</div>
-                            <div class="tech-info">
-                                <h4>Microsoft Azure</h4>
-                                <p>Cloud platform — VMs, resource groups, identity services</p>
-                            </div>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">🔐</div>
-                            <div class="tech-info">
-                                <h4>Azure Active Directory</h4>
-                                <p>Identity and access management</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="features-section">
-                    <h3 class="section-heading">Key Topics</h3>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-number">01</div>
-                            <h4>Deploy & Manage Compute Resources</h4>
-                            <p>Implement and manage virtual machines, scale sets, containers, and app services on Azure</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-number">02</div>
-                            <h4>Identity & Governance Management</h4>
-                            <p>Manage Azure AD identities, RBAC, policies, subscriptions, and governance controls</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="learned-section">
-                    <h3 class="section-heading">What I Learned</h3>
-                    <ul class="learned-list">
-                        <!-- TODO: fill in as the project progresses -->
-                        <li>Working toward AZ-104 certification — details will be added as learning progresses</li>
-                    </ul>
-                </div>
-            </div>
-        </article>
-
-        <!-- Pi 5 Cluster – K3s Load Balancer -->
-        <article class="project-detail" id="project-pi5-cluster" data-status="development">
-            <div class="project-header-section">
-                <div class="project-icon-large">
-                    <div class="tech-icon" style="font-size: 3rem;">🍓</div>
-                </div>
-                <div class="project-meta">
-                    <h2 class="project-name">Pi 5 Cluster</h2>
-                    <p class="project-tagline">K3s Load Balancer for Porte Ouverte LGK</p>
-                    <p class="project-cours"><!-- TODO: add course name --></p>
-                    <div class="project-status">
-                        <span class="status-badge status-development">In Development</span>
-                    </div>
-                </div>
-                <div class="project-toggle">▼</div>
-            </div>
-
-            <div class="project-body">
-                <div class="project-overview">
-                    <h3 class="section-heading">Overview</h3>
-                    <p class="overview-text">
-                        A Raspberry Pi 5 cluster running K3s (lightweight Kubernetes) to host a load balancer
-                        for the Porte Ouverte event at Lycée Guillaume Kroll. The system automatically routes
-                        visitors to different websites, distributing traffic across multiple nodes.
-                    </p>
-                </div>
-
-                <div class="tech-stack-section">
-                    <h3 class="section-heading">Technology Stack</h3>
-                    <div class="tech-grid">
-                        <div class="tech-item">
-                            <div class="tech-icon">🍓</div>
-                            <div class="tech-info">
-                                <h4>Raspberry Pi 5</h4>
-                                <p>Cluster nodes running the K3s workload</p>
-                            </div>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">⚙️</div>
-                            <div class="tech-info">
-                                <h4>K3s</h4>
-                                <p>Lightweight Kubernetes distribution for edge and IoT</p>
-                            </div>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">🔀</div>
-                            <div class="tech-info">
-                                <h4>Load Balancer</h4>
-                                <p>Automated traffic distribution across cluster nodes</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="features-section">
-                    <h3 class="section-heading">Key Features</h3>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-number">01</div>
-                            <h4>Load Balancer</h4>
-                            <p>Manages the network and distributes visitors across multiple websites to balance the load</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-number">02</div>
-                            <h4>Automated Routing</h4>
-                            <p>Visitors are automatically redirected without manual intervention</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-number">03</div>
-                            <h4>Porte Ouverte Integration</h4>
-                            <p>Specifically built to handle visitor traffic for the LGK open day event</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="learned-section">
-                    <h3 class="section-heading">What I Learned</h3>
-                    <ul class="learned-list">
-                        <!-- TODO: fill in as the project progresses -->
-                        <li>Setting up a multi-node K3s cluster on Raspberry Pi hardware</li>
-                        <li>Kubernetes load balancing concepts and practical configuration</li>
-                    </ul>
-                </div>
-            </div>
-        </article>
-
-        <!-- VMware & Proxmox – High Availability -->
-        <article class="project-detail" id="project-vmware-proxmox" data-status="development">
-            <div class="project-header-section">
-                <div class="project-icon-large">
-                    <div class="tech-icon" style="font-size: 3rem;">🖥️</div>
-                </div>
-                <div class="project-meta">
-                    <h2 class="project-name">VMware & Proxmox</h2>
-                    <p class="project-tagline">Hypervisor Deep-Dive with High Availability</p>
-                    <p class="project-cours"><!-- TODO: add course name --></p>
-                    <div class="project-status">
-                        <span class="status-badge status-development">In Development</span>
-                    </div>
-                </div>
-                <div class="project-toggle">▼</div>
-            </div>
-
-            <div class="project-body">
-                <div class="project-overview">
-                    <h3 class="section-heading">Overview</h3>
-                    <p class="overview-text">
-                        An in-depth study of two major hypervisor platforms — VMware and Proxmox VE — with a
-                        focus on High Availability (HA) configurations. The project explores how to keep virtual
-                        machines running with minimal downtime in case of node failure.
-                    </p>
-                </div>
-
-                <div class="tech-stack-section">
-                    <h3 class="section-heading">Technology Stack</h3>
-                    <div class="tech-grid">
-                        <div class="tech-item">
-                            <div class="tech-icon">🖥️</div>
-                            <div class="tech-info">
-                                <h4>VMware</h4>
-                                <p>Industry-standard hypervisor platform for enterprise virtualization</p>
-                            </div>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">📦</div>
-                            <div class="tech-info">
-                                <h4>Proxmox VE</h4>
-                                <p>Open-source virtualization platform with clustering and HA support</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="features-section">
-                    <h3 class="section-heading">Key Topics</h3>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-number">01</div>
-                            <h4>High Availability</h4>
-                            <p>Ensuring VM availability by automatically restarting VMs on another node in case of failure — minimizing service interruptions</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-number">02</div>
-                            <h4>Hypervisor Comparison</h4>
-                            <p>Side-by-side comparison of VMware and Proxmox features, licensing, and HA capabilities</p>
-                        </div>
-                        <!-- TODO: add more topics as project progresses -->
-                    </div>
-                </div>
-
-                <div class="learned-section">
-                    <h3 class="section-heading">What I Learned</h3>
-                    <ul class="learned-list">
-                        <!-- TODO: fill in as the project progresses -->
-                        <li>Differences between VMware and Proxmox HA implementation</li>
-                        <li>Configuring cluster nodes and HA groups in Proxmox</li>
-                    </ul>
-                </div>
-            </div>
-        </article>
-
-        <!-- Rad System der Schule -->
-        <article class="project-detail" id="project-rad-system" data-status="development">
-            <div class="project-header-section">
-                <div class="project-icon-large">
-                    <div class="tech-icon" style="font-size: 3rem;">🚲</div>
-                </div>
-                <div class="project-meta">
-                    <h2 class="project-name">School Bike System</h2>
-                    <p class="project-tagline">New System for the School's Bicycle Management</p>
-                    <p class="project-cours"><!-- TODO: add course name --></p>
-                    <div class="project-status">
-                        <span class="status-badge status-development">In Development</span>
-                    </div>
-                </div>
-                <div class="project-toggle">▼</div>
-            </div>
-
-            <div class="project-body">
-                <div class="project-overview">
-                    <h3 class="section-heading">Overview</h3>
-                    <p class="overview-text">
-                        Development of a new system for managing the school's bicycle program at Lycée Guillaume Kroll.
-                        <!-- TODO: add full description once more details are available -->
-                        More details will be added as the project progresses.
-                    </p>
-                </div>
-
-                <div class="features-section">
-                    <h3 class="section-heading">Key Features</h3>
-                    <div class="features-grid">
-                        <!-- TODO: fill in features once project details are finalized -->
-                        <div class="feature-card">
-                            <div class="feature-number">01</div>
-                            <h4>Details Coming Soon</h4>
-                            <p>Project is currently in early development — features will be documented as they are implemented</p>
-                        </div>
                     </div>
                 </div>
             </div>
