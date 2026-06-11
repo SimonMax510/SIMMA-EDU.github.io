@@ -258,9 +258,14 @@
                 <div class="project-overview">
                     <h3 class="section-heading">Overview</h3>
                     <p class="overview-text">
-                        A Raspberry Pi 5 cluster running K3s (lightweight Kubernetes) to host a load balancer
-                        for the Porte Ouverte event at Lycée Guillaume Kroll. The system automatically routes
-                        visitors to different websites, distributing traffic across multiple nodes.
+                        We built a cluster of Raspberry Pi 5 computers linked together to host a load balancer
+                        for the Porte Ouverte open day at Lycée Guillaume Kroll. The idea was simple:
+                        instead of one device handling all the visitor traffic, multiple Pis share the load —
+                        so if one goes down, the others keep running.
+                    </p>
+                    <p class="overview-text" style="margin-top: 1rem; font-style: italic; color: var(--color-text-dim);">
+                        Next step: we want to redo the project using Docker Swarm instead of K3s —
+                        a simpler approach to cluster management that we find easier to understand and maintain.
                     </p>
                 </div>
 
@@ -271,21 +276,21 @@
                             <div class="tech-icon">🍓</div>
                             <div class="tech-info">
                                 <h4>Raspberry Pi 5</h4>
-                                <p>Cluster nodes running the K3s workload</p>
+                                <p>Small single-board computers connected together to form the cluster</p>
                             </div>
                         </div>
                         <div class="tech-item">
                             <div class="tech-icon">⚙️</div>
                             <div class="tech-info">
                                 <h4>K3s</h4>
-                                <p>Lightweight Kubernetes distribution for edge and IoT</p>
+                                <p>Tool used to manage which Pi handles which task and distribute the work across the cluster</p>
                             </div>
                         </div>
                         <div class="tech-item">
                             <div class="tech-icon">🔀</div>
                             <div class="tech-info">
                                 <h4>Load Balancer</h4>
-                                <p>Automated traffic distribution across cluster nodes</p>
+                                <p>Spreads incoming visitor requests across multiple devices so no single one gets overloaded</p>
                             </div>
                         </div>
                     </div>
@@ -296,18 +301,18 @@
                     <div class="features-grid">
                         <div class="feature-card">
                             <div class="feature-number">01</div>
-                            <h4>Load Balancer</h4>
-                            <p>Manages the network and distributes visitors across multiple websites to balance the load</p>
+                            <h4>Traffic Distribution</h4>
+                            <p>Visitors are spread across multiple Pis so no single device has to handle everything alone</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-number">02</div>
-                            <h4>Automated Routing</h4>
-                            <p>Visitors are automatically redirected without manual intervention</p>
+                            <h4>Redundancy</h4>
+                            <p>If one Pi fails, the others continue running — the service stays up</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-number">03</div>
-                            <h4>Porte Ouverte Integration</h4>
-                            <p>Specifically built to handle visitor traffic for the LGK open day event</p>
+                            <h4>Built for Porte Ouverte</h4>
+                            <p>Specifically designed for the LGK open day where many visitors access the site at the same time</p>
                         </div>
                     </div>
                 </div>
@@ -315,9 +320,9 @@
                 <div class="learned-section">
                     <h3 class="section-heading">What I Learned</h3>
                     <ul class="learned-list">
-                        <!-- TODO: fill in as the project progresses -->
-                        <li>Setting up a multi-node K3s cluster on Raspberry Pi hardware</li>
-                        <li>Kubernetes load balancing concepts and practical configuration</li>
+                        <li>How to physically set up and connect multiple computers into a cluster</li>
+                        <li>Why load balancing matters — and what happens when one node in a cluster fails</li>
+                        <li>That K3s, while powerful, is complex — which is why we want to try Docker Swarm next as a simpler alternative</li>
                     </ul>
                 </div>
 
