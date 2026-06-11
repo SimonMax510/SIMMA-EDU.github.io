@@ -247,7 +247,7 @@
         <article class="project-detail" id="project-pi5-cluster" data-status="development">
             <div class="project-header-section">
                 <div class="project-icon-large">
-                    <img src="img/pyCluster/Cluster.jpg" alt="Pi 5 Cluster" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+                    <img src="img/pyCluster/Cluster.jpg" alt="Pi 5 Cluster" style="width:100%;height:100%;object-fit:cover;border-radius:12px;cursor:pointer;" onclick="openLightbox(this.src)">
                 </div>
                 <div class="project-meta">
                     <h2 class="project-name">Pi 5 Cluster</h2>
@@ -325,6 +325,15 @@
                         <li>Setting up a multi-node K3s cluster on Raspberry Pi hardware</li>
                         <li>Kubernetes load balancing concepts and practical configuration</li>
                     </ul>
+                </div>
+
+                <div class="project-gallery-section">
+                    <h3 class="section-heading">Photos</h3>
+                    <div class="project-gallery">
+                        <img src="img/pyCluster/Cluster.jpg" alt="Pi 5 Cluster hardware" class="gallery-img" onclick="openLightbox(this.src)">
+                        <img src="img/pyCluster/dashboard.png" alt="K3s dashboard" class="gallery-img" onclick="openLightbox(this.src)">
+                        <img src="img/pyCluster/present.jpg" alt="Project presentation" class="gallery-img" onclick="openLightbox(this.src)">
+                    </div>
                 </div>
 
                 <div class="downloads-section">
@@ -1676,6 +1685,21 @@
             colorLight: '#0A0E1A',
             correctLevel: QRCode.CorrectLevel.H
         });
+    </script>
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+    <script>
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('active');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
     </script>
 </body>
 </html>

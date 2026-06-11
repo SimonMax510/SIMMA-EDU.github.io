@@ -528,7 +528,8 @@ body {
     flex-direction: column;
     gap: var(--spacing-lg);
     max-width: 780px;
-    margin-bottom: var(--spacing-xl);
+    margin: 0 auto var(--spacing-xl);
+    text-align: center;
 }
 
 .about-intro,
@@ -1280,6 +1281,56 @@ body {
     width: 8px;
     height: 1px;
     background: var(--color-primary);
+}
+
+/* Project Photo Gallery */
+.project-gallery-section {
+    margin-top: var(--spacing-xl);
+}
+
+.project-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: var(--spacing-md);
+}
+
+.gallery-img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.gallery-img:hover {
+    border-color: var(--color-primary);
+    transform: scale(1.02);
+}
+
+/* Lightbox */
+.lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+
+.lightbox-overlay.active {
+    display: flex;
+}
+
+.lightbox-overlay img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
 /* Downloads Section */
