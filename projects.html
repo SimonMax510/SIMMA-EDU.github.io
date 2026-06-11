@@ -78,14 +78,14 @@
                 <div class="project-overview">
                     <h3 class="section-heading">Overview</h3>
                     <p class="overview-text">
-                        A fully self-hosted AI assistant running on local hardware — no cloud APIs, no data leaving the machine.
-                        Built on a Supermicro server with an RTX 2060, it runs Ollama for LLM inference and AnythingLLM as the
-                        chat interface with RAG (Retrieval-Augmented Generation) over private documentation. The current knowledge
-                        base covers the full Proxmox VE Administration Guide and LME infrastructure notes.
+                        A self-hosted AI assistant running entirely on a server I built at home — no internet connection needed,
+                        no data sent to any company. I installed AI models that I can chat with through a browser interface.
+                        I also gave it the full Proxmox documentation (685 pages) as a knowledge base, so I can ask it
+                        infrastructure questions and it looks up the answer from the actual documentation.
                     </p>
                     <p class="overview-text" style="margin-top: 1rem; font-style: italic; color: var(--color-text-dim);">
-                        Next step: integrate a messenger bot (Signal / Telegram via n8n) for a personal assistant that handles
-                        reminders, notes, and weekly planning — with LLM as the language frontend to fixed deterministic logic.
+                        Next step: connect it to a messaging app (Signal or Telegram) so it can act as a personal assistant
+                        for reminders and planning.
                     </p>
                 </div>
 
@@ -95,36 +95,36 @@
                         <div class="tech-item">
                             <div class="tech-icon">🖥️</div>
                             <div class="tech-info">
-                                <h4>Supermicro + RTX 2060</h4>
-                                <p>Intel Xeon 12-core, 16 GB DDR4 ECC, NVIDIA RTX 2060 6 GB VRAM</p>
+                                <h4>Supermicro Server + GPU</h4>
+                                <p>An older server I set up at home with a graphics card — the GPU allows AI models to run much faster than on a normal CPU</p>
                             </div>
                         </div>
                         <div class="tech-item">
                             <div class="tech-icon">🦙</div>
                             <div class="tech-info">
                                 <h4>Ollama</h4>
-                                <p>LLM runtime — runs natively (not containerised) for direct GPU access. Models: llama3.1:8b + qwen2.5-coder:7b</p>
+                                <p>Tool that downloads and runs AI models locally on my own hardware</p>
                             </div>
                         </div>
                         <div class="tech-item">
                             <div class="tech-icon">💬</div>
                             <div class="tech-info">
                                 <h4>AnythingLLM</h4>
-                                <p>Chat UI and RAG pipeline in Docker — LanceDB vector store, document ingestion, workspace management</p>
+                                <p>The chat interface — I can talk to the AI through the browser and give it documents to read</p>
                             </div>
                         </div>
                         <div class="tech-item">
                             <div class="tech-icon">🐧</div>
                             <div class="tech-info">
                                 <h4>Ubuntu Server 22.04</h4>
-                                <p>Host OS with NVIDIA drivers, systemd service management</p>
+                                <p>Linux operating system running on the server</p>
                             </div>
                         </div>
                         <div class="tech-item">
                             <div class="tech-icon">🐳</div>
                             <div class="tech-info">
                                 <h4>Docker</h4>
-                                <p>Container isolation for AnythingLLM; Ollama runs native to avoid NVIDIA Container Toolkit overhead</p>
+                                <p>Used to run AnythingLLM in an isolated container</p>
                             </div>
                         </div>
                     </div>
@@ -136,22 +136,17 @@
                         <div class="feature-card">
                             <div class="feature-number">01</div>
                             <h4>100% Local — No Cloud</h4>
-                            <p>All inference runs on the RTX 2060. No API keys, no data leaving the server, full data sovereignty</p>
+                            <p>Everything runs on my own hardware at home. No account needed, no data sent anywhere, complete privacy</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-number">02</div>
-                            <h4>RAG over Private Docs</h4>
-                            <p>Proxmox VE Administration Guide (685 pages, split into 21 chapters) ingested as a knowledge base. RAG returns contextually relevant answers in German and English</p>
+                            <h4>Document Knowledge Base</h4>
+                            <p>I uploaded the full Proxmox documentation as reference material. The AI reads through it and answers questions based on the actual content</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-number">03</div>
-                            <h4>GPU Optimisation</h4>
-                            <p>KV-cache quantisation (q8_0) + Flash Attention keeps llama3.1:8b at 100% GPU with 8192 context — no CPU spill</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-number">04</div>
-                            <h4>Multi-Model Workspaces</h4>
-                            <p>llama3.1:8b for general Q&A in German/English; qwen2.5-coder:7b for code and infrastructure tasks</p>
+                            <h4>Multilingual</h4>
+                            <p>Works in German and English — useful for both school and personal use</p>
                         </div>
                     </div>
                 </div>
@@ -159,12 +154,11 @@
                 <div class="learned-section">
                     <h3 class="section-heading">What I Learned</h3>
                     <ul class="learned-list">
-                        <li>GPU resource management — VRAM budgeting, KV-cache quantisation, context-window tuning to keep the model 100% on GPU</li>
-                        <li>Docker networking — bridging containers to natively-running host services via <code>host.docker.internal</code></li>
-                        <li>RAG pipeline design — chunking strategy, PDF-to-Markdown pre-processing, embedder vs. LLM VRAM trade-offs</li>
-                        <li>Systemd unit overrides — exposing Ollama on 0.0.0.0 instead of loopback so Docker can reach it</li>
-                        <li>Model selection — a code-specialised model (qwen2.5-coder) is not a stronger general model, it is a different model</li>
-                        <li>Methodical root-cause debugging — reading container logs to trace an OOM kill back to chunk size, not model size</li>
+                        <li>Setting up and administering a Linux server from scratch (drivers, services, networking)</li>
+                        <li>How AI models actually work on local hardware — and why a graphics card makes such a big difference in speed</li>
+                        <li>That different AI models are made for different tasks — a code-focused model is not just "stronger", it's simply a different tool</li>
+                        <li>How to read logs and trace a problem to its actual root cause instead of guessing</li>
+                        <li>Working with Docker to isolate and manage services on the same server</li>
                     </ul>
                 </div>
             </div>
@@ -543,14 +537,14 @@
                             <img src="./img/gradingDino/django.png" alt="Django" class="tech-icon-img">
                             <div class="tech-info">
                                 <h4>Django</h4>
-                                <p>Python web framework with batteries-included approach</p>
+                                <p>Python web framework — handles login, security and database access out of the box</p>
                             </div>
                         </div>
                         <div class="tech-item">
                             <img src="./img/gradingDino/postgresql.jpg" alt="PostgreSQL" class="tech-icon-img">
                             <div class="tech-info">
                                 <h4>PostgreSQL</h4>
-                                <p>Production-ready database with ACID compliance</p>
+                                <p>Reliable relational database for storing grades and user data</p>
                             </div>
                         </div>
                         <div class="tech-item">
@@ -582,28 +576,28 @@
                     <div class="features-grid">
                         <div class="feature-card">
                             <div class="feature-number">01</div>
-                            <h4>Admin Panel</h4>
-                            <p>Complete grade management UI without custom interface development</p>
+                            <h4>Grade Management</h4>
+                            <p>Professors can add, edit, and view student grades through a clean web interface</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-number">02</div>
-                            <h4>Authentication System</h4>
-                            <p>Built-in user roles, permissions, and access control</p>
+                            <h4>Login & Access Control</h4>
+                            <p>User accounts with different roles — only authorized people can access the data</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-number">03</div>
-                            <h4>Security First</h4>
-                            <p>CSRF, XSS, and SQL injection protection by default</p>
+                            <h4>Security</h4>
+                            <p>Common web security risks are handled automatically by the Django framework</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-number">04</div>
-                            <h4>Server-Side Rendering</h4>
-                            <p>All validation and logic processed server-side</p>
+                            <h4>Secure Passwords</h4>
+                            <p>Passwords are stored encrypted using Argon2 — a modern hashing algorithm recommended for security</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-number">05</div>
-                            <h4>One-Command Deploy</h4>
-                            <p>System starts with single docker compose up command</p>
+                            <h4>Easy Deployment</h4>
+                            <p>The whole system starts with a single command using Docker Compose</p>
                         </div>
                     </div>
                 </div>
@@ -944,7 +938,7 @@
                             <div class="tech-icon">🔄</div>
                             <div class="tech-info">
                                 <h4>DFS Replication</h4>
-                                <p>Multi-master replication engine</p>
+                                <p>Automatically keeps files in sync across multiple servers</p>
                             </div>
                         </div>
                         <div class="tech-item">
