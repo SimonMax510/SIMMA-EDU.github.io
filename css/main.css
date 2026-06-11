@@ -195,7 +195,7 @@ body {
 /* Tablet+ nav: horizontal links */
 @media (min-width: 768px) {
     .nav-system {
-        padding: var(--spacing-md) var(--spacing-lg);
+        padding: 0.55rem var(--spacing-lg);
         flex-wrap: nowrap;
     }
 
@@ -448,7 +448,7 @@ body {
         flex-direction: row;
         text-align: left;
         min-height: 100dvh;
-        padding: 80px var(--spacing-lg) var(--spacing-lg);
+        padding: calc(48px + 2rem) var(--spacing-lg) var(--spacing-lg);
         gap: var(--spacing-2xl);
         align-items: center;
         justify-content: center;
@@ -476,7 +476,7 @@ body {
 
     .hero-visual {
         display: block;
-        width: 360px;
+        width: 400px;
         flex-shrink: 0;
     }
 
@@ -484,15 +484,15 @@ body {
         background: var(--color-surface);
         border: 1px solid var(--color-border);
         border-radius: 16px;
-        padding: 1.75rem;
+        padding: 2rem;
         box-shadow: var(--shadow-lg);
         opacity: 0;
         animation: fadeInRight 0.8s ease forwards;
     }
 
     .card-image {
-        width: 240px;
-        height: 240px;
+        width: 275px;
+        height: 275px;
         margin: 0 auto 1.25rem;
         border-radius: 14px;
         overflow: hidden;
