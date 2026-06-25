@@ -1,4 +1,4 @@
-const translations = {
+window.translations = {
     en: {
         'nav.home':       'Home',
         'nav.projects':   'Projects',

@@ -1068,7 +1068,7 @@ timelineItems.forEach(item => {
             }
         });
     }
-})();
+});
 
 // ============================================
 //   LANGUAGE SWITCHER
