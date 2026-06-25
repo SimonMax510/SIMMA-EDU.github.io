@@ -1068,4 +1068,133 @@ timelineItems.forEach(item => {
             }
         });
     }
-});
+})();
+
+// ============================================
+//   LANGUAGE SWITCHER
+// ============================================
+(function () {
+    if (!window.translations) return;
+
+    const STORAGE_KEY = 'portfolio-lang';
+
+    const OPTION_MAP = {
+        '#projectFilter option[value="all"]':    'filter.allstatus',
+        '#projectFilter option[value="completed"]': 'filter.completed',
+        '#projectFilter option[value="development"]': 'filter.development',
+        '#projectFilter option[value="future"]': 'filter.future',
+        '#semesterFilter option[value="all"]':   'filter.allsemesters',
+        '#semesterFilter option[value="1"]':     'filter.semester1',
+        '#semesterFilter option[value="2"]':     'filter.semester2',
+        '#skillsSemester option[value="all"]':   'filter.allsemesters',
+        '#skillsSemester option[value="1"]':     'filter.semester1',
+        '#skillsSemester option[value="2"]':     'filter.semester2',
+        '#categoryFilter option[value="all"]':   'filter.allcategories',
+        '#categoryFilter option[value="external"]': 'filter.external',
+        '#categoryFilter option[value="visit"]': 'filter.visit',
+        '#categoryFilter option[value="training"]': 'filter.training',
+        '#visitSemester option[value="all"]':    'filter.allsemesters',
+        '#visitSemester option[value="1"]':      'filter.semester1',
+        '#visitSemester option[value="2"]':      'filter.semester2',
+    };
+
+    const SECTION_MAP = {
+        'Overview':             'section.overview',
+        'Technology Stack':     'section.techstack',
+        'Key Topics':           'section.keytopics',
+        'Key Features':         'section.features',
+        'What I Learned':       'section.learned',
+        'Conclusion':           'section.conclusion',
+        'Team':                 'section.team',
+        'Downloads & Resources':'section.downloads',
+    };
+
+    const SKILLS_SECTION_MAP = {
+        'Hard Skills':          'skills.hard.title',
+        'Soft Skills':          'skills.soft.title',
+        'Certifications':       'skills.certs.title',
+        'Certification Journey':'skills.journey.title',
+        'Pluralsight':          'skills.ps.title',
+    };
+
+    function detectPage() {
+        const p = window.location.pathname.split('/').pop() || 'index.html';
+        return p.replace('.html', '') || 'index';
+    }
+
+    function tagElements() {
+        document.querySelectorAll('.section-heading').forEach(el => {
+            const k = SECTION_MAP[el.textContent.trim()];
+            if (k) el.dataset.langKey = k;
+        });
+        document.querySelectorAll('.section-title-large').forEach(el => {
+            const k = SKILLS_SECTION_MAP[el.textContent.trim()];
+            if (k) el.dataset.langKey = k;
+        });
+        document.querySelectorAll('.status-badge').forEach(el => {
+            if (el.classList.contains('status-completed'))   el.dataset.langKey = 'status.completed';
+            else if (el.classList.contains('status-development')) el.dataset.langKey = 'status.development';
+            else if (el.classList.contains('status-future')) el.dataset.langKey = 'status.future';
+        });
+    }
+
+    function applyLang(lang) {
+        const t = translations[lang];
+        if (!t) return;
+
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.classList.toggle('active', b.dataset.lang === lang);
+        });
+
+        // Nav links
+        ['nav-link', 'footer-nav-link'].forEach(cls => {
+            document.querySelectorAll(`a.${cls}`).forEach(el => {
+                const href = el.getAttribute('href');
+                const page = (href || '').replace('.html', '').replace('./', '') || 'index';
+                const key = `nav.${page}`;
+                if (t[key]) el.textContent = t[key];
+            });
+        });
+
+        // Page title & subtitle
+        const pg = detectPage();
+        const titleEl = document.querySelector('.page-title');
+        const subEl   = document.querySelector('.page-subtitle');
+        if (titleEl && t[`page.${pg}.title`]) titleEl.textContent = t[`page.${pg}.title`];
+        if (subEl   && t[`page.${pg}.sub`])   subEl.textContent   = t[`page.${pg}.sub`];
+
+        // Tagged elements (section headings, status badges, skills titles)
+        document.querySelectorAll('[data-lang-key]').forEach(el => {
+            const v = t[el.dataset.langKey];
+            if (v !== undefined) el.textContent = v;
+        });
+
+        // Select options
+        Object.entries(OPTION_MAP).forEach(([sel, key]) => {
+            document.querySelectorAll(sel).forEach(el => {
+                if (t[key]) el.textContent = t[key];
+            });
+        });
+
+        document.documentElement.setAttribute('data-lang', lang);
+    }
+
+    function init() {
+        tagElements();
+        const saved = localStorage.getItem(STORAGE_KEY) || 'en';
+        applyLang(saved);
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                localStorage.setItem(STORAGE_KEY, lang);
+                applyLang(lang);
+            });
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
