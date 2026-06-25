@@ -58,13 +58,18 @@
                 <option value="training">Training</option>
                 <option value="external">External</option>
             </select>
+            <select id="visitsSemester" class="category-dropdown">
+                <option value="all" selected>All Semesters</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+            </select>
         </div>
 
         <!-- Timeline -->
         <div class="timeline">
 
             <!-- DevoTeam Luxemburg – French Interview Simulation -->
-            <div class="timeline-item" data-category="external">
+            <div class="timeline-item" data-category="external" data-semester="2">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -81,7 +86,7 @@
             </div>
 
             <!-- AWS Workshop – Charlier Arnaud -->
-            <div class="timeline-item" data-category="training">
+            <div class="timeline-item" data-category="training" data-semester="2">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -99,7 +104,7 @@
             </div>
 
             <!-- Jager Jamey – Project Management -->
-            <div class="timeline-item" data-category="external">
+            <div class="timeline-item" data-category="external" data-semester="2">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -126,7 +131,7 @@
             </div>
 
             <!-- 2026 Yves Schlüter – Interview Simulation -->
-            <div class="timeline-item" data-category="external">
+            <div class="timeline-item" data-category="external" data-semester="1">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -144,7 +149,7 @@
             </div>
 
             <!-- Guy Marong – CV & Interview Preparation -->
-            <div class="timeline-item" data-category="external">
+            <div class="timeline-item" data-category="external" data-semester="1">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -161,7 +166,7 @@
             </div>
 
             <!-- NTT Luxembourg – Interview Simulation -->
-            <div class="timeline-item" data-category="external">
+            <div class="timeline-item" data-category="external" data-semester="1">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -177,7 +182,7 @@
             </div>
 
             <!-- 2026 Luxembourg Army Visit -->
-            <div class="timeline-item" data-category="visit">
+            <div class="timeline-item" data-category="visit" data-semester="2">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -193,7 +198,7 @@
             </div>
 
             <!-- 2026 LuxConnect Visit -->
-            <div class="timeline-item" data-category="visit">
+            <div class="timeline-item" data-category="visit" data-semester="2">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -209,7 +214,7 @@
             </div>
 
             <!-- House of Entrepreneurship Course -->
-            <div class="timeline-item" data-category="training">
+            <div class="timeline-item" data-category="training" data-semester="2">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -225,7 +230,7 @@
             </div>
 
             <!-- 2025 ARHS Group Visit -->
-            <div class="timeline-item" data-category="visit">
+            <div class="timeline-item" data-category="visit" data-semester="2">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -242,7 +247,7 @@
             </div>
 
             <!-- Microsoft AZ-040 Training -->
-            <div class="timeline-item" data-category="external">
+            <div class="timeline-item" data-category="external" data-semester="1">
                 <div class="timeline-dot"></div>
                 <div class="timeline-content">
                     <div class="timeline-header">
@@ -295,6 +300,10 @@
                     <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><line x1="7" y1="9" x2="7" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="6.5" r="1" fill="currentColor"/><path d="M10 9v5M10 9c0 0 .8-1.5 3-1.5 1.5 0 2 1 2 2.5V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                     linkedin.com/in/max-simon-230757387
                 </a>
+                <a href="https://linktr.ee/max.simon" target="_blank" rel="noopener" class="footer-link">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 3v9M7 6l3-3 3 3M5 14h10M5 17h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    linktr.ee/max.simon
+                </a>
             </div>
 
             <div class="footer-qr-section">
@@ -331,16 +340,22 @@
             correctLevel: QRCode.CorrectLevel.H
         });
 
-        // Category filter
-        const select = document.getElementById('visitsCategory');
+        // Category + Semester filter
+        const catSelect = document.getElementById('visitsCategory');
+        const semSelect = document.getElementById('visitsSemester');
         const items = document.querySelectorAll('.timeline-item');
-        function filterVisits(val) {
+        function filterVisits() {
+            const cat = catSelect.value;
+            const sem = semSelect ? semSelect.value : 'all';
             items.forEach(item => {
-                item.classList.toggle('hidden', val !== 'all' && item.dataset.category !== val);
+                const catMatch = cat === 'all' || item.dataset.category === cat;
+                const semMatch = sem === 'all' || item.dataset.semester === sem;
+                item.classList.toggle('hidden', !(catMatch && semMatch));
             });
         }
-        filterVisits('all');
-        select.addEventListener('change', e => filterVisits(e.target.value));
+        filterVisits();
+        catSelect.addEventListener('change', filterVisits);
+        if (semSelect) semSelect.addEventListener('change', filterVisits);
     </script>
 </body>
 </html>

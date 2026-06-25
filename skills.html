@@ -63,6 +63,14 @@
                 </label>
             </div>
 
+            <div class="category-selector" style="margin-bottom:1rem;">
+                <select id="skillsSemester" class="category-dropdown">
+                    <option value="all" selected>All Semesters</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                </select>
+            </div>
+
             <div class="hardskills-table">
 
                 <div class="hs-header">
@@ -71,30 +79,31 @@
                     <div class="hs-header-cell">Related Projects</div>
                 </div>
 
-                <div class="hs-row">
+                <div class="hs-row" data-semester="2">
                     <div class="hs-label">
                         <span class="hs-icon">📦</span>
                         <span class="hs-name">Virtualization</span>
                     </div>
                     <div class="hs-tags">
                         <span class="hs-tag" data-tip="Open-source hypervisor for running VMs and containers on bare metal">Proxmox VE</span>
-                        <span class="hs-tag" data-tip="Free VM software by Oracle for running guest operating systems">VirtualBox</span>
+                        <span class="hs-tag" data-tip="Industry-standard enterprise hypervisor by VMware/Broadcom">VMware ESXi</span>
                         <span class="hs-tag" data-tip="Linux-based NAS operating system for network-attached storage">TrueNAS</span>
+                        <span class="hs-tag" data-tip="Container runtime — lightweight isolated environments that share the host OS kernel">Docker</span>
+                        <span class="hs-tag" data-tip="Tool for defining and running multi-container Docker applications from a single YAML file">Docker Compose</span>
                     </div>
                     <div class="hs-projects">
                         <a href="projects.html#project-lme" class="hs-project-link">LME</a>
                         <a href="projects.html#project-truenas" class="hs-project-link">TrueNAS Server</a>
+                        <a href="projects.html#project-vmware-proxmox" class="hs-project-link">VMware & Proxmox</a>
                     </div>
                 </div>
 
-                <div class="hs-row">
+                <div class="hs-row" data-semester="1">
                     <div class="hs-label">
                         <span class="hs-icon">💻</span>
                         <span class="hs-name">Hardware</span>
                     </div>
                     <div class="hs-tags">
-                        <span class="hs-tag">Server Assembly</span>
-                        <span class="hs-tag" data-tip="Hardware that manages multiple disks as RAID arrays for redundancy or performance">RAID Controllers</span>
                         <span class="hs-tag">Workstations</span>
                         <span class="hs-tag" data-tip="Rack-mounted panel consolidating network cable connections in a server room">Patch Panels</span>
                     </div>
@@ -103,15 +112,15 @@
                     </div>
                 </div>
 
-                <div class="hs-row">
+                <div class="hs-row" data-semester="1">
                     <div class="hs-label">
                         <span class="hs-icon">☁️</span>
                         <span class="hs-name">Cloud</span>
                     </div>
                     <div class="hs-tags">
-                        <span class="hs-tag" data-tip="Microsoft's cloud platform offering VMs, storage, networking and managed services">Microsoft Azure</span>
                         <span class="hs-tag" data-tip="CDN and DNS provider with DDoS protection and global edge network">Cloudflare</span>
                         <span class="hs-tag" data-tip="German cloud and dedicated server hosting provider">Hetzner</span>
+                        <span class="hs-tag" data-tip="Microsoft Azure Fundamentals certification — core cloud concepts and Azure services">AZ-900</span>
                     </div>
                     <div class="hs-projects">
                         <a href="projects.html#project-azure" class="hs-project-link">Azure Meeting</a>
@@ -119,13 +128,28 @@
                     </div>
                 </div>
 
-                <div class="hs-row">
+                <div class="hs-row" data-semester="2">
+                    <div class="hs-label">
+                        <span class="hs-icon">☁️</span>
+                        <span class="hs-name">Cloud</span>
+                    </div>
+                    <div class="hs-tags">
+                        <span class="hs-tag" data-tip="Microsoft Azure Administrator Associate certification — in progress">AZ-104</span>
+                        <span class="hs-tag" data-tip="Amazon Web Services — cloud platform by Amazon">AWS</span>
+                    </div>
+                    <div class="hs-projects">
+                        <a href="projects.html#project-azure-104" class="hs-project-link">Azure 104</a>
+                    </div>
+                </div>
+
+                <div class="hs-row" data-semester="1">
                     <div class="hs-label">
                         <span class="hs-icon">🔌</span>
                         <span class="hs-name">Networking</span>
                     </div>
                     <div class="hs-tags">
                         <span class="hs-tag" data-tip="Cisco's network simulation tool for designing and testing network topologies">Cisco Packet Tracer</span>
+                        <span class="hs-tag" data-tip="Configuring and working with physical switches and routers in the school network lab">Real Hardware Switches &amp; Routers</span>
                     </div>
                     <div class="hs-projects">
                         <a href="projects.html#project-truenas" class="hs-project-link">TrueNAS Server</a>
@@ -133,7 +157,7 @@
                     </div>
                 </div>
 
-                <div class="hs-row">
+                <div class="hs-row" data-semester="1">
                     <div class="hs-label">
                         <span class="hs-icon">🖥️</span>
                         <span class="hs-name">Operating Systems</span>
@@ -152,14 +176,13 @@
                     </div>
                 </div>
 
-                <div class="hs-row">
+                <div class="hs-row" data-semester="1">
                     <div class="hs-label">
                         <span class="hs-icon">⚙️</span>
                         <span class="hs-name">Programming</span>
                     </div>
                     <div class="hs-tags">
                         <span class="hs-tag">Python</span>
-                        <span class="hs-tag" data-tip="Command-line shells for scripting and automating system administration tasks">Bash / PowerShell</span>
                     </div>
                     <div class="hs-projects">
                         <a href="projects.html#project-grading-dino" class="hs-project-link">Grading Dino</a>
@@ -167,7 +190,39 @@
                     </div>
                 </div>
 
-                <div class="hs-row">
+                <div class="hs-row" data-semester="2">
+                    <div class="hs-label">
+                        <span class="hs-icon">⚙️</span>
+                        <span class="hs-name">Programming</span>
+                    </div>
+                    <div class="hs-tags">
+                        <span class="hs-tag" data-tip="Microsoft scripting shell for Windows — managing users, services and system config from the terminal">PowerShell</span>
+                        <span class="hs-tag" data-tip="Linux shell scripting for file operations, log parsing and service management">Bash</span>
+                    </div>
+                    <div class="hs-projects">
+                        <a href="projects.html#project-vmware-proxmox" class="hs-project-link">VMware & Proxmox</a>
+                    </div>
+                </div>
+
+                <div class="hs-row" data-semester="2">
+                    <div class="hs-label">
+                        <span class="hs-icon">🔒</span>
+                        <span class="hs-name">Security</span>
+                    </div>
+                    <div class="hs-tags">
+                        <span class="hs-tag" data-tip="Understanding how attacks unfold and what signs to look for in a network">Threat Awareness</span>
+                        <span class="hs-tag" data-tip="Structured process for detecting, containing and recovering from a security incident">Incident Response</span>
+                        <span class="hs-tag" data-tip="Identifying and prioritizing potential threats before they materialize">Risk Analysis</span>
+                        <span class="hs-tag" data-tip="Hardening systems and closing attack vectors after a security event">Post-Incident Hardening</span>
+                        <span class="hs-tag" data-tip="Hands-on cyber security learning platform — completed practical rooms including Sakura Room (OSINT)">TryHackMe</span>
+                    </div>
+                    <div class="hs-projects">
+                        <a href="projects.html#project-security" class="hs-project-link">Security Course</a>
+                        <a href="projects.html#project-python-monitor" class="hs-project-link">Python Monitor</a>
+                    </div>
+                </div>
+
+                <div class="hs-row" data-semester="1">
                     <div class="hs-label">
                         <span class="hs-icon">🌐</span>
                         <span class="hs-name">Web Development</span>
@@ -185,7 +240,7 @@
                     </div>
                 </div>
 
-                <div class="hs-row">
+                <div class="hs-row" data-semester="both">
                     <div class="hs-label">
                         <span class="hs-icon">📊</span>
                         <span class="hs-name">Project Management</span>
@@ -194,11 +249,6 @@
                         <span class="hs-tag" data-tip="Agile framework for iterative development using sprints and defined roles">Scrum</span>
                         <span class="hs-tag" data-tip="Visual workflow method using boards and cards to manage tasks">Kanban</span>
                         <span class="hs-tag" data-tip="Microsoft 365 task and project planning tool with board and list views">Microsoft Planner</span>
-                        <span class="hs-tag">Git</span>
-                        <span class="hs-tag" data-tip="Managing and organizing work items, milestones and project boards on GitHub">GitHub Planning</span>
-                        <span class="hs-tag" data-tip="Objectives and Key Results — framework for defining goal-oriented objectives and their specific success criteria">OKR</span>
-                        <span class="hs-tag" data-tip="Key Performance Indicators — measures to monitor progress toward OKRs">KPI</span>
-                        <span class="hs-tag" data-tip="Getting Things Done — method for organizing and prioritizing tasks effectively">GTD</span>
                     </div>
                     <div class="hs-projects">
                         <a href="projects.html#project-grading-dino" class="hs-project-link">Grading Dino</a>
@@ -207,7 +257,7 @@
                     </div>
                 </div>
 
-                <div class="hs-row">
+                <div class="hs-row" data-semester="1">
                     <div class="hs-label">
                         <span class="hs-icon">🏢</span>
                         <span class="hs-name">Microsoft 365</span>
@@ -358,8 +408,7 @@
             </div>
             <div class="soft-skills-grid">
 
-                <div class="soft-skill-card">
-                    <div class="soft-skill-icon">🔥</div>
+                <div class="soft-skill-card" data-semester="both">
                     <h3 class="soft-skill-title">Self-Driven Learning</h3>
                     <p class="soft-skill-desc">
                         Learning doesn't stop when school does. Outside of class I actively run a homelab — currently building a fully self-hosted AI server at home to have my own AI assistant that helps with planning, reminders, and daily organisation. If something interests me, I build it.
@@ -367,7 +416,6 @@
                 </div>
 
                 <div class="soft-skill-card">
-                    <div class="soft-skill-icon">🎯</div>
                     <h3 class="soft-skill-title">Persistence & Problem Focus</h3>
                     <p class="soft-skill-desc">
                         When something breaks or doesn't work as expected, my first instinct is to dig into the root cause — not switch to a different approach. I stay focused on the problem until I understand it. That said, I also know when a plan genuinely needs to change, and I can adapt when the situation calls for it.
@@ -375,18 +423,16 @@
                 </div>
 
                 <div class="soft-skill-card">
-                    <div class="soft-skill-icon">🗣️</div>
                     <h3 class="soft-skill-title">Communication & Presentation</h3>
                     <p class="soft-skill-desc">
-                        Over the course of the BTS I've become significantly more confident presenting technical topics in front of an audience. I can explain infrastructure concepts clearly to both technical and non-technical people, in German, English, and French.
+                        Over the two semesters of the BTS I've become significantly more confident presenting technical topics in front of an audience. By Semester 2 I was presenting complex topics like VMware & Proxmox High Availability clearly to the class. I'm also noticeably less nervous in professional settings — for example at the DevoTeam company visit where I introduced myself without hesitation.
                     </p>
                 </div>
 
                 <div class="soft-skill-card">
-                    <div class="soft-skill-icon">📋</div>
                     <h3 class="soft-skill-title">Planning & Organisation</h3>
                     <p class="soft-skill-desc">
-                        I use GitHub Projects and Microsoft Planner actively to manage tasks across multiple projects at once. Breaking work into concrete steps and tracking progress has become a natural part of how I work, both in school projects and personal ones.
+                        I use GitHub Projects and Microsoft Planner actively to manage tasks across multiple projects at once. In Semester 2 this became more structured — working through the AZ-104 certification path alongside school projects pushed me to plan my learning time carefully and break large goals into trackable steps.
                     </p>
                 </div>
 
@@ -600,6 +646,10 @@
                     <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><line x1="7" y1="9" x2="7" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="6.5" r="1" fill="currentColor"/><path d="M10 9v5M10 9c0 0 .8-1.5 3-1.5 1.5 0 2 1 2 2.5V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                     linkedin.com/in/max-simon-230757387
                 </a>
+                <a href="https://linktr.ee/max.simon" target="_blank" rel="noopener" class="footer-link">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 3v9M7 6l3-3 3 3M5 14h10M5 17h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    linktr.ee/max.simon
+                </a>
             </div>
 
             <div class="footer-qr-section">
@@ -627,6 +677,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="js/main.js"></script>
     <script>
+        // Skills semester filter
+        const skillsSemSel = document.getElementById('skillsSemester');
+        if (skillsSemSel) {
+            function filterSkills() {
+                const sem = skillsSemSel.value;
+                document.querySelectorAll('.hs-row, .soft-skill-card').forEach(el => {
+                    const match = sem === 'all' || !el.dataset.semester || el.dataset.semester === sem || el.dataset.semester === 'both';
+                    el.style.display = match ? '' : 'none';
+                });
+            }
+            filterSkills();
+            skillsSemSel.addEventListener('change', filterSkills);
+        }
+
         // Tooltip hover toggle
         const tipCheck  = document.getElementById('tipCheck');
         const tipToggle = document.getElementById('tipToggle');

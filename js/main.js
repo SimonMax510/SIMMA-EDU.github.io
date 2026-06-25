@@ -639,7 +639,7 @@
                     <span class="cv-modal-flag">🇬🇧</span>
                     <span>English</span>
                 </a>
-                <a href="Downloads/cv/FR-CV-Simon-Max.pdf" download class="cv-modal-btn">
+                <a href="Downloads/devoTeam/FR%20CV%20Simon%20Max.pdf" download class="cv-modal-btn">
                     <span class="cv-modal-flag">🇫🇷</span>
                     <span>Français</span>
                 </a>
@@ -1012,47 +1012,36 @@ if (categoryDropdown) {
 }
 
 // ============================================
-// PROJECT STATUS FILTER
+// PROJECT STATUS + SEMESTER FILTER
 // ============================================
 
 const projectFilter = document.getElementById('projectFilter');
+const semesterFilter = document.getElementById('semesterFilter');
 
 if (projectFilter) {
-    // Function to filter projects by status
-    const filterProjects = (status) => {
-        const projects = document.querySelectorAll('.project-detail');
+    const filterProjects = () => {
+        const status = projectFilter.value;
+        const semester = semesterFilter ? semesterFilter.value : 'all';
 
-        projects.forEach(project => {
+        document.querySelectorAll('.project-detail').forEach(project => {
             const statusBadge = project.querySelector('.status-badge');
 
-            if (!statusBadge) {
-                project.style.display = 'none';
-                return;
-            }
+            if (!statusBadge) { project.style.display = 'none'; return; }
 
-            let shouldShow = false;
+            let statusMatch = status === 'all'
+                || (status === 'completed'   && statusBadge.classList.contains('status-completed'))
+                || (status === 'development' && statusBadge.classList.contains('status-development'))
+                || (status === 'future'      && statusBadge.classList.contains('status-future'));
 
-            if (status === 'all') {
-                shouldShow = true;
-            } else if (status === 'completed') {
-                shouldShow = statusBadge.classList.contains('status-completed');
-            } else if (status === 'development') {
-                shouldShow = statusBadge.classList.contains('status-development');
-            } else if (status === 'future') {
-                shouldShow = statusBadge.classList.contains('status-future');
-            }
+            const semesterMatch = semester === 'all' || project.dataset.semester === semester;
 
-            project.style.display = shouldShow ? 'block' : 'none';
+            project.style.display = (statusMatch && semesterMatch) ? 'block' : 'none';
         });
     };
 
-    // Initial load - show all projects
-    filterProjects('all');
-
-    // Listen for dropdown changes
-    projectFilter.addEventListener('change', (e) => {
-        filterProjects(e.target.value);
-    });
+    filterProjects();
+    projectFilter.addEventListener('change', filterProjects);
+    if (semesterFilter) semesterFilter.addEventListener('change', filterProjects);
 }
 
 // ============================================

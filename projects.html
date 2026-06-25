@@ -58,13 +58,18 @@
                 <option value="development">In Development</option>
                 <option value="future">Future Projects</option>
             </select>
+            <select id="semesterFilter" class="category-dropdown">
+                <option value="all" selected>All Semesters</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+            </select>
         </div>
 
         <!-- OwnAI Project -->
-        <article class="project-detail" id="project-ownai" data-status="development">
+        <article class="project-detail" id="project-ownai" data-status="development" data-semester="2">
             <div class="project-header-section">
                 <div class="project-icon-large">
-                    <div class="tech-icon" style="font-size: 3rem;">🤖</div>
+                    <img src="img/ownAi/ollama-local-ia-ai-open-source-00.png" alt="OwnAI" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
                 </div>
                 <div class="project-meta">
                     <h2 class="project-name">OwnAI</h2>
@@ -81,14 +86,14 @@
                 <div class="project-overview">
                     <h3 class="section-heading">Overview</h3>
                     <p class="overview-text">
-                        A self-hosted AI assistant running entirely on a server I built at home — no internet connection needed,
-                        no data sent to any company. I installed AI models that I can chat with through a browser interface.
-                        I also gave it the full Proxmox documentation (685 pages) as a knowledge base, so I can ask it
-                        infrastructure questions and it looks up the answer from the actual documentation.
+                        A self-hosted AI assistant running on a server I built at home. The AI uses RAG
+                        (Retrieval Augmented Generation) files as a knowledge base — I gave it the full Proxmox
+                        documentation (685 pages) so it can answer infrastructure questions directly from the source material.
                     </p>
-                    <p class="overview-text" style="margin-top: 1rem; font-style: italic; color: var(--color-text-dim);">
-                        Next step: connect it to a messaging app (Signal or Telegram) so it can act as a personal assistant
-                        for reminders and planning.
+                    <p class="overview-text" style="margin-top: 0.75rem;">
+                        The AI is connected to the internet and I integrated it with <strong>Telegram</strong> —
+                        so I can chat with my AI assistant from anywhere just by sending a message in Telegram,
+                        making it a proper personal assistant for planning and reminders.
                     </p>
                 </div>
 
@@ -130,6 +135,13 @@
                                 <p>Used to run AnythingLLM in an isolated container</p>
                             </div>
                         </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">📡</div>
+                            <div class="tech-info">
+                                <h4>Telegram</h4>
+                                <p>Messaging app integration — chat with the AI from anywhere via a Telegram conversation</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -138,16 +150,21 @@
                     <div class="features-grid">
                         <div class="feature-card">
                             <div class="feature-number">01</div>
-                            <h4>100% Local — No Cloud</h4>
-                            <p>Everything runs on my own hardware at home. No account needed, no data sent anywhere, complete privacy</p>
+                            <h4>RAG Knowledge Base</h4>
+                            <p>RAG (Retrieval Augmented Generation) files — I gave the AI the full Proxmox documentation so it can answer questions from the actual source material</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-number">02</div>
-                            <h4>Document Knowledge Base</h4>
-                            <p>I uploaded the full Proxmox documentation as reference material. The AI reads through it and answers questions based on the actual content</p>
+                            <h4>Internet Connected</h4>
+                            <p>The AI can search the web for up-to-date information, not limited to the knowledge base</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-number">03</div>
+                            <h4>Telegram Integration</h4>
+                            <p>Linked to Telegram so I can send messages to my AI from my phone — available from anywhere without opening a browser</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">04</div>
                             <h4>Multilingual</h4>
                             <p>Works in German and English — useful for both school and personal use</p>
                         </div>
@@ -157,18 +174,16 @@
                 <div class="learned-section">
                     <h3 class="section-heading">What I Learned</h3>
                     <ul class="learned-list">
-                        <li>Setting up and administering a Linux server from scratch (drivers, services, networking)</li>
-                        <li>How AI models actually work on local hardware — and why a graphics card makes such a big difference in speed</li>
+                        <li>Why a graphics card makes such a big difference for AI — the GPU handles the parallel computations that AI models require</li>
                         <li>That different AI models are made for different tasks — a code-focused model is not just "stronger", it's simply a different tool</li>
-                        <li>How to read logs and trace a problem to its actual root cause instead of guessing</li>
-                        <li>Working with Docker to isolate and manage services on the same server</li>
+                        <li>How much hardware resources AI actually requires — the RTX 2060 with only 6 GB VRAM turned out to be a real bottleneck for larger models</li>
                     </ul>
                 </div>
             </div>
         </article>
 
         <!-- Azure 104 Project -->
-        <article class="project-detail" id="project-azure-104" data-status="development">
+        <article class="project-detail" id="project-azure-104" data-status="development" data-semester="2">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <div class="tech-icon" style="font-size: 3rem;">☁️</div>
@@ -176,7 +191,7 @@
                 <div class="project-meta">
                     <h2 class="project-name">Azure 104</h2>
                     <p class="project-tagline">Azure Administrator Associate Preparation</p>
-                    <p class="project-cours"><!-- TODO: add course name --></p>
+                    <p class="project-cours">Semester 2 — Planning</p>
                     <div class="project-status">
                         <span class="status-badge status-development">In Development</span>
                     </div>
@@ -207,7 +222,7 @@
                         <div class="tech-item">
                             <div class="tech-icon">🔐</div>
                             <div class="tech-info">
-                                <h4>Azure Active Directory</h4>
+                                <h4>Azure Entra ID</h4>
                                 <p>Identity and access management</p>
                             </div>
                         </div>
@@ -233,15 +248,16 @@
                 <div class="learned-section">
                     <h3 class="section-heading">What I Learned</h3>
                     <ul class="learned-list">
-                        <!-- TODO: fill in as the project progresses -->
-                        <li>Working toward AZ-104 certification — details will be added as learning progresses</li>
+                        <li>The difference between Entra ID level and Resource level permissions — and why assigning roles at the right level is critical for secure access control</li>
+                        <li>How Azure Load Balancer works — distributing incoming traffic across multiple VMs to ensure availability and reliability</li>
+                        <li>Azure Application Proxy — enabling secure remote access to applications through the cloud without requiring a VPN</li>
                     </ul>
                 </div>
             </div>
         </article>
 
         <!-- Pi 5 Cluster – K3s Load Balancer -->
-        <article class="project-detail" id="project-pi5-cluster" data-status="development">
+        <article class="project-detail" id="project-pi5-cluster" data-status="development" data-semester="2">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <img src="img/pyCluster/Cluster.jpg" alt="Pi 5 Cluster" style="width:100%;height:100%;object-fit:cover;border-radius:12px;cursor:pointer;" onclick="openLightbox(this.src)">
@@ -249,7 +265,7 @@
                 <div class="project-meta">
                     <h2 class="project-name">Pi 5 Cluster</h2>
                     <p class="project-tagline">K3s Load Balancer for Porte Ouverte LGK</p>
-                    <p class="project-cours"><!-- TODO: add course name --></p>
+                    <p class="project-cours">Semester 2 — Infrastructure</p>
                     <div class="project-status">
                         <span class="status-badge status-completed">Completed</span>
                     </div>
@@ -265,10 +281,6 @@
                         for the Porte Ouverte open day at Lycée Guillaume Kroll. The idea was simple:
                         instead of one device handling all the visitor traffic, multiple Pis share the load —
                         so if one goes down, the others keep running.
-                    </p>
-                    <p class="overview-text" style="margin-top: 1rem; font-style: italic; color: var(--color-text-dim);">
-                        Next step: we want to redo the project using Docker Swarm instead of K3s —
-                        a simpler approach to cluster management that we find easier to understand and maintain.
                     </p>
                 </div>
 
@@ -325,16 +337,35 @@
                     <ul class="learned-list">
                         <li>How to physically set up and connect multiple computers into a cluster</li>
                         <li>Why load balancing matters — and what happens when one node in a cluster fails</li>
-                        <li>That K3s, while powerful, is complex — which is why we want to try Docker Swarm next as a simpler alternative</li>
+                        <li>That K3s, while powerful, is complex to set up and debug — which led us to look for a simpler alternative</li>
                     </ul>
                 </div>
 
-                <div class="project-gallery-section">
+                <div class="learned-section">
+                    <h3 class="section-heading">Future Plans</h3>
+                    <ul class="learned-list">
+                        <li>Rebuild the cluster using <strong>Docker Swarm</strong> instead of K3s — a simpler native Docker approach to clustering that fits our skill level better and is easier to maintain</li>
+                        <li>Expand the number of nodes in the cluster to improve redundancy and available compute capacity</li>
+                        <li>Run more real services on the cluster — not just a load balancer, but actual containerized applications deployed across multiple Pis</li>
+                        <li>Document the full setup as a proper guide so it can be reproduced and handed over to future BTS students</li>
+                    </ul>
+                </div>
+
+                <div class="screenshots-section">
                     <h3 class="section-heading">Photos</h3>
-                    <div class="project-gallery">
-                        <img src="img/pyCluster/Cluster.jpg" alt="Pi 5 Cluster hardware" class="gallery-img" onclick="openLightbox(this.src)">
-                        <img src="img/pyCluster/dashboard.png" alt="K3s dashboard" class="gallery-img" onclick="openLightbox(this.src)">
-                        <img src="img/pyCluster/present.jpg" alt="Project presentation" class="gallery-img" onclick="openLightbox(this.src)">
+                    <div class="screenshots-grid">
+                        <div class="screenshot-item">
+                            <img src="img/pyCluster/Cluster.jpg" alt="Pi 5 Cluster hardware" class="screenshot-img" onclick="openLightbox(this.src)" style="cursor:pointer;">
+                            <p class="screenshot-caption">The assembled Pi 5 cluster — multiple boards connected and rack-mounted</p>
+                        </div>
+                        <div class="screenshot-item">
+                            <img src="img/pyCluster/dashboard.png" alt="K3s dashboard" class="screenshot-img" onclick="openLightbox(this.src)" style="cursor:pointer;">
+                            <p class="screenshot-caption">K3s dashboard showing cluster nodes and workload distribution</p>
+                        </div>
+                        <div class="screenshot-item">
+                            <img src="img/pyCluster/present.jpg" alt="Project presentation" class="screenshot-img" onclick="openLightbox(this.src)" style="cursor:pointer;">
+                            <p class="screenshot-caption">Presenting the Pi cluster at Porte Ouverte LGK</p>
+                        </div>
                     </div>
                 </div>
 
@@ -355,17 +386,17 @@
         </article>
 
         <!-- VMware & Proxmox – High Availability -->
-        <article class="project-detail" id="project-vmware-proxmox" data-status="development">
+        <article class="project-detail" id="project-vmware-proxmox" data-status="completed" data-semester="2">
             <div class="project-header-section">
                 <div class="project-icon-large">
-                    <div class="tech-icon" style="font-size: 3rem;">🖥️</div>
+                    <img src="img/VmWare/proxmox-vs-esxi-1.png" alt="VMware vs Proxmox" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
                 </div>
                 <div class="project-meta">
                     <h2 class="project-name">VMware & Proxmox</h2>
                     <p class="project-tagline">Hypervisor Deep-Dive with High Availability</p>
-                    <p class="project-cours"><!-- TODO: add course name --></p>
+                    <p class="project-cours">Semester 2 — Virtualization</p>
                     <div class="project-status">
-                        <span class="status-badge status-development">In Development</span>
+                        <span class="status-badge status-completed">Completed</span>
                     </div>
                 </div>
                 <div class="project-toggle">▼</div>
@@ -421,10 +452,21 @@
                 <div class="learned-section">
                     <h3 class="section-heading">What I Learned</h3>
                     <ul class="learned-list">
-                        <!-- TODO: fill in as the project progresses -->
                         <li>Differences between VMware and Proxmox HA implementation</li>
                         <li>Configuring cluster nodes and HA groups in Proxmox</li>
+                        <li>How to set up and manage a VMware ESXi hypervisor from scratch</li>
+                        <li>Why open-source tools like Proxmox can match or exceed enterprise solutions for many use cases</li>
                     </ul>
+                </div>
+
+                <div class="project-overview">
+                    <h3 class="section-heading">Conclusion</h3>
+                    <p class="overview-text">
+                        After working with both platforms, our group concluded that <strong>Proxmox</strong> is the better choice for our use case.
+                        It has a more modern and intuitive interface, is easier to set up and manage, and being fully open-source means
+                        no licensing costs. VMware is the industry standard and remains powerful, but for a student or home-lab environment,
+                        Proxmox delivers everything you need with less friction.
+                    </p>
                 </div>
 
                 <div class="team-roles-section">
@@ -432,7 +474,7 @@
                     <div class="team-grid">
                         <div class="team-member">
                             <span class="member-name">Max</span>
-                            <span class="member-role">VMware configuration · Video editing (partial)</span>
+                            <span class="member-role">VMware — complete configuration · VMware video editing (partial)</span>
                         </div>
                         <div class="team-member">
                             <span class="member-name">Eric</span>
@@ -447,20 +489,70 @@
 
                 <div class="downloads-section">
                     <h3 class="section-heading">Downloads & Resources</h3>
+
+                    <h4 style="margin: 1.5rem 0 0.75rem; color: var(--color-text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em;">Assignment</h4>
                     <div class="downloads-grid">
-                        <a href="img/VmWare/Project_Server Virtualization Systems (1).docx" class="download-card" download>
+                        <a href="Downloads/vircl/Project_Server Virtualization Systems (1).docx" class="download-card" download>
                             <div class="download-icon">📄</div>
                             <div class="download-info">
-                                <h4 class="download-title">Project Documentation</h4>
-                                <p class="download-description">Server Virtualization Systems — project document (DOCX)</p>
+                                <h4 class="download-title">Server Virtualization Systems</h4>
+                                <p class="download-description">Project assignment document (DOCX)</p>
                             </div>
                             <div class="download-arrow">→</div>
                         </a>
-                        <a href="img/VmWare/high-availability-presentation.html" class="download-card" target="_blank">
+                    </div>
+
+                    <h4 style="margin: 1.5rem 0 0.75rem; color: var(--color-text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em;">Documentation</h4>
+                    <div class="downloads-grid">
+                        <a href="Downloads/vircl/Documentation_Final(old).docx" class="download-card" download>
+                            <div class="download-icon">📄</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Project Documentation</h4>
+                                <p class="download-description">Full project documentation (DOCX)</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                        <a href="Downloads/vircl/pve-cut_3.mp4" class="download-card" target="_blank">
+                            <div class="download-icon">🎬</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Video Proxmox</h4>
+                                <p class="download-description">Proxmox VE walkthrough video (MP4)</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                        <a href="Downloads/vircl/esxi-cut_1.mp4" class="download-card" target="_blank">
+                            <div class="download-icon">🎬</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Video VMware</h4>
+                                <p class="download-description">VMware ESXi walkthrough video (MP4)</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                        <a href="Downloads/vircl/high-availability-presentation.html" class="download-card" target="_blank">
                             <div class="download-icon">🌐</div>
                             <div class="download-info">
-                                <h4 class="download-title">HA Presentation</h4>
+                                <h4 class="download-title">Presentation</h4>
                                 <p class="download-description">High Availability presentation (HTML)</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                    </div>
+
+                    <h4 style="margin: 1.5rem 0 0.75rem; color: var(--color-text-dim); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em;">Meetings</h4>
+                    <div class="downloads-grid">
+                        <a href="Downloads/vircl/Meeting Report 1 (2).dotx" class="download-card" download>
+                            <div class="download-icon">📝</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Meeting Report 1</h4>
+                                <p class="download-description">First project meeting notes</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                        <a href="Downloads/vircl/Meeting Report 2.docx" class="download-card" download>
+                            <div class="download-icon">📝</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Meeting Report 2</h4>
+                                <p class="download-description">Second project meeting notes (DOCX)</p>
                             </div>
                             <div class="download-arrow">→</div>
                         </a>
@@ -469,16 +561,218 @@
             </div>
         </article>
 
+        <!-- Security & Incident Response -->
+        <article class="project-detail" id="project-security" data-status="completed" data-semester="2">
+            <div class="project-header-section">
+                <div class="project-icon-large">
+                    <div class="tech-icon" style="font-size: 3rem;">🔒</div>
+                </div>
+                <div class="project-meta">
+                    <h2 class="project-name">Security & Incident Response</h2>
+                    <p class="project-tagline">Threat Awareness, Crisis Preparation & Attack Response</p>
+                    <p class="project-cours">Semester 2 — Security Course</p>
+                    <div class="project-status">
+                        <span class="status-badge status-completed">Completed</span>
+                    </div>
+                </div>
+                <div class="project-toggle">▼</div>
+            </div>
+
+            <div class="project-body">
+                <div class="project-overview">
+                    <h3 class="section-heading">Overview</h3>
+                    <p class="overview-text">
+                        A dedicated security course covering real-world threats, how attacks unfold in practice,
+                        and how an organization should prepare for and respond to a crisis situation.
+                        The course focused on threat awareness — understanding attack vectors and recognizing
+                        early warning signs — and on the structured response side: what to do, who decides what,
+                        and how to recover and harden systems afterwards.
+                    </p>
+                </div>
+
+                <div class="features-section">
+                    <h3 class="section-heading">Key Topics</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-number">01</div>
+                            <h4>Threat Vectors & Attack Types</h4>
+                            <p>Common attack methods — phishing, ransomware, social engineering, privilege escalation — and how they are used in real breaches</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">02</div>
+                            <h4>Crisis Preparation</h4>
+                            <p>How organizations prepare before an attack: incident response plans, communication chains, and backup strategies</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">03</div>
+                            <h4>Incident Detection & Response</h4>
+                            <p>Recognizing signs of an active attack, containing the damage, and the correct steps to take during a live incident</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">04</div>
+                            <h4>Recovery & Post-Incident Hardening</h4>
+                            <p>Steps to restore systems safely after an attack and prevent the same vector from being used again</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learned-section">
+                    <h3 class="section-heading">What I Learned</h3>
+                    <ul class="learned-list">
+                        <li>How real attacks are structured — attackers usually spend significant time inside a network before anyone notices</li>
+                        <li>The difference between a well-prepared organization and one that improvises during a breach — preparation determines the outcome</li>
+                        <li>What an incident response plan contains and why having one documented before anything happens is critical</li>
+                        <li>That the human element (social engineering, phishing) is often the weakest link — technical defenses alone are not enough</li>
+                        <li>How to think about risk: not just what can go wrong, but how likely it is and what the impact would be</li>
+                    </ul>
+                </div>
+
+                <div class="features-section">
+                    <h3 class="section-heading">Practical Work — TryHackMe</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-number">01</div>
+                            <h4>Sakura Room</h4>
+                            <p>OSINT (Open Source Intelligence) challenge — tracking a threat actor using publicly available information and digital footprints</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">02</div>
+                            <h4>Hands-On Platform</h4>
+                            <p>TryHackMe provides browser-based labs where security concepts are applied in real simulated environments rather than just theory</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-section">
+                    <h3 class="section-heading">Live Simulation — Incident Response Exercise</h3>
+                    <p class="overview-text" style="margin-bottom:1.25rem;">
+                        The teacher ran a live incident response simulation where the class was split into two groups.
+                        Every 15 minutes, new information was released — or the pressure was raised through simulated
+                        press calls — forcing both teams to continuously adapt their response strategy.
+                        The exercise tested not just technical knowledge, but decision-making under time pressure
+                        with incomplete information.
+                    </p>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-number">01</div>
+                            <h4>Two-Group Format</h4>
+                            <p>Class split into two competing teams, each independently working through the same incident scenario in parallel</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">02</div>
+                            <h4>Escalating Information</h4>
+                            <p>New clues and updates released every 15 minutes — sometimes as simulated press calls — forcing teams to re-evaluate their approach</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">03</div>
+                            <h4>Real-World Decision Making</h4>
+                            <p>Teams had to agree on next steps with incomplete information — exactly how a real incident response team operates under stress</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- DevoTeam French Interview Preparation -->
+        <article class="project-detail" id="project-devoteam" data-status="completed" data-semester="2">
+            <div class="project-header-section">
+                <div class="project-icon-large">
+                    <img src="img/fr/Dev_logo_rgb.png" alt="DevoTeam" style="width:100%;height:100%;object-fit:contain;border-radius:12px;padding:1rem;background:#fff;">
+                </div>
+                <div class="project-meta">
+                    <h2 class="project-name">DevoTeam — French Interview Preparation</h2>
+                    <p class="project-tagline">Professional French CV, Cover Letter & Intro Video</p>
+                    <p class="project-cours">Semester 2 — Professional French</p>
+                    <div class="project-status">
+                        <span class="status-badge status-completed">Completed</span>
+                    </div>
+                </div>
+                <div class="project-toggle">▼</div>
+            </div>
+
+            <div class="project-body">
+                <div class="project-overview">
+                    <h3 class="section-heading">Overview</h3>
+                    <p class="overview-text">
+                        As part of the French professional communication module, we prepared for a formal
+                        interview simulation with DevoTeam Luxembourg. The preparation included writing a
+                        professional French CV and cover letter, and recording a French-language self-introduction
+                        video. The exercise built confidence in written and spoken professional French in a real
+                        company context.
+                    </p>
+                </div>
+
+                <div class="features-section">
+                    <h3 class="section-heading">What Was Prepared</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-number">01</div>
+                            <h4>French CV</h4>
+                            <p>Adapted and formatted a professional CV in French following standard French formatting conventions</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">02</div>
+                            <h4>Cover Letter</h4>
+                            <p>Wrote a French lettre de motivation — structured introduction, motivation, and closing — targeting an IT position</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">03</div>
+                            <h4>Introduction Video</h4>
+                            <p>Recorded a short French self-introduction video to practise spoken professional French before the interview</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="downloads-section">
+                    <h3 class="section-heading">Downloads</h3>
+                    <div class="downloads-grid">
+                        <a href="Downloads/devoTeam/FR%20CV%20Simon%20Max.pdf" class="download-card" target="_blank">
+                            <div class="download-icon">📄</div>
+                            <div class="download-info">
+                                <h4 class="download-title">French CV</h4>
+                                <p class="download-description">CV Simon Max — version française (PDF)</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                        <a href="Downloads/devoTeam/FR%20Lettre%20de%20motivation.pdf" class="download-card" target="_blank">
+                            <div class="download-icon">✉️</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Lettre de motivation</h4>
+                                <p class="download-description">Cover letter in French (PDF)</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                        <a href="Downloads/devoTeam/fr-video.mp4" class="download-card" target="_blank">
+                            <div class="download-icon">🎬</div>
+                            <div class="download-info">
+                                <h4 class="download-title">Introduction Video</h4>
+                                <p class="download-description">French self-introduction video (MP4)</p>
+                            </div>
+                            <div class="download-arrow">→</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="project-overview">
+                    <h3 class="section-heading">Conclusion</h3>
+                    <p class="overview-text">
+                        Mein Französisch steht mir sehr im Weg wenn ich was beschreiben will, ich will deswegen
+                        in den Sommerferien mich mehr mit der Sprache beschäftigen sodass ich besser werde.
+                    </p>
+                </div>
+            </div>
+        </article>
+
         <!-- Rad System der Schule -->
-        <article class="project-detail" id="project-rad-system" data-status="development">
+        <article class="project-detail" id="project-rad-system" data-status="development" data-semester="2">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <div class="tech-icon" style="font-size: 3rem;">🚲</div>
                 </div>
                 <div class="project-meta">
                     <h2 class="project-name">School Bike System</h2>
-                    <p class="project-tagline">New System for the School's Bicycle Management</p>
-                    <p class="project-cours"><!-- TODO: add course name --></p>
+                    <p class="project-tagline">PHP Web App for School Bicycle & Spinning Management</p>
+                    <p class="project-cours">Semester 2 — PHP</p>
                     <div class="project-status">
                         <span class="status-badge status-development">In Development</span>
                     </div>
@@ -490,28 +784,76 @@
                 <div class="project-overview">
                     <h3 class="section-heading">Overview</h3>
                     <p class="overview-text">
-                        Development of a new system for managing the school's bicycle program at Lycée Guillaume Kroll.
-                        <!-- TODO: add full description once more details are available -->
-                        More details will be added as the project progresses.
+                        A PHP-based web application for managing the school's bicycle program at Lycée Guillaume Kroll,
+                        including the spinning bikes used for fitness classes. The system tracks bike availability
+                        and gives an overview of the school's bike fleet. Students cannot yet make reservations —
+                        the reservation functionality is still in development.
                     </p>
+                </div>
+
+                <div class="tech-stack-section">
+                    <h3 class="section-heading">Technology Stack</h3>
+                    <div class="tech-grid">
+                        <div class="tech-item">
+                            <div class="tech-icon">🐘</div>
+                            <div class="tech-info">
+                                <h4>PHP</h4>
+                                <p>Server-side scripting language for building the web application logic</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🗄️</div>
+                            <div class="tech-info">
+                                <h4>Database</h4>
+                                <p>Storing bike inventory and reservation data</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">🌐</div>
+                            <div class="tech-info">
+                                <h4>HTML / CSS</h4>
+                                <p>Frontend interface for the reservation and management views</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="features-section">
                     <h3 class="section-heading">Key Features</h3>
                     <div class="features-grid">
-                        <!-- TODO: fill in features once project details are finalized -->
                         <div class="feature-card">
                             <div class="feature-number">01</div>
-                            <h4>Details Coming Soon</h4>
-                            <p>Project is currently in early development — features will be documented as they are implemented</p>
+                            <h4>Bike Inventory</h4>
+                            <p>Track the school's regular bikes and spinning bikes — availability status and overview</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">02</div>
+                            <h4>Reservation System</h4>
+                            <p>Planned reservation functionality for students and teachers — currently in development, not yet accessible</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-number">03</div>
+                            <h4>PHP Backend</h4>
+                            <p>Server-side logic handles form submissions, database queries and session management</p>
                         </div>
                     </div>
+                </div>
+
+                <div class="learned-section">
+                    <h3 class="section-heading">What I Learned</h3>
+                    <ul class="learned-list">
+                        <li>How the magnets in spinning bikes work — the resistance mechanism and the physics behind it</li>
+                        <li>Building a PHP website from scratch — server-side scripting, form handling and database interaction</li>
+                        <li>Working in a large team — coordinating tasks, avoiding conflicts, and dividing responsibilities clearly</li>
+                        <li>Working with GitHub in a team setting — branches, pull requests, and managing a shared codebase</li>
+                        <li>That software needs to be written for the long run — clear structure and documentation so future developers can continue the work years later</li>
+                    </ul>
                 </div>
             </div>
         </article>
 
         <!-- Grading Dino Project -->
-        <article class="project-detail" id="project-grading-dino">
+        <article class="project-detail" id="project-grading-dino" data-semester="1">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <img src="./img/gradingDino/ProjektLogo.png" alt="Grading Dino">
@@ -657,7 +999,7 @@
         </article>
 
         <!-- LME Project -->
-        <article class="project-detail" id="project-lme">
+        <article class="project-detail" id="project-lme" data-semester="1">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <img src="./img/lme/lme_logo.png" alt="LME">
@@ -813,7 +1155,7 @@
         </article>
 
         <!-- SSD Presentation Project -->
-        <article class="project-detail" id="project-ssd">
+        <article class="project-detail" id="project-ssd" data-semester="1">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <img src="./img/ssd/ssd.png" alt="LME">
@@ -898,7 +1240,7 @@
         </article>
 
         <!-- DFS Shared Workfolder Project -->
-        <article class="project-detail" id="project-dfs">
+        <article class="project-detail" id="project-dfs" data-semester="1">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <img src="./img/dfs/icon.jpg" alt="DFS">
@@ -1024,7 +1366,7 @@
         </article>
 
         <!-- CarNotes Project -->
-        <article class="project-detail" id="project-carnotes">
+        <article class="project-detail" id="project-carnotes" data-semester="1">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <img src="./img/carnotes/carnotes.png" alt="CarNotes">
@@ -1138,7 +1480,7 @@
         </article>
 
         <!-- Python Auth.log Monitor Project -->
-        <article class="project-detail" id="project-python-monitor">
+        <article class="project-detail" id="project-python-monitor" data-semester="1">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <img src="./img/python/python-icon.png" alt="Python Auth.log Monitor">
@@ -1221,7 +1563,7 @@
         </article>
 
         <!-- TrueNAS Community Server Project -->
-        <article class="project-detail" id="project-truenas">
+        <article class="project-detail" id="project-truenas" data-semester="2">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <div class="tech-icon" style="font-size: 3rem;">🗄️</div>
@@ -1363,7 +1705,7 @@
         </article>
 
         <!-- TBUCO Technical Meeting Project -->
-        <article class="project-detail" id="project-azure">
+        <article class="project-detail" id="project-azure" data-semester="1">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <div class="tech-icon" style="font-size: 3rem;">☁️</div>
@@ -1502,7 +1844,7 @@
         </article>
 
         <!-- Portfolio Website Project -->
-        <article class="project-detail" id="project-portfolio">
+        <article class="project-detail" id="project-portfolio" data-semester="1">
             <div class="project-header-section">
                 <div class="project-icon-large">
                     <img src="./img/portfolio/portfolio.jpg" alt="Portfolio Website">
@@ -1640,6 +1982,10 @@
                 <a href="https://www.linkedin.com/in/max-simon-230757387/" target="_blank" rel="noopener" class="footer-link">
                     <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><line x1="7" y1="9" x2="7" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="6.5" r="1" fill="currentColor"/><path d="M10 9v5M10 9c0 0 .8-1.5 3-1.5 1.5 0 2 1 2 2.5V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                     linkedin.com/in/max-simon-230757387
+                </a>
+                <a href="https://linktr.ee/max.simon" target="_blank" rel="noopener" class="footer-link">
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 3v9M7 6l3-3 3 3M5 14h10M5 17h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    linktr.ee/max.simon
                 </a>
             </div>
 

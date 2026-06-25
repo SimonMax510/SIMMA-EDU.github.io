@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>High Availability — Server Virtualization Systems</title>
+<style>
+  /* ===================== THEME TOKENS ===================== */
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f5f5f7;
+    --bg-tinted: #fafafc;
+    --ink: #1d1d1f;
+    --ink-soft: #515154;
+    --muted: #86868b;
+    --hair: #e7e7eb;
+    --accent: #0071e3;
+    --accent-2: #5e5ce6;
+    --accent-soft: #e7f0fb;
+    --good: #2d8a4e;
+    --good-soft: #e6f4ec;
+    --warn: #c9522e;
+    --warn-soft: #fbe9e3;
+    --proxmox: #e57000;
+    --proxmox-soft: #ffe9d1;
+    --proxmox-mid: #fff4e7;
+    --vmware: #4a5e6a;
+    --vmware-soft: #e6ebee;
+
+    /* SVG-specific tokens */
+    --svg-card-start: #ffffff;
+    --svg-card-end: #f5f5f7;
+    --svg-card-stroke: #1d1d1f;
+    --svg-ink: #1d1d1f;
+    --svg-muted: #86868b;
+    --svg-ink-soft: #515154;
+    --svg-storage-start: #e7f0fb;
+    --svg-storage-end: #d6e6f7;
+    --svg-network: #1d1d1f;
+
+    --shadow-soft: 0 6px 18px rgba(0, 113, 227, 0.12);
+    --hero-gradient:
+      radial-gradient(circle at 85% 20%, rgba(0,113,227,0.07), transparent 50%),
+      radial-gradient(circle at 15% 85%, rgba(94,92,230,0.06), transparent 50%),
+      linear-gradient(180deg, #ffffff 0%, #f5f5f7 100%);
+
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  html.dark {
+    --bg: #000000;
+    --bg-soft: #1c1c1e;
+    --bg-tinted: #141416;
+    --ink: #f5f5f7;
+    --ink-soft: #c7c7cc;
+    --muted: #8e8e93;
+    --hair: #2d2d30;
+    --accent: #2997ff;
+    --accent-2: #8480f5;
+    --accent-soft: #11243b;
+    --good: #5fc585;
+    --good-soft: #16291d;
+    --warn: #ff7a55;
+    --warn-soft: #3a1d16;
+    --proxmox: #ff9533;
+    --proxmox-soft: #3a2410;
+    --proxmox-mid: #2a1a0a;
+    --vmware: #b0bcc4;
+    --vmware-soft: #2a3138;
+
+    --svg-card-start: #1c1c1e;
+    --svg-card-end: #2a2a2c;
+    --svg-card-stroke: #515154;
+    --svg-ink: #f5f5f7;
+    --svg-muted: #8e8e93;
+    --svg-ink-soft: #c7c7cc;
+    --svg-storage-start: #11243b;
+    --svg-storage-end: #0a1c2e;
+    --svg-network: #515154;
+
+    --shadow-soft: 0 6px 24px rgba(41, 151, 255, 0.18);
+    --hero-gradient:
+      radial-gradient(circle at 85% 20%, rgba(41,151,255,0.10), transparent 50%),
+      radial-gradient(circle at 15% 85%, rgba(132,128,245,0.08), transparent 50%),
+      linear-gradient(180deg, #000000 0%, #0d0d0f 100%);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    background: var(--hero-gradient);
+    color: var(--ink);
+    font-family: var(--font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    transition: background .4s ease, color .4s ease;
+  }
+
+  .deck { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5.5vh 7vw;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity .55s cubic-bezier(.4,0,.2,1), transform .55s cubic-bezier(.4,0,.2,1);
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* ===================== TYPOGRAPHY ===================== */
+  h1.kicker {
+    font-size: clamp(13px, 1vw, 16px);
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2.2vh;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+  }
+  h1.kicker::before {
+    content: "";
+    width: 28px; height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  h2.title {
+    font-size: clamp(48px, 6.8vw, 120px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.0;
+    color: var(--ink);
+  }
+  h3.subtitle {
+    font-size: clamp(20px, 1.9vw, 32px);
+    font-weight: 400;
+    color: var(--ink-soft);
+    margin-top: 2.4vh;
+    letter-spacing: -0.01em;
+    max-width: 30ch;
+  }
+  h4.section-title {
+    font-size: clamp(30px, 3.8vw, 60px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    margin-bottom: 4vh;
+    color: var(--ink);
+  }
+  p.lead {
+    font-size: clamp(17px, 1.5vw, 26px);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 58ch;
+  }
+  p.big-quote {
+    font-size: clamp(28px, 3.4vw, 56px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--ink);
+    max-width: 22ch;
+  }
+
+  /* ===================== GLOBAL SVG THEMING ===================== */
+  /* Classes used inside all inline SVGs so they react to theme switches */
+  svg .s-card-fill { fill: var(--svg-card-start); }
+  svg .s-card-stroke { stroke: var(--svg-card-stroke); }
+  svg .s-ink-text { fill: var(--svg-ink); }
+  svg .s-muted-text { fill: var(--svg-muted); }
+  svg .s-ink-soft-text { fill: var(--svg-ink-soft); }
+  svg .s-ink-stroke { stroke: var(--svg-network); }
+  svg .s-storage-fill { fill: var(--svg-storage-start); }
+  svg .s-storage-stroke { stroke: var(--accent); }
+  svg .s-accent-fill { fill: var(--accent); }
+  svg .s-accent-stroke { stroke: var(--accent); }
+  svg .s-accent2-fill { fill: var(--accent-2); }
+  svg .s-good-fill { fill: var(--good); }
+  svg .s-good-stroke { stroke: var(--good); }
+  svg .s-warn-fill { fill: var(--warn); }
+  svg .s-warn-stroke { stroke: var(--warn); }
+  svg .s-grad-start { stop-color: var(--svg-card-start); }
+  svg .s-grad-end { stop-color: var(--svg-card-end); }
+  svg .s-storage-grad-start { stop-color: var(--svg-storage-start); }
+  svg .s-storage-grad-end { stop-color: var(--svg-storage-end); }
+  svg .s-good-grad-start { stop-color: var(--good-soft); }
+  svg .s-good-grad-end { stop-color: var(--svg-card-start); }
+  svg .s-warn-grad-start { stop-color: var(--warn-soft); }
+  svg .s-warn-grad-end { stop-color: var(--svg-card-start); }
+
+  /* ===================== TITLE SLIDE ===================== */
+  .slide.title-slide {
+    background: var(--hero-gradient);
+    transition: background .4s ease;
+  }
+  .title-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4vw;
+    align-items: center;
+    width: 100%;
+  }
+  .title-hero { display: flex; justify-content: center; align-items: center; }
+  .title-hero svg { width: 100%; max-width: 480px; height: auto; }
+  .title-slide .meta {
+    margin-top: 5vh;
+    display: flex;
+    gap: 2.2vw;
+    flex-wrap: wrap;
+    font-size: clamp(13px, 1vw, 17px);
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .title-slide .meta strong { color: var(--ink); font-weight: 600; margin-right: 0.4em; }
+
+  @keyframes pulse-ring {
+    0%   { r: 38; opacity: 0; }
+    20%  { opacity: 0.5; }
+    100% { r: 72; opacity: 0; }
+  }
+  @keyframes pulse-core {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+  }
+  @keyframes dash-flow { to { stroke-dashoffset: -40; } }
+  .pulse-ring { animation: pulse-ring 2.4s ease-out infinite; transform-origin: center; }
+  .pulse-ring-2 { animation: pulse-ring 2.4s ease-out infinite; animation-delay: 1.2s; transform-origin: center; }
+  .pulse-core { animation: pulse-core 2.4s ease-in-out infinite; transform-origin: center; }
+  .flow-line { stroke-dasharray: 6 6; animation: dash-flow 1.6s linear infinite; }
+
+  /* ===================== AGENDA ===================== */
+  .agenda {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.8vh 4vw;
+    max-width: 1100px;
+    margin-top: 1vh;
+  }
+  .agenda-item {
+    display: flex;
+    align-items: center;
+    gap: 1.4vw;
+    font-size: clamp(17px, 1.5vw, 26px);
+    color: var(--ink);
+    padding: 1.6vh 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .agenda-item .num {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    color: var(--accent);
+    min-width: 2.4ch;
+    font-size: 1.1em;
+  }
+  .agenda-item .agenda-icon {
+    width: 28px; height: 28px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+
+  /* ===================== CONCEPTS ===================== */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3vh 2vw;
+    margin-top: 1vh;
+  }
+  .concept {
+    padding: 2vh 0;
+    border-top: 2px solid var(--ink);
+    padding-top: 2vh;
+  }
+  .concept-head {
+    display: flex;
+    align-items: center;
+    gap: 0.9em;
+    margin-bottom: 1.4vh;
+  }
+  .concept-icon { width: 36px; height: 36px; color: var(--accent); flex-shrink: 0; }
+  .concept .abbr {
+    font-size: clamp(20px, 1.8vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .concept .name {
+    font-size: clamp(11px, 0.85vw, 14px);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.2vh;
+  }
+  .concept .desc {
+    font-size: clamp(13px, 1.05vw, 17px);
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ===================== NINES BARS ===================== */
+  .nines-stack { display: flex; flex-direction: column; gap: 1.8vh; margin-top: 1vh; }
+  .nine-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 200px;
+    align-items: center;
+    gap: 2vw;
+  }
+  .nine-label {
+    font-size: clamp(20px, 2vw, 34px);
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  .nine-bar-wrap {
+    height: 16px;
+    background: var(--bg-soft);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+  }
+  .nine-bar-fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border-radius: 999px;
+    transform-origin: left;
+  }
+  .nine-time {
+    text-align: right;
+    font-size: clamp(13px, 1.1vw, 17px);
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .nine-time small { display: block; color: var(--muted); font-weight: 400; font-size: 0.78em; }
+
+  /* ===================== ARCHITECTURE ===================== */
+  .arch-wrap {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 4vw;
+    align-items: center;
+    margin-top: 1vh;
+  }
+  .arch-wrap svg { width: 100%; height: auto; }
+  .arch-legend { display: flex; flex-direction: column; gap: 2vh; }
+  .legend-item { border-left: 3px solid var(--accent); padding-left: 1.2vw; }
+  .legend-item h6 {
+    font-size: clamp(14px, 1.15vw, 19px);
+    font-weight: 600;
+    margin-bottom: 0.4vh;
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    color: var(--ink);
+  }
+  .legend-item h6 svg { width: 18px; height: 18px; color: var(--accent); }
+  .legend-item p {
+    font-size: clamp(12px, 0.95vw, 15px);
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ===================== HYPERVISOR SLIDES ===================== */
+  .hv-header { display: flex; align-items: center; gap: 1.4vw; margin-bottom: 3.4vh; }
+  .hv-badge {
+    font-size: clamp(11px, 0.85vw, 14px);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.6em 1em;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .hv-badge svg { width: 14px; height: 14px; }
+  .hv-badge.vmware { background: var(--vmware-soft); color: var(--vmware); }
+  .hv-badge.proxmox { background: var(--proxmox-soft); color: var(--proxmox); }
+
+  .hv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5vw; margin-top: 1vh; }
+  .hv-col h6 {
+    font-size: clamp(12px, 0.95vw, 15px);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 1.4vh;
+  }
+  .hv-col ul { list-style: none; display: flex; flex-direction: column; gap: 1.3vh; }
+  .hv-col li {
+    font-size: clamp(14px, 1.1vw, 19px);
+    color: var(--ink);
+    padding-left: 1.6em;
+    position: relative;
+    line-height: 1.45;
+  }
+  .hv-col li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 0.55em;
+    height: 0.55em;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .hv-col li b { font-weight: 600; }
+  .hv-col li span.note { display: block; font-size: 0.83em; color: var(--muted); margin-top: 0.25em; }
+  code {
+    font-family: var(--mono);
+    font-size: 0.9em;
+    background: var(--bg-soft);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+
+  /* ===================== TIMELINE ===================== */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.4vw;
+    margin: 3vh 0;
+    position: relative;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 5%;
+    right: 5%;
+    top: 32px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    border-radius: 2px;
+  }
+  .tl-step { text-align: center; position: relative; z-index: 2; }
+  .tl-dot {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    margin: 0 auto 1.4vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    box-shadow: var(--shadow-soft);
+  }
+  .tl-dot svg { width: 26px; height: 26px; }
+  .tl-time {
+    font-size: clamp(11px, 0.85vw, 14px);
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    margin-bottom: 0.4em;
+  }
+  .tl-title {
+    font-size: clamp(14px, 1.1vw, 18px);
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    color: var(--ink);
+  }
+  .tl-desc {
+    font-size: clamp(11px, 0.85vw, 14px);
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ===================== ADMISSION ===================== */
+  .admission-vis { display: grid; grid-template-columns: 1fr 1fr; gap: 3vw; margin-top: 1vh; align-items: start; }
+  .resource-bars { display: flex; flex-direction: column; gap: 1.8vh; }
+  .res-bar { display: flex; flex-direction: column; gap: 0.6vh; }
+  .res-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: clamp(12px, 0.95vw, 16px);
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .res-bar-label b { color: var(--ink); font-weight: 600; }
+  .res-bar-track {
+    height: 22px;
+    background: var(--bg-soft);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+  }
+  .res-bar-used { background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+  .res-bar-reserve {
+    background: repeating-linear-gradient(
+      45deg,
+      var(--warn-soft) 0,
+      var(--warn-soft) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+    border-left: 2px dashed var(--warn);
+  }
+  .res-bar-free { background: var(--bg-soft); }
+
+  /* ===================== PROXMOX STACK ===================== */
+  .stack { display: flex; flex-direction: column; gap: 8px; margin-top: 1vh; }
+  .stack-layer {
+    padding: 1.4vh 1.6vw;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    align-items: center;
+    gap: 1.4vw;
+  }
+  .stack-layer .layer-name {
+    font-weight: 700;
+    font-size: clamp(14px, 1.15vw, 19px);
+    letter-spacing: -0.01em;
+  }
+  .stack-layer .layer-desc {
+    font-size: clamp(12px, 0.95vw, 16px);
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .stack-layer.top { background: var(--proxmox-soft); color: var(--proxmox); border-left: 4px solid var(--proxmox); }
+  .stack-layer.mid { background: var(--proxmox-mid); color: var(--proxmox); border-left: 4px solid var(--proxmox); opacity: 0.85; }
+  .stack-layer.low { background: var(--bg-soft); color: var(--ink); border-left: 4px solid var(--muted); }
+  .stack-layer .layer-desc { color: var(--ink-soft); }
+
+  /* ===================== QUORUM ===================== */
+  .quorum-vis { display: flex; justify-content: center; align-items: center; gap: 1.6vw; margin: 2vh 0; }
+  .quorum-node {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    border: 3px solid var(--good);
+    background: var(--good-soft);
+    color: var(--good);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 28px;
+    flex-direction: column;
+  }
+  .quorum-node small { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+  .quorum-node.down {
+    border-color: var(--warn);
+    background: var(--warn-soft);
+    color: var(--warn);
+    opacity: 0.7;
+    position: relative;
+  }
+  .quorum-node.down::after {
+    content: "✕";
+    position: absolute;
+    font-size: 40px;
+    color: var(--warn);
+  }
+  .quorum-node.down small { display: none; }
+  .quorum-formula {
+    text-align: center;
+    margin-top: 1vh;
+    font-size: clamp(13px, 1vw, 16px);
+    color: var(--muted);
+  }
+  .quorum-formula code {
+    font-size: 1em;
+    color: var(--ink);
+    background: var(--bg);
+    padding: 0.2em 0.6em;
+    border: 1px solid var(--hair);
+    border-radius: 6px;
+  }
+
+  /* ===================== COMPARISON ===================== */
+  .compare {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1vh;
+    font-size: clamp(13px, 1.05vw, 18px);
+  }
+  .compare th, .compare td {
+    text-align: left;
+    padding: 1.4vh 1.2vw;
+    border-bottom: 1px solid var(--hair);
+    vertical-align: top;
+  }
+  .compare thead th {
+    font-size: clamp(11px, 0.85vw, 14px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    padding-bottom: 1.2vh;
+  }
+  .compare thead th.vmware-h { color: var(--vmware); }
+  .compare thead th.proxmox-h { color: var(--proxmox); }
+  .compare td.feature { font-weight: 600; color: var(--ink); width: 22%; }
+  .compare td.vmware-c { color: var(--ink-soft); width: 39%; }
+  .compare td.proxmox-c { color: var(--ink-soft); width: 39%; }
+  .compare tbody tr:hover { background: var(--bg-soft); }
+
+  /* ===================== DOS / DONTS ===================== */
+  .dos-donts { display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; margin-top: 1vh; }
+  .dd-col h6 {
+    font-size: clamp(15px, 1.2vw, 20px);
+    font-weight: 600;
+    margin-bottom: 2.2vh;
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+    letter-spacing: -0.01em;
+  }
+  .dd-col.do h6 { color: var(--good); }
+  .dd-col.dont h6 { color: var(--warn); }
+  .dd-col h6 .tag {
+    font-size: 0.65em;
+    padding: 0.35em 0.9em;
+    border-radius: 6px;
+    background: currentColor;
+    color: var(--bg) !important;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .dd-col ul { list-style: none; display: flex; flex-direction: column; gap: 1.3vh; }
+  .dd-col li {
+    font-size: clamp(13px, 1.05vw, 18px);
+    color: var(--ink-soft);
+    padding-left: 1.8em;
+    position: relative;
+    line-height: 1.5;
+  }
+  .dd-col.do li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.1em;
+    height: 1.1em;
+    line-height: 1.1em;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--good-soft);
+    color: var(--good);
+    font-weight: 700;
+    font-size: 0.9em;
+  }
+  .dd-col.dont li::before {
+    content: "✕";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.1em;
+    height: 1.1em;
+    line-height: 1.1em;
+    text-align: center;
+    border-radius: 50%;
+    background: var(--warn-soft);
+    color: var(--warn);
+    font-weight: 700;
+    font-size: 0.9em;
+  }
+
+  /* ===================== DEMO ===================== */
+  .demo-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4vw;
+    margin-top: 3vh;
+  }
+  .demo-step {
+    background: var(--bg-soft);
+    border-radius: 16px;
+    padding: 2.6vh 1.4vw;
+    position: relative;
+    overflow: hidden;
+  }
+  .demo-step::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  }
+  .demo-step .step-num {
+    font-size: clamp(10px, 0.8vw, 13px);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.18em;
+  }
+  .demo-step .step-icon { width: 36px; height: 36px; color: var(--accent); margin-bottom: 1.6vh; }
+  .demo-step h6 {
+    font-size: clamp(15px, 1.25vw, 20px);
+    font-weight: 600;
+    margin: 1vh 0;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .demo-step p {
+    font-size: clamp(12px, 0.95vw, 15px);
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ===================== Q&A ===================== */
+  .qa-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    position: relative;
+  }
+  .qa-center h2 {
+    font-size: clamp(60px, 9vw, 160px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .qa-center p {
+    font-size: clamp(17px, 1.5vw, 24px);
+    color: var(--muted);
+    margin-top: 2vh;
+    letter-spacing: 0.04em;
+  }
+  .qa-bg { position: absolute; inset: 0; pointer-events: none; opacity: 0.4; }
+
+  /* ===================== CHROME / CONTROLS ===================== */
+  .chrome {
+    position: fixed;
+    inset: auto 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.2vh 3vw;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .chrome .brand {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+  }
+  .chrome .brand-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .chrome .counter {
+    font-size: 11px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.14em;
+    font-weight: 600;
+  }
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    width: 0%;
+    transition: width .4s ease;
+    z-index: 20;
+  }
+
+  .top-controls {
+    position: fixed;
+    top: 2vh;
+    right: 2vw;
+    z-index: 30;
+    display: flex;
+    gap: 8px;
+    pointer-events: auto;
+  }
+  .ctrl-btn {
+    width: 40px; height: 40px;
+    border: 1px solid var(--hair);
+    background: var(--bg-tinted);
+    color: var(--ink-soft);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background .25s ease, color .25s ease, border-color .25s ease, transform .15s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .ctrl-btn:hover {
+    background: var(--bg-soft);
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .ctrl-btn:active { transform: scale(0.94); }
+  .ctrl-btn svg { width: 18px; height: 18px; }
+  .ctrl-btn .icon-sun { display: none; }
+  .ctrl-btn .icon-moon { display: block; }
+  html.dark .ctrl-btn .icon-sun { display: block; }
+  html.dark .ctrl-btn .icon-moon { display: none; }
+
+  .click-zone {
+    position: fixed;
+    top: 0; bottom: 0;
+    width: 35%;
+    z-index: 5;
+    cursor: pointer;
+  }
+  .click-zone.left { left: 0; }
+  .click-zone.right { right: 0; }
+
+  .callout {
+    margin-top: 2.4vh;
+    background: var(--accent-soft);
+    border-radius: 12px;
+    padding: 1.8vh 1.6vw;
+    font-size: clamp(13px, 1.05vw, 17px);
+    color: var(--ink);
+    border-left: 3px solid var(--accent);
+    max-width: 78ch;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9em;
+  }
+  .callout svg { width: 22px; height: 22px; color: var(--accent); flex-shrink: 0; margin-top: 0.1em; }
+  .callout b { font-weight: 600; }
+
+  .help {
+    position: fixed;
+    bottom: 7vh;
+    right: 3vw;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 1.4vh 1.2vw;
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 1.7;
+    opacity: 0;
+    transition: opacity .3s ease;
+    pointer-events: none;
+    z-index: 30;
+  }
+  .help.visible { opacity: 0.95; }
+  .help kbd {
+    background: var(--bg-soft);
+    color: var(--ink);
+    padding: 0.1em 0.5em;
+    border-radius: 4px;
+    font-family: var(--mono);
+    font-size: 0.9em;
+    margin: 0 0.2em;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<div class="top-controls">
+  <button class="ctrl-btn" id="themeBtn" title="Toggle theme (T)" aria-label="Toggle dark mode">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="4"/>
+      <line x1="12" y1="2" x2="12" y2="4"/>
+      <line x1="12" y1="20" x2="12" y2="22"/>
+      <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/>
+      <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/>
+      <line x1="2" y1="12" x2="4" y2="12"/>
+      <line x1="20" y1="12" x2="22" y2="12"/>
+      <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/>
+      <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/>
+    </svg>
+  </button>
+  <button class="ctrl-btn" id="fsBtn" title="Toggle fullscreen (F)" aria-label="Toggle fullscreen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M8 3H5a2 2 0 00-2 2v3M21 8V5a2 2 0 00-2-2h-3M3 16v3a2 2 0 002 2h3M16 21h3a2 2 0 002-2v-3"/>
+    </svg>
+  </button>
+</div>
+
+<div class="deck" id="deck">
+
+  <!-- ===================== SLIDE 1: TITLE ===================== -->
+  <section class="slide title-slide active">
+    <div class="title-grid">
+      <div>
+        <h1 class="kicker">Server Virtualization Systems · Team 3</h1>
+        <h2 class="title">High<br/>Availability.</h2>
+        <h3 class="subtitle">Keeping virtual machines online when hardware fails.</h3>
+        <div class="meta">
+          <div><strong>Hypervisors</strong>VMware ESXi · Proxmox VE</div>
+          <div><strong>Duration</strong>20 min</div>
+          <div><strong>Includes</strong>Live demo · Q&amp;A</div>
+        </div>
+      </div>
+      <div class="title-hero">
+        <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="serverGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" class="s-grad-start"/>
+              <stop offset="100%" class="s-grad-end"/>
+            </linearGradient>
+            <filter id="softShadow">
+              <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0071e3" flood-opacity="0.12"/>
+            </filter>
+          </defs>
+
+          <g transform="translate(240 240)">
+            <circle class="pulse-ring s-accent-stroke" r="40" fill="none" stroke-width="2"/>
+            <circle class="pulse-ring-2 s-accent-stroke" r="40" fill="none" stroke-width="2" style="stroke: var(--accent-2);"/>
+          </g>
+
+          <g class="s-accent-stroke flow-line" stroke-width="2" fill="none" opacity="0.55">
+            <path d="M 130 145 Q 240 90 350 145"/>
+            <path d="M 130 335 Q 240 390 350 335"/>
+            <path d="M 95 200 L 95 280"/>
+            <path d="M 385 200 L 385 280"/>
+          </g>
+
+          <!-- Server top-left -->
+          <g filter="url(#softShadow)">
+            <rect x="50" y="100" width="120" height="90" rx="14" fill="url(#serverGrad)" class="s-card-stroke" stroke-width="1.5"/>
+            <rect x="62" y="118" width="96" height="6" rx="3" class="s-accent-fill" opacity="0.7"/>
+            <rect x="62" y="132" width="68" height="4" rx="2" class="s-muted-text"/>
+            <rect x="62" y="144" width="86" height="4" rx="2" class="s-muted-text"/>
+            <circle cx="156" cy="180" r="4" class="s-good-fill"/>
+            <text x="62" y="183" font-family="-apple-system, Inter, sans-serif" font-size="10" class="s-muted-text" font-weight="600">HOST A</text>
+          </g>
+
+          <!-- Server top-right -->
+          <g filter="url(#softShadow)">
+            <rect x="310" y="100" width="120" height="90" rx="14" fill="url(#serverGrad)" class="s-card-stroke" stroke-width="1.5"/>
+            <rect x="322" y="118" width="96" height="6" rx="3" style="fill: var(--accent-2);" opacity="0.7"/>
+            <rect x="322" y="132" width="68" height="4" rx="2" class="s-muted-text"/>
+            <rect x="322" y="144" width="86" height="4" rx="2" class="s-muted-text"/>
+            <circle cx="416" cy="180" r="4" class="s-good-fill"/>
+            <text x="322" y="183" font-family="-apple-system, Inter, sans-serif" font-size="10" class="s-muted-text" font-weight="600">HOST B</text>
+          </g>
+
+          <!-- Center HA core -->
+          <g class="pulse-core" transform="translate(240 240)">
+            <circle r="36" class="s-card-fill s-accent-stroke" stroke-width="2.5" filter="url(#softShadow)"/>
+            <path d="M -18 0 L -10 0 L -6 -10 L 2 12 L 6 -6 L 10 4 L 18 4" fill="none" class="s-accent-stroke" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+
+          <!-- Server bottom-left -->
+          <g filter="url(#softShadow)">
+            <rect x="50" y="290" width="120" height="90" rx="14" fill="url(#serverGrad)" class="s-card-stroke" stroke-width="1.5"/>
+            <rect x="62" y="308" width="96" height="6" rx="3" class="s-accent-fill" opacity="0.7"/>
+            <rect x="62" y="322" width="68" height="4" rx="2" class="s-muted-text"/>
+            <rect x="62" y="334" width="86" height="4" rx="2" class="s-muted-text"/>
+            <circle cx="156" cy="370" r="4" class="s-good-fill"/>
+            <text x="62" y="373" font-family="-apple-system, Inter, sans-serif" font-size="10" class="s-muted-text" font-weight="600">HOST C</text>
+          </g>
+
+          <!-- Server bottom-right -->
+          <g filter="url(#softShadow)">
+            <rect x="310" y="290" width="120" height="90" rx="14" fill="url(#serverGrad)" class="s-card-stroke" stroke-width="1.5"/>
+            <rect x="322" y="308" width="96" height="6" rx="3" style="fill: var(--accent-2);" opacity="0.7"/>
+            <rect x="322" y="322" width="68" height="4" rx="2" class="s-muted-text"/>
+            <rect x="322" y="334" width="86" height="4" rx="2" class="s-muted-text"/>
+            <circle cx="416" cy="370" r="4" class="s-good-fill"/>
+            <text x="322" y="373" font-family="-apple-system, Inter, sans-serif" font-size="10" class="s-muted-text" font-weight="600">HOST D</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 2: AGENDA ===================== -->
+  <section class="slide">
+    <h1 class="kicker">Agenda</h1>
+    <h4 class="section-title">What we'll cover.</h4>
+    <div class="agenda">
+      <div class="agenda-item"><span class="num">01</span>
+        <svg class="agenda-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span>What is High Availability?</span>
+      </div>
+      <div class="agenda-item"><span class="num">02</span>
+        <svg class="agenda-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h10M4 17h16"/></svg>
+        <span>Core Concepts &amp; Vocabulary</span>
+      </div>
+      <div class="agenda-item"><span class="num">03</span>
+        <svg class="agenda-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="7" height="7" rx="1"/><rect x="14" y="4" width="7" height="7" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/></svg>
+        <span>HA Architecture</span>
+      </div>
+      <div class="agenda-item"><span class="num">04</span>
+        <svg class="agenda-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+        <span>vSphere HA on VMware ESXi</span>
+      </div>
+      <div class="agenda-item"><span class="num">05</span>
+        <svg class="agenda-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12l9-9 9 9-9 9-9-9z"/><path d="M9 12l3-3 3 3-3 3-3-3z"/></svg>
+        <span>HA on Proxmox VE</span>
+      </div>
+      <div class="agenda-item"><span class="num">06</span>
+        <svg class="agenda-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 12h7M13 12h7M8 7l-4 5 4 5M16 7l4 5-4 5"/></svg>
+        <span>Side-by-Side Comparison</span>
+      </div>
+      <div class="agenda-item"><span class="num">07</span>
+        <svg class="agenda-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span>Do's &amp; Don'ts</span>
+      </div>
+      <div class="agenda-item"><span class="num">08</span>
+        <svg class="agenda-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+        <span>Live Demo &amp; Q&amp;A</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 3: WHAT IS HA ===================== -->
+  <section class="slide">
+    <h1 class="kicker">01 · Definition</h1>
+    <h4 class="section-title">What is High Availability?</h4>
+    <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4vw; align-items: center;">
+      <div>
+        <p class="big-quote">A system designed to keep running — even when a part of it doesn't.</p>
+        <p class="lead" style="margin-top: 3vh;">
+          HA removes single points of failure so services stay reachable during hardware failure,
+          maintenance or unexpected outages. In a virtualization context: if a host dies, the
+          VMs it ran are automatically restarted on a surviving host.
+        </p>
+      </div>
+      <div>
+        <svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+          <defs>
+            <linearGradient id="goodG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" class="s-good-grad-start"/>
+              <stop offset="100%" class="s-good-grad-end"/>
+            </linearGradient>
+            <linearGradient id="badG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" class="s-warn-grad-start"/>
+              <stop offset="100%" class="s-warn-grad-end"/>
+            </linearGradient>
+            <marker id="arrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0,0 L10,5 L0,10 z" class="s-accent-fill"/>
+            </marker>
+          </defs>
+
+          <!-- Failed host -->
+          <g>
+            <rect x="20" y="60" width="140" height="180" rx="14" fill="url(#badG)" class="s-warn-stroke" stroke-width="2" stroke-dasharray="6 4"/>
+            <text x="90" y="38" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="12" font-weight="700" class="s-warn-fill" letter-spacing="2">FAILED HOST</text>
+            <text x="90" y="52" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="32" class="s-warn-fill">✕</text>
+            <rect x="38" y="85" width="104" height="34" rx="6" class="s-card-fill s-warn-stroke" stroke-width="1.2" opacity="0.5"/>
+            <text x="90" y="106" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="12" class="s-warn-fill">VM 01</text>
+            <rect x="38" y="130" width="104" height="34" rx="6" class="s-card-fill s-warn-stroke" stroke-width="1.2" opacity="0.5"/>
+            <text x="90" y="151" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="12" class="s-warn-fill">VM 02</text>
+            <rect x="38" y="175" width="104" height="34" rx="6" class="s-card-fill s-warn-stroke" stroke-width="1.2" opacity="0.5"/>
+            <text x="90" y="196" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="12" class="s-warn-fill">VM 03</text>
+          </g>
+
+          <!-- Arrows -->
+          <path d="M 170 120 Q 200 100 230 100" fill="none" class="s-accent-stroke" stroke-width="2" marker-end="url(#arrowR)"/>
+          <path d="M 170 150 Q 200 150 230 150" fill="none" class="s-accent-stroke" stroke-width="2" marker-end="url(#arrowR)"/>
+          <path d="M 170 195 Q 200 215 230 215" fill="none" class="s-accent-stroke" stroke-width="2" marker-end="url(#arrowR)"/>
+          <text x="200" y="80" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="11" font-weight="600" class="s-accent-fill">auto-restart</text>
+
+          <!-- Surviving host -->
+          <g>
+            <rect x="240" y="60" width="140" height="180" rx="14" fill="url(#goodG)" class="s-good-stroke" stroke-width="2"/>
+            <text x="310" y="38" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="12" font-weight="700" class="s-good-fill" letter-spacing="2">SURVIVING HOST</text>
+            <text x="310" y="52" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="20" class="s-good-fill">✓</text>
+            <rect x="258" y="85" width="104" height="34" rx="6" class="s-card-fill s-good-stroke" stroke-width="1.2"/>
+            <text x="310" y="106" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="12" font-weight="600" class="s-ink-text">VM 01</text>
+            <rect x="258" y="130" width="104" height="34" rx="6" class="s-card-fill s-good-stroke" stroke-width="1.2"/>
+            <text x="310" y="151" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="12" font-weight="600" class="s-ink-text">VM 02</text>
+            <rect x="258" y="175" width="104" height="34" rx="6" class="s-card-fill s-good-stroke" stroke-width="1.2"/>
+            <text x="310" y="196" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="12" font-weight="600" class="s-ink-text">VM 03</text>
+          </g>
+
+          <text x="200" y="280" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="13" font-weight="500" class="s-ink-soft-text">No admin intervention required</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 4: NINES ===================== -->
+  <section class="slide">
+    <h1 class="kicker">01 · Why it matters</h1>
+    <h4 class="section-title">Availability is measured in nines.</h4>
+    <p class="lead" style="margin-bottom: 4vh;">Each additional nine cuts allowed downtime by roughly 10×. Production targets typically start at three nines.</p>
+    <div class="nines-stack">
+      <div class="nine-row">
+        <div class="nine-label">99%</div>
+        <div class="nine-bar-wrap"><div class="nine-bar-fill" style="width: 100%; opacity: 0.85;"></div></div>
+        <div class="nine-time">3.65 days<small>downtime / year</small></div>
+      </div>
+      <div class="nine-row">
+        <div class="nine-label">99.9%</div>
+        <div class="nine-bar-wrap"><div class="nine-bar-fill" style="width: 36%; opacity: 0.75;"></div></div>
+        <div class="nine-time">8.77 hours<small>downtime / year</small></div>
+      </div>
+      <div class="nine-row">
+        <div class="nine-label">99.99%</div>
+        <div class="nine-bar-wrap"><div class="nine-bar-fill" style="width: 12%; opacity: 0.65;"></div></div>
+        <div class="nine-time">52.6 min<small>downtime / year</small></div>
+      </div>
+      <div class="nine-row">
+        <div class="nine-label">99.999%</div>
+        <div class="nine-bar-wrap"><div class="nine-bar-fill" style="width: 3%; opacity: 0.55;"></div></div>
+        <div class="nine-time">5.26 min<small>downtime / year</small></div>
+      </div>
+    </div>
+    <div class="callout" style="margin-top: 3vh;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>HA realistically delivers <b>three to four nines</b>. Five nines requires geo-redundancy, replicated data and a much bigger budget.</span>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 5: CORE CONCEPTS ===================== -->
+  <section class="slide">
+    <h1 class="kicker">02 · Vocabulary</h1>
+    <h4 class="section-title">Core concepts of HA.</h4>
+    <div class="concept-grid">
+      <div class="concept">
+        <div class="concept-head">
+          <svg class="concept-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2L2 21h20L12 2z"/><line x1="12" y1="9" x2="12" y2="14"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div>
+            <div class="abbr">SPOF</div>
+            <div class="name">Single Point of Failure</div>
+          </div>
+        </div>
+        <div class="desc">Any component whose failure brings the whole system down. HA's main goal is to eliminate them.</div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-head">
+          <svg class="concept-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="14" height="14" rx="2"/><rect x="7" y="7" width="14" height="14" rx="2"/></svg>
+          <div>
+            <div class="abbr">Redundancy</div>
+            <div class="name">N+1</div>
+          </div>
+        </div>
+        <div class="desc">Spare capacity ready to take over (second host, second NIC, second PSU) so a failure has somewhere to go.</div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-head">
+          <svg class="concept-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+          <div>
+            <div class="abbr">Failover</div>
+            <div class="name">Automatic recovery</div>
+          </div>
+        </div>
+        <div class="desc">Moving a workload to a healthy node. With HA this is automatic — no admin needed at 3 AM.</div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-head">
+          <svg class="concept-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <div>
+            <div class="abbr">Heartbeat</div>
+            <div class="name">"I am alive"</div>
+          </div>
+        </div>
+        <div class="desc">Periodic signal nodes exchange. If the heartbeat stops, the cluster assumes the node is dead and reacts.</div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-head">
+          <svg class="concept-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div>
+            <div class="abbr">RTO</div>
+            <div class="name">Recovery Time Objective</div>
+          </div>
+        </div>
+        <div class="desc">How long the service may be down. HA typically delivers an RTO of 1–5 minutes (the time to restart the VM).</div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-head">
+          <svg class="concept-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v6c0 1.66 4 3 9 3s9-1.34 9-3V5M3 11v6c0 1.66 4 3 9 3s9-1.34 9-3v-6"/></svg>
+          <div>
+            <div class="abbr">RPO</div>
+            <div class="name">Recovery Point Objective</div>
+          </div>
+        </div>
+        <div class="desc">How much data may be lost. HA alone has RPO ≈ 0 for stateless workloads — but it is <i>not</i> a backup.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 6: ARCHITECTURE ===================== -->
+  <section class="slide">
+    <h1 class="kicker">03 · Architecture</h1>
+    <h4 class="section-title">What a HA cluster needs.</h4>
+    <div class="arch-wrap">
+      <svg viewBox="0 0 620 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hostG2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" class="s-grad-start"/>
+            <stop offset="100%" class="s-grad-end"/>
+          </linearGradient>
+          <linearGradient id="storeG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" class="s-storage-grad-start"/>
+            <stop offset="100%" class="s-storage-grad-end"/>
+          </linearGradient>
+          <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" class="s-accent-fill"/>
+          </marker>
+          <filter id="hostShadow">
+            <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#1d1d1f" flood-opacity="0.06"/>
+          </filter>
+        </defs>
+
+        <text x="310" y="22" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="11" font-weight="700" class="s-accent-fill" letter-spacing="2.5">CLUSTER HEARTBEAT</text>
+
+        <path d="M 180 100 Q 215 50 250 100" class="s-accent-stroke" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+        <path d="M 370 100 Q 405 50 440 100" class="s-accent-stroke" stroke-width="2" stroke-dasharray="5 4" fill="none"/>
+        <path d="M 180 115 Q 310 40 440 115" class="s-accent-stroke" stroke-width="2" stroke-dasharray="5 4" fill="none" opacity="0.6"/>
+
+        <!-- Host A -->
+        <g filter="url(#hostShadow)">
+          <rect x="50"  y="80" width="140" height="110" rx="14" fill="url(#hostG2)" class="s-card-stroke" stroke-width="1.5"/>
+          <rect x="64"  y="100" width="112" height="6" rx="3" class="s-accent-fill"/>
+          <text x="120" y="135" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="15" font-weight="700" class="s-ink-text">Host A</text>
+          <text x="120" y="153" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="10" class="s-muted-text">Hypervisor · Active</text>
+          <circle cx="68" cy="178" r="4" class="s-good-fill"/>
+          <text x="78" y="181" font-family="-apple-system, Inter, sans-serif" font-size="9" class="s-ink-soft-text">running 3 VMs</text>
+        </g>
+
+        <!-- Host B -->
+        <g filter="url(#hostShadow)">
+          <rect x="240" y="80" width="140" height="110" rx="14" fill="url(#hostG2)" class="s-card-stroke" stroke-width="1.5"/>
+          <rect x="254" y="100" width="112" height="6" rx="3" style="fill: var(--accent-2);"/>
+          <text x="310" y="135" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="15" font-weight="700" class="s-ink-text">Host B</text>
+          <text x="310" y="153" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="10" class="s-muted-text">Hypervisor · Active</text>
+          <circle cx="258" cy="178" r="4" class="s-good-fill"/>
+          <text x="268" y="181" font-family="-apple-system, Inter, sans-serif" font-size="9" class="s-ink-soft-text">running 2 VMs</text>
+        </g>
+
+        <!-- Host C -->
+        <g filter="url(#hostShadow)">
+          <rect x="430" y="80" width="140" height="110" rx="14" fill="url(#hostG2)" class="s-card-stroke" stroke-width="1.5"/>
+          <rect x="444" y="100" width="112" height="6" rx="3" class="s-accent-fill"/>
+          <text x="500" y="135" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="15" font-weight="700" class="s-ink-text">Host C</text>
+          <text x="500" y="153" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="10" class="s-muted-text">Hypervisor · Spare</text>
+          <circle cx="448" cy="178" r="4" class="s-good-fill"/>
+          <text x="458" y="181" font-family="-apple-system, Inter, sans-serif" font-size="9" class="s-ink-soft-text">N+1 reserve</text>
+        </g>
+
+        <!-- Network -->
+        <line x1="50" y1="240" x2="570" y2="240" class="s-ink-stroke" stroke-width="2"/>
+        <line x1="50" y1="246" x2="570" y2="246" class="s-ink-stroke" stroke-width="1" opacity="0.3"/>
+        <text x="58" y="232" font-family="-apple-system, Inter, sans-serif" font-size="10" font-weight="600" class="s-muted-text" letter-spacing="1.5">REDUNDANT NETWORK</text>
+
+        <line x1="120" y1="190" x2="120" y2="240" class="s-ink-stroke" stroke-width="1.5"/>
+        <line x1="310" y1="190" x2="310" y2="240" class="s-ink-stroke" stroke-width="1.5"/>
+        <line x1="500" y1="190" x2="500" y2="240" class="s-ink-stroke" stroke-width="1.5"/>
+
+        <!-- Storage -->
+        <g filter="url(#hostShadow)">
+          <rect x="190" y="290" width="240" height="100" rx="14" fill="url(#storeG)" class="s-storage-stroke" stroke-width="1.5"/>
+          <text x="310" y="320" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="15" font-weight="700" class="s-ink-text">Shared Storage</text>
+          <text x="310" y="342" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="11" class="s-ink-soft-text">iSCSI · NFS · FC · vSAN · Ceph</text>
+          <text x="310" y="362" text-anchor="middle" font-family="-apple-system, Inter, sans-serif" font-size="10" class="s-muted-text" font-style="italic">VM disks live here, not on the hosts</text>
+          <ellipse cx="220" cy="378" rx="10" ry="3" class="s-accent-fill"/>
+          <ellipse cx="240" cy="378" rx="10" ry="3" class="s-accent-fill" opacity="0.7"/>
+          <ellipse cx="260" cy="378" rx="10" ry="3" class="s-accent-fill" opacity="0.4"/>
+        </g>
+
+        <line x1="120" y1="246" x2="220" y2="290" class="s-accent-stroke" stroke-width="2" marker-end="url(#arrow2)"/>
+        <line x1="310" y1="246" x2="310" y2="290" class="s-accent-stroke" stroke-width="2" marker-end="url(#arrow2)"/>
+        <line x1="500" y1="246" x2="400" y2="290" class="s-accent-stroke" stroke-width="2" marker-end="url(#arrow2)"/>
+      </svg>
+
+      <div class="arch-legend">
+        <div class="legend-item">
+          <h6>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="6" rx="2"/><rect x="2" y="15" width="20" height="6" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            Cluster of hosts
+          </h6>
+          <p>≥ 2 hypervisors (3 recommended for quorum) managed as one logical pool.</p>
+        </div>
+        <div class="legend-item">
+          <h6>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3M21 5v14c0 1.66-4 3-9 3s-9-1.34-9-3V5"/></svg>
+            Shared storage
+          </h6>
+          <p>VM disks live outside the hosts. A surviving host can read the same files instantly.</p>
+        </div>
+        <div class="legend-item">
+          <h6>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/></svg>
+            Redundant network
+          </h6>
+          <p>Multiple physical paths so a single switch/cable failure doesn't isolate a host.</p>
+        </div>
+        <div class="legend-item">
+          <h6>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            Heartbeat
+          </h6>
+          <p>Hosts exchange constant "I'm alive" signals. Silence = failure = trigger failover.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 7: vSphere HA TIMELINE ===================== -->
+  <section class="slide">
+    <div class="hv-header">
+      <span class="hv-badge vmware">
+        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+        VMware ESXi
+      </span>
+      <span style="color: var(--muted); font-size: clamp(12px, 0.9vw, 14px);">04 · vSphere HA — Failure detection timeline</span>
+    </div>
+    <h4 class="section-title">How vSphere HA reacts.</h4>
+    <p class="lead">Hosts run an HA agent (FDM). One is elected master, the rest are slaves. The master watches the heartbeat — if it goes silent, this is what happens.</p>
+
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="tl-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="tl-time">T = 0 s</div>
+        <div class="tl-title">Normal heartbeat</div>
+        <div class="tl-desc">Master receives a network heartbeat from every slave every 1 s.</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="tl-time">T ≈ 3 s</div>
+        <div class="tl-title">Heartbeat lost</div>
+        <div class="tl-desc">Master stops receiving heartbeats from Host A. Suspicion begins.</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1018 0 9 9 0 00-18 0z"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="tl-time">T ≈ 15 s</div>
+        <div class="tl-title">Datastore check</div>
+        <div class="tl-desc">Master checks the heartbeat datastores — is the host writing files?</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="tl-time">T ≈ 30 s</div>
+        <div class="tl-title">Declared dead</div>
+        <div class="tl-desc">No network, no datastore heartbeat → host A is officially marked as failed.</div>
+      </div>
+      <div class="tl-step">
+        <div class="tl-dot">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="tl-time">T ≈ 90 s</div>
+        <div class="tl-title">VMs restarted</div>
+        <div class="tl-desc">All VMs of Host A are powered on automatically on the surviving hosts.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span><b>Typical RTO ≈ 60–120 s</b> from kernel panic to a running VM on another host. A user might never notice the failover for a web app.</span>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 8: vSphere — Admission + Lab ===================== -->
+  <section class="slide">
+    <div class="hv-header">
+      <span class="hv-badge vmware">
+        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+        VMware ESXi
+      </span>
+      <span style="color: var(--muted); font-size: clamp(12px, 0.9vw, 14px);">04 · Admission Control + our lab</span>
+    </div>
+    <h4 class="section-title">Reserving the safety net.</h4>
+
+    <div class="admission-vis">
+      <div>
+        <p class="lead" style="margin-bottom: 2vh; font-size: clamp(15px, 1.25vw, 20px);"><b>Admission Control</b> blocks new VMs from powering on if doing so would eat the spare capacity reserved for failover. Without it, failover can fail silently because there's no room left.</p>
+        <div class="resource-bars">
+          <div class="res-bar">
+            <div class="res-bar-label"><b>Cluster CPU capacity</b><span>3 hosts · "Tolerate 1 failure"</span></div>
+            <div class="res-bar-track">
+              <div class="res-bar-used" style="width: 55%;"></div>
+              <div class="res-bar-reserve" style="width: 33%;"></div>
+              <div class="res-bar-free" style="width: 12%;"></div>
+            </div>
+          </div>
+          <div class="res-bar">
+            <div class="res-bar-label"><b>Cluster memory capacity</b><span>same policy</span></div>
+            <div class="res-bar-track">
+              <div class="res-bar-used" style="width: 48%;"></div>
+              <div class="res-bar-reserve" style="width: 33%;"></div>
+              <div class="res-bar-free" style="width: 19%;"></div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 1.6vw; margin-top: 1.6vh; font-size: clamp(11px, 0.85vw, 13px); color: var(--ink-soft); flex-wrap: wrap;">
+            <div style="display:flex;align-items:center;gap:0.5em;"><span style="width:14px;height:14px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:3px;"></span>Used by running VMs</div>
+            <div style="display:flex;align-items:center;gap:0.5em;"><span style="width:14px;height:14px;background:repeating-linear-gradient(45deg,var(--warn-soft) 0,var(--warn-soft) 3px,transparent 3px,transparent 6px);border:1px dashed var(--warn);border-radius:3px;"></span>Reserved for failover</div>
+            <div style="display:flex;align-items:center;gap:0.5em;"><span style="width:14px;height:14px;background:var(--bg-soft);border:1px solid var(--hair);border-radius:3px;"></span>Free</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hv-col">
+        <h6>Our lab configuration</h6>
+        <ul>
+          <li>3-host ESXi cluster on HP servers, managed by vCenter</li>
+          <li>Shared storage via <b>iSCSI</b> from TrueNAS (<code>10.0.13.3:3260</code>)</li>
+          <li>Two heartbeat datastores: <code>iSCSI-Datastore-01</code> + <code>iSCSI-Heartbeat</code></li>
+          <li>VM Monitoring enabled, Restart Priority = Medium</li>
+          <li>Admission Control set to <b>tolerate 1 host failure</b></li>
+        </ul>
+        <div class="callout" style="margin-top: 2.4vh;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span><b>Why two heartbeat datastores?</b> A single one is itself a SPOF. Without redundancy HA can't tell a real failure from a storage glitch.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 9: Proxmox STACK ===================== -->
+  <section class="slide">
+    <div class="hv-header">
+      <span class="hv-badge proxmox">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+        Proxmox VE
+      </span>
+      <span style="color: var(--muted); font-size: clamp(12px, 0.9vw, 14px);">05 · The HA stack</span>
+    </div>
+    <h4 class="section-title">No central controller. Every node equal.</h4>
+    <p class="lead">Proxmox HA is built as a layered stack. The lower layers handle communication and consensus; the upper ones decide what to actually run.</p>
+
+    <div class="stack">
+      <div class="stack-layer top">
+        <div class="layer-name">ha-manager</div>
+        <div class="layer-desc">CLI &amp; web UI for adding resources (VMs/CTs), HA groups, and priorities</div>
+      </div>
+      <div class="stack-layer top">
+        <div class="layer-name">CRM</div>
+        <div class="layer-desc">Cluster Resource Manager — runs on the elected master; decides where each VM should run</div>
+      </div>
+      <div class="stack-layer mid">
+        <div class="layer-name">LRM</div>
+        <div class="layer-desc">Local Resource Manager — runs on every node; receives orders from CRM, actually starts/stops VMs</div>
+      </div>
+      <div class="stack-layer mid">
+        <div class="layer-name">pmxcfs</div>
+        <div class="layer-desc">Distributed cluster filesystem mounted at /etc/pve, synchronized across all nodes</div>
+      </div>
+      <div class="stack-layer low">
+        <div class="layer-name">Corosync</div>
+        <div class="layer-desc">Cluster engine — sub-second multicast heartbeat, requires &lt; 2 ms latency between nodes</div>
+      </div>
+      <div class="stack-layer low">
+        <div class="layer-name">Watchdog</div>
+        <div class="layer-desc">Hardware timer that hard-resets a node which loses quorum — provides physical fencing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 10: Quorum ===================== -->
+  <section class="slide">
+    <div class="hv-header">
+      <span class="hv-badge proxmox">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+        Proxmox VE
+      </span>
+      <span style="color: var(--muted); font-size: clamp(12px, 0.9vw, 14px);">05 · Quorum &amp; resource states</span>
+    </div>
+    <h4 class="section-title">Why 3 nodes is the minimum.</h4>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4vw; margin-top: 1vh;">
+      <div>
+        <p class="lead" style="margin-bottom: 2vh; font-size: clamp(14px, 1.15vw, 19px);">Proxmox requires <b>(n / 2) + 1</b> nodes to agree before taking any action. With 2 nodes and 1 failure, no majority — cluster freezes to prevent split-brain.</p>
+
+        <div style="background: var(--bg-soft); border-radius: 12px; padding: 2.4vh 1.6vw;">
+          <div style="font-size: clamp(11px, 0.85vw, 14px); color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; margin-bottom: 1.6vh;">3-node cluster · 1 dies</div>
+          <div class="quorum-vis">
+            <div class="quorum-node">1<small>UP</small></div>
+            <div class="quorum-node">2<small>UP</small></div>
+            <div class="quorum-node down">3</div>
+          </div>
+          <div class="quorum-formula"><code>2 ≥ (3/2)+1 = 2</code> → quorum OK → failover proceeds</div>
+        </div>
+
+        <div style="background: var(--bg-soft); border-radius: 12px; padding: 2.4vh 1.6vw; margin-top: 2vh;">
+          <div style="font-size: clamp(11px, 0.85vw, 14px); color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; margin-bottom: 1.6vh;">2-node cluster · 1 dies</div>
+          <div class="quorum-vis">
+            <div class="quorum-node">1<small>UP</small></div>
+            <div class="quorum-node down">2</div>
+          </div>
+          <div class="quorum-formula" style="color: var(--warn);"><code>1 &lt; (2/2)+1 = 2</code> → no quorum → cluster frozen</div>
+        </div>
+      </div>
+
+      <div class="hv-col">
+        <h6>HA resource states</h6>
+        <ul>
+          <li><b>started</b> — HA keeps it running, restarts on failure</li>
+          <li><b>stopped</b> — HA keeps it off, restarts if someone powers it on</li>
+          <li><b>ignored</b> — temporarily out of HA scope</li>
+          <li><b>disabled</b> / <b>error</b> — manual intervention required</li>
+        </ul>
+        <h6 style="margin-top: 3vh;">HA Groups</h6>
+        <ul>
+          <li><b>Priorities</b> per node — higher wins, prefer "stronger" hosts</li>
+          <li><b>restricted</b> — VM may only run inside this group</li>
+          <li><b>nofailback</b> — don't bounce back when the preferred node returns</li>
+        </ul>
+        <div class="callout" style="margin-top: 2vh;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+          <span><code>ha-manager add vm:100 --group prod --max_restart 3 --max_relocate 2</code></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 11: COMPARISON ===================== -->
+  <section class="slide">
+    <h1 class="kicker">06 · Comparison</h1>
+    <h4 class="section-title">vSphere HA vs. Proxmox HA.</h4>
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="vmware-h">VMware vSphere HA</th>
+          <th class="proxmox-h">Proxmox HA</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="feature">License</td><td class="vmware-c">Commercial · vSphere Standard or higher</td><td class="proxmox-c">Open source · free (optional support sub.)</td></tr>
+        <tr><td class="feature">Central management</td><td class="vmware-c">vCenter required</td><td class="proxmox-c">None — any node's web UI works</td></tr>
+        <tr><td class="feature">Minimum nodes</td><td class="vmware-c">2 (3 recommended)</td><td class="proxmox-c">3 (for quorum)</td></tr>
+        <tr><td class="feature">Cluster engine</td><td class="vmware-c">FDM agent + vCenter</td><td class="proxmox-c">Corosync + pmxcfs</td></tr>
+        <tr><td class="feature">Failure detection</td><td class="vmware-c">Network HB + datastore HB + isolation ping</td><td class="proxmox-c">Corosync HB + hardware watchdog</td></tr>
+        <tr><td class="feature">Fencing</td><td class="vmware-c">Logical (isolation response policy)</td><td class="proxmox-c">Physical (watchdog hard-reset)</td></tr>
+        <tr><td class="feature">Shared storage</td><td class="vmware-c">Required (VMFS / NFS / vSAN)</td><td class="proxmox-c">Required (Ceph / NFS / iSCSI / ZFS-repl.)</td></tr>
+        <tr><td class="feature">Typical RTO</td><td class="vmware-c">≈ 1 min after failure detected</td><td class="proxmox-c">≈ 2 min (watchdog + restart)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ===================== SLIDE 12: DOS & DONTS ===================== -->
+  <section class="slide">
+    <h1 class="kicker">07 · Best practices</h1>
+    <h4 class="section-title">Do's &amp; Don'ts.</h4>
+    <div class="dos-donts">
+      <div class="dd-col do">
+        <h6><span class="tag">DO</span> Build for resilience</h6>
+        <ul>
+          <li>Use shared storage — it's not optional for true HA</li>
+          <li>Run at least 3 nodes so quorum survives a single failure</li>
+          <li>Configure ≥ 2 heartbeat datastores (vSphere) / a real fencing device (Proxmox)</li>
+          <li>Reserve capacity with Admission Control — otherwise failover may fail silently</li>
+          <li>Test failover regularly (kill a host, verify RTO)</li>
+          <li>Monitor cluster health and alert on quorum loss</li>
+        </ul>
+      </div>
+      <div class="dd-col dont">
+        <h6><span class="tag">DON'T</span> Common mistakes</h6>
+        <ul>
+          <li>Don't confuse HA with backup — HA protects against host failure, not data loss</li>
+          <li>Don't run a 2-node Proxmox cluster — no quorum after one node fails</li>
+          <li>Don't skip fencing — risk of split-brain and data corruption</li>
+          <li>Don't oversubscribe — if every host runs at 90 %, failover has nowhere to land</li>
+          <li>Don't use a single network path between cluster nodes</li>
+          <li>Don't put heartbeat datastores on the same physical disk array</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 13: DEMO ===================== -->
+  <section class="slide">
+    <div class="hv-header">
+      <span class="hv-badge proxmox">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+        Proxmox VE
+      </span>
+      <span style="color: var(--muted); font-size: clamp(12px, 0.9vw, 14px);">08 · Live demonstration</span>
+    </div>
+    <h4 class="section-title">Failing over a VM on Proxmox HA.</h4>
+    <p class="lead">We force a node to die and watch the watchdog fence it, quorum reassign the VM, and another node start it up — all without touching the web UI.</p>
+    <div class="demo-steps">
+      <div class="demo-step">
+        <div class="step-num">STEP 01</div>
+        <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+        <h6>Baseline</h6>
+        <p>Show <code>demo-vm</code> running on <code>pve-01</code>, registered as HA resource (<code>ha-manager status</code>).</p>
+      </div>
+      <div class="demo-step">
+        <div class="step-num">STEP 02</div>
+        <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18.36 6.64a9 9 0 11-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+        <h6>Kill the node</h6>
+        <p>Hard-reset <code>pve-01</code> via iLO — simulates a sudden hardware failure, no clean shutdown.</p>
+      </div>
+      <div class="demo-step">
+        <div class="step-num">STEP 03</div>
+        <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="9" x2="12" y2="13"/></svg>
+        <h6>Watchdog fences</h6>
+        <p>Corosync loses the node, quorum drops it. After ~60 s the watchdog confirms it's gone.</p>
+      </div>
+      <div class="demo-step">
+        <div class="step-num">STEP 04</div>
+        <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <h6>VM relocated</h6>
+        <p>CRM reassigns to <code>pve-02</code>, LRM starts it. Observed RTO: ~2 min.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+      <span><b>Watch for:</b> the <code>Datacenter → HA</code> panel — resource state cycles from <code>started</code> → <code>fence</code> → <code>recovery</code> → <code>started</code> on the new node. No one is clicking anything.</span>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 14: Q&A ===================== -->
+  <section class="slide">
+    <div class="qa-center">
+      <svg class="qa-bg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="qaG" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="currentColor" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g style="color: var(--accent);">
+          <circle cx="400" cy="200" r="280" fill="url(#qaG)"/>
+          <g stroke="currentColor" stroke-width="1" opacity="0.15" fill="none">
+            <circle cx="400" cy="200" r="120"/>
+            <circle cx="400" cy="200" r="180"/>
+            <circle cx="400" cy="200" r="240"/>
+          </g>
+        </g>
+      </svg>
+      <h2>Questions?</h2>
+      <p>Thank you — High Availability, Team 3.</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="click-zone left" id="prevZone"></div>
+<div class="click-zone right" id="nextZone"></div>
+
+<div class="chrome">
+  <div class="brand"><span class="brand-dot"></span>High Availability · Team 3</div>
+  <div class="counter" id="counter">01 / 14</div>
+</div>
+
+<div class="help" id="help">
+  <div><kbd>→</kbd> <kbd>Space</kbd> next slide</div>
+  <div><kbd>←</kbd> previous slide</div>
+  <div><kbd>T</kbd> theme · <kbd>F</kbd> fullscreen</div>
+  <div><kbd>1-9</kbd> jump to slide · <kbd>?</kbd> toggle help</div>
+</div>
+
+<script>
+  // ===================== THEME =====================
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const STORAGE_KEY = 'ha-presentation-theme';
+
+  function applyTheme(theme) {
+    if (theme === 'dark') root.classList.add('dark');
+    else root.classList.remove('dark');
+  }
+
+  function getStoredTheme() {
+    try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+  }
+  function storeTheme(theme) {
+    try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) {}
+  }
+
+  // Init: stored > system preference > light
+  const stored = getStoredTheme();
+  if (stored === 'dark' || stored === 'light') {
+    applyTheme(stored);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    applyTheme('dark');
+  }
+
+  function toggleTheme() {
+    const next = root.classList.contains('dark') ? 'light' : 'dark';
+    applyTheme(next);
+    storeTheme(next);
+  }
+  themeBtn.addEventListener('click', toggleTheme);
+
+  // ===================== FULLSCREEN =====================
+  const fsBtn = document.getElementById('fsBtn');
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+  fsBtn.addEventListener('click', toggleFullscreen);
+
+  // ===================== SLIDES =====================
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  const help = document.getElementById('help');
+  let current = 0;
+  let helpVisible = false;
+
+  function render() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === current));
+    const total = slides.length;
+    const num = String(current + 1).padStart(2, '0');
+    const tot = String(total).padStart(2, '0');
+    counter.textContent = `${num} / ${tot}`;
+    progress.style.width = ((current + 1) / total * 100) + '%';
+  }
+
+  function next() { if (current < slides.length - 1) { current++; render(); } }
+  function prev() { if (current > 0) { current--; render(); } }
+  function goto(i) { if (i >= 0 && i < slides.length) { current = i; render(); } }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') return;
+    switch (e.key) {
+      case 'ArrowRight':
+      case ' ':
+      case 'PageDown':
+        e.preventDefault(); next(); break;
+      case 'ArrowLeft':
+      case 'PageUp':
+        e.preventDefault(); prev(); break;
+      case 'Home':
+        e.preventDefault(); goto(0); break;
+      case 'End':
+        e.preventDefault(); goto(slides.length - 1); break;
+      case 'f':
+      case 'F':
+        e.preventDefault(); toggleFullscreen(); break;
+      case 't':
+      case 'T':
+        e.preventDefault(); toggleTheme(); break;
+      case '?':
+        helpVisible = !helpVisible;
+        help.classList.toggle('visible', helpVisible);
+        break;
+      default:
+        if (/^[1-9]$/.test(e.key)) goto(parseInt(e.key, 10) - 1);
+    }
+  });
+
+  document.getElementById('nextZone').addEventListener('click', next);
+  document.getElementById('prevZone').addEventListener('click', prev);
+
+  // Briefly show help on load
+  setTimeout(() => {
+    help.classList.add('visible');
+    helpVisible = true;
+    setTimeout(() => {
+      help.classList.remove('visible');
+      helpVisible = false;
+    }, 3500);
+  }, 600);
+
+  render();
+</script>
+
+</body>
+</html>

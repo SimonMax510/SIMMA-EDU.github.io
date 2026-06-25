@@ -3200,10 +3200,9 @@ body {
     text-decoration: none;
     transition: color var(--transition);
     padding: 0.4rem 0;
-    border-bottom: 1px solid transparent;
 }
 
-.footer-link:hover { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+.footer-link:hover { color: var(--color-primary); }
 .footer-link svg { flex-shrink: 0; color: var(--color-primary); opacity: 0.7; }
 .footer-link:hover svg { opacity: 1; }
 
