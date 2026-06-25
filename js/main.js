@@ -1123,6 +1123,14 @@ timelineItems.forEach(item => {
     }
 
     function tagElements() {
+        // Page title & subtitle (set key based on URL, runs before first applyLang)
+        const pg = detectPage();
+        const titleEl = document.querySelector('.page-title');
+        const subEl   = document.querySelector('.page-subtitle');
+        if (titleEl) titleEl.dataset.langKey = 'page.' + pg + '.title';
+        if (subEl)   subEl.dataset.langKey   = 'page.' + pg + '.sub';
+
+        // Section headings (auto-detect by English text)
         document.querySelectorAll('.section-heading').forEach(el => {
             const k = SECTION_MAP[el.textContent.trim()];
             if (k) el.dataset.langKey = k;
@@ -1131,39 +1139,34 @@ timelineItems.forEach(item => {
             const k = SKILLS_SECTION_MAP[el.textContent.trim()];
             if (k) el.dataset.langKey = k;
         });
+
+        // Status badges (CSS class, always reliable)
         document.querySelectorAll('.status-badge').forEach(el => {
-            if (el.classList.contains('status-completed'))   el.dataset.langKey = 'status.completed';
+            if (el.classList.contains('status-completed'))        el.dataset.langKey = 'status.completed';
             else if (el.classList.contains('status-development')) el.dataset.langKey = 'status.development';
-            else if (el.classList.contains('status-future')) el.dataset.langKey = 'status.future';
+            else if (el.classList.contains('status-future'))      el.dataset.langKey = 'status.future';
         });
     }
 
     function applyLang(lang) {
-        const t = translations[lang];
+        const t = window.translations[lang];
         if (!t) return;
 
         document.querySelectorAll('.lang-btn').forEach(b => {
             b.classList.toggle('active', b.dataset.lang === lang);
         });
 
-        // Nav links
+        // Nav links (selector-based, works without data attributes)
         ['nav-link', 'footer-nav-link'].forEach(cls => {
-            document.querySelectorAll(`a.${cls}`).forEach(el => {
+            document.querySelectorAll('a.' + cls).forEach(el => {
                 const href = el.getAttribute('href');
                 const page = (href || '').replace('.html', '').replace('./', '') || 'index';
-                const key = `nav.${page}`;
+                const key = 'nav.' + page;
                 if (t[key]) el.textContent = t[key];
             });
         });
 
-        // Page title & subtitle
-        const pg = detectPage();
-        const titleEl = document.querySelector('.page-title');
-        const subEl   = document.querySelector('.page-subtitle');
-        if (titleEl && t[`page.${pg}.title`]) titleEl.textContent = t[`page.${pg}.title`];
-        if (subEl   && t[`page.${pg}.sub`])   subEl.textContent   = t[`page.${pg}.sub`];
-
-        // Tagged elements (section headings, status badges, skills titles)
+        // All tagged elements (page title, section headings, status badges, skills titles, custom data-lang-key)
         document.querySelectorAll('[data-lang-key]').forEach(el => {
             const v = t[el.dataset.langKey];
             if (v !== undefined) el.textContent = v;

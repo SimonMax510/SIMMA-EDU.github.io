@@ -1,6 +1,7 @@
 window.translations = {
     en: {
         'nav.home':       'Home',
+        'nav.index':      'Home',
         'nav.projects':   'Projects',
         'nav.skills':     'Skills/Certificates',
         'nav.experience': 'Experience',
@@ -10,6 +11,10 @@ window.translations = {
 
         'page.index.title':      'Max Simon',
         'page.index.sub':        'BTS Cloud Computing Student',
+        'index.sub2':            'BTS Student',
+        'index.desc':            "Hey, I'm Max — Cloud Computing student at Lycée Guillaume Kroll in Esch-Alzette, finishing my 2nd year of BTS. Semester 2 deepened my focus on containerization with Docker, hypervisor management (VMware & Proxmox), Azure administration (AZ-104), security & incident response, and PowerShell/Bash automation. Outside of school I run a homelab and co-build Luxembourg Media Engineering with friends.",
+        'index.cta.skills':      'My Skills',
+        'index.cta.contact':     'Get in touch',
         'page.projects.title':   'Projects',
         'page.projects.sub':     'Personal & School Projects',
         'page.skills.title':     'Skills & Certificates',
@@ -73,6 +78,10 @@ window.translations = {
 
         'page.index.title':      'Max Simon',
         'page.index.sub':        'BTS Cloud Computing Student',
+        'index.sub2':            'BTS-Student',
+        'index.desc':            'Hey, ich bin Max — Cloud Computing Student an der Lycée Guillaume Kroll in Esch-Alzette, im 2. Jahr meines BTS. Im 2. Semester vertiefte ich mich in Containerisierung mit Docker, Hypervisor-Management (VMware & Proxmox), Azure-Administration (AZ-104), Sicherheit & Incident Response sowie PowerShell/Bash-Automatisierung. Außerhalb der Schule betreibe ich ein Homelab und entwickle mit Freunden Luxembourg Media Engineering.',
+        'index.cta.skills':      'Meine Fähigkeiten',
+        'index.cta.contact':     'Kontakt aufnehmen',
         'page.projects.title':   'Projekte',
         'page.projects.sub':     'Persönliche & Schulprojekte',
         'page.skills.title':     'Fähigkeiten & Zertifikate',
@@ -136,6 +145,10 @@ window.translations = {
 
         'page.index.title':      'Max Simon',
         'page.index.sub':        'Étudiant BTS Cloud Computing',
+        'index.sub2':            'Étudiant BTS',
+        'index.desc':            "Salut, je suis Max — étudiant en Cloud Computing au Lycée Guillaume Kroll à Esch-Alzette, en 2ème année de BTS. Au semestre 2, j'ai approfondi la conteneurisation avec Docker, la gestion des hyperviseurs (VMware & Proxmox), l'administration Azure (AZ-104), la sécurité & réponse aux incidents, et l'automatisation PowerShell/Bash. En dehors de l'école, je gère un homelab et co-développe Luxembourg Media Engineering avec des amis.",
+        'index.cta.skills':      'Mes Compétences',
+        'index.cta.contact':     'Me contacter',
         'page.projects.title':   'Projets',
         'page.projects.sub':     'Projets personnels & scolaires',
         'page.skills.title':     'Compétences & Certificats',
