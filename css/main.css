@@ -3629,4 +3629,64 @@ body {
     html { scroll-behavior: auto; }
 }
 
+/* ============================================
+   MOBILE OVERRIDES — small screens
+   ============================================ */
+
+/* Hero: scale down title on very small screens */
+@media (max-width: 400px) {
+    .hero-title { font-size: 2.2rem; }
+    .hero-subtitle { font-size: 0.9rem; }
+}
+
+/* About strip: collapse to single column so long values don't truncate */
+@media (max-width: 479px) {
+    .about-strip { grid-template-columns: 1fr; }
+    .about-strip-item {
+        border-right: none !important;
+        border-bottom: 1px solid var(--color-border) !important;
+    }
+    .about-strip-item:last-child { border-bottom: none !important; }
+    .about-strip-value { white-space: normal; }
+}
+
+/* Timeline: reduce left indent so content isn't squeezed on narrow screens */
+@media (max-width: 639px) {
+    .timeline { padding-left: 1.75rem; }
+    .timeline-dot { left: calc(-1.75rem - 6px); }
+}
+
+/* Filter dropdowns: stack vertically so they don't overflow side by side */
+@media (max-width: 639px) {
+    .category-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .category-dropdown {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+/* Soft skill cards: tighter padding on mobile */
+@media (max-width: 639px) {
+    .soft-skill-card { padding: var(--spacing-sm); }
+}
+
+/* Footer: prevent email address from overflowing on tiny screens */
+@media (max-width: 479px) {
+    .footer-meta-item {
+        font-size: 0.7rem;
+        word-break: break-all;
+    }
+}
+
+/* Skills: hover tooltips don't work on touch — hide them */
+@media (hover: none) {
+    .tooltips-on .hs-tag[data-tip]::after,
+    .tooltips-on .hs-tag[data-tip]::before {
+        display: none !important;
+    }
+}
+
 
