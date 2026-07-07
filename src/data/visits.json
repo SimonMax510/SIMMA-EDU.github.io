@@ -1,0 +1,147 @@
+[
+  {
+    "category": "external",
+    "semester": "2",
+    "title": "2026 - French Interview Simulation with DevoTeam Luxemburg",
+    "duration": "Semester 2",
+    "location": "DevoTeam Luxemburg, Luxembourg",
+    "details": [
+      "Mock job interview conducted entirely in French with representatives from DevoTeam Luxemburg",
+      "Practiced professional communication and technical vocabulary in French"
+    ],
+    "sections": []
+  },
+  {
+    "category": "training",
+    "semester": "2",
+    "title": "2026 - AWS Workshop",
+    "duration": "Semester 2",
+    "location": "Lycée Guillaume Kroll, Esch-Alzette",
+    "details": [
+      "Hands-on AWS workshop led by Charlier Arnaud",
+      "Introduction to AWS infrastructure and core cloud services",
+      "Practical exercises working directly with AWS services and the console"
+    ],
+    "sections": []
+  },
+  {
+    "category": "external",
+    "semester": "2",
+    "title": "2026 - Project Management with Jager Jamey",
+    "duration": "Semester 2",
+    "location": "Lycée Guillaume Kroll, Esch-Alzette",
+    "details": [],
+    "sections": [
+      {
+        "title": "What I Learned",
+        "items": [
+          "<strong>OKR (Objectives and Key Results)</strong> — Define goal-oriented objectives and their specific success criteria",
+          "<strong>KPI (Key Performance Indicators)</strong> — Measures to monitor progress toward OKRs",
+          "<strong>Milestones</strong> — Key points in a project plan that mark progress and define phases",
+          "<strong>GTD (Getting Things Done)</strong> — Method for organizing and prioritizing tasks effectively"
+        ]
+      }
+    ]
+  },
+  {
+    "category": "external",
+    "semester": "1",
+    "title": "2026 - Interview Simulation with Yves Schlüter",
+    "duration": "Semester 1",
+    "location": "Lycée Guillaume Kroll, Esch-Alzette",
+    "details": [
+      "External guest Yves Schlüter, a former Post Luxembourg employee, visited our class",
+      "Conducted a mock job interview simulation and reviewed our cover letters and CVs",
+      "Received personalized feedback on improving the layout and presentation of the CV",
+      "Learned how to confidently answer critical and challenging interview questions"
+    ],
+    "sections": []
+  },
+  {
+    "category": "external",
+    "semester": "1",
+    "title": "2025/26 - CV & Interview Preparation with Guy Marong",
+    "duration": "Semester 1",
+    "location": "Lycée Guillaume Kroll, Esch-Alzette",
+    "details": [
+      "External guest Guy Marong accompanied our class throughout the entire first semester",
+      "Guided us on how to properly structure an English CV",
+      "Taught techniques for preparing and presenting oneself in a professional job interview"
+    ],
+    "sections": []
+  },
+  {
+    "category": "external",
+    "semester": "1",
+    "title": "2025 - Interview Simulation with NTT Luxembourg",
+    "duration": "Semester 1",
+    "location": "Lycée Guillaume Kroll, Esch-Alzette",
+    "details": [
+      "Applied CV and interview skills from Guy Marong's sessions in a real-world mock interview with NTT Luxembourg",
+      "Gained practical experience in a professional interview setting with an actual company"
+    ],
+    "sections": []
+  },
+  {
+    "category": "visit",
+    "semester": "1",
+    "title": "2026 - Luxembourg Army Visit",
+    "duration": "March",
+    "location": "Luxembourg Army, Luxembourg",
+    "details": [
+      "Scheduled military facility tour",
+      "Exploration of military technology and infrastructure"
+    ],
+    "sections": []
+  },
+  {
+    "category": "visit",
+    "semester": "1",
+    "title": "2026 - LuxConnect Visit",
+    "duration": "January",
+    "location": "LuxConnect, Luxembourg",
+    "details": [
+      "Data center facility tour and inspection",
+      "Learned about data center infrastructure and operations"
+    ],
+    "sections": []
+  },
+  {
+    "category": "training",
+    "semester": "1",
+    "title": "2026 - House of Entrepreneurship - Online Course",
+    "duration": "January",
+    "location": "House of Entrepreneurship, Luxembourg",
+    "details": [
+      "Completed online course on business creation and entrepreneurship",
+      "Learned fundamentals of starting and managing a company"
+    ],
+    "sections": []
+  },
+  {
+    "category": "visit",
+    "semester": "1",
+    "title": "2026 - ARHS Group Visit – AWS re:Invent re:cap",
+    "duration": "January 23 – 24",
+    "location": "ARHS Group, Belval, Luxembourg",
+    "details": [
+      "Attended AWS re:Invent re:cap event: \"From Las Vegas to Belval\"",
+      "Overview of the latest AWS announcements and innovations from re:Invent",
+      "Insights into cloud computing trends and AWS services"
+    ],
+    "sections": []
+  },
+  {
+    "category": "external",
+    "semester": "1",
+    "title": "2025 - Microsoft Official Training – AZ-900",
+    "duration": "2 Days",
+    "location": "Lycée Guillaume Kroll, Esch-Alzette",
+    "details": [
+      "External trainer Xavier Nix from <strong>Deep</strong> visited our class for two full days of in-person instruction",
+      "Course: AZ-900 Microsoft Azure Fundamentals",
+      "Covered core cloud concepts, Azure services, and pricing"
+    ],
+    "sections": []
+  }
+]

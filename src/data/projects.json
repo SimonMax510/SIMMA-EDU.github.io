@@ -1,0 +1,1847 @@
+[
+  {
+    "id": "project-ownai",
+    "semester": "2",
+    "name": "OwnAI",
+    "tagline": "Self-Hosted Local AI Server",
+    "course": "Personal / Homelab",
+    "status": {
+      "kind": "development",
+      "text": "In Development"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/ownAi/ollama-local-ia-ai-open-source-00.png",
+      "alt": "OwnAI"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "A self-hosted AI assistant running on a server I built at home. The AI uses RAG (Retrieval Augmented Generation) files as a knowledge base — I gave it the full Proxmox documentation (685 pages) so it can answer infrastructure questions directly from the source material."
+          },
+          {
+            "html": "The AI is connected to the internet and I integrated it with <strong>Telegram</strong> — so I can chat with my AI assistant from anywhere just by sending a message in Telegram, making it a proper personal assistant for planning and reminders."
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🖥️"
+            },
+            "name": "Supermicro Server + GPU",
+            "desc": "An older server I set up at home with a graphics card — the GPU allows AI models to run much faster than on a normal CPU"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🦙"
+            },
+            "name": "Ollama",
+            "desc": "Tool that downloads and runs AI models locally on my own hardware"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "💬"
+            },
+            "name": "AnythingLLM",
+            "desc": "The chat interface — I can talk to the AI through the browser and give it documents to read"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🐧"
+            },
+            "name": "Ubuntu Server 22.04",
+            "desc": "Linux operating system running on the server"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🐳"
+            },
+            "name": "Docker",
+            "desc": "Used to run AnythingLLM in an isolated container"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "📡"
+            },
+            "name": "Telegram",
+            "desc": "Messaging app integration — chat with the AI from anywhere via a Telegram conversation"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Features",
+        "items": [
+          {
+            "title": "RAG Knowledge Base",
+            "desc": "RAG (Retrieval Augmented Generation) files — I gave the AI the full Proxmox documentation so it can answer questions from the actual source material"
+          },
+          {
+            "title": "Internet Connected",
+            "desc": "The AI can search the web for up-to-date information, not limited to the knowledge base"
+          },
+          {
+            "title": "Telegram Integration",
+            "desc": "Linked to Telegram so I can send messages to my AI from my phone — available from anywhere without opening a browser"
+          },
+          {
+            "title": "Multilingual",
+            "desc": "Works in German and English — useful for both school and personal use"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "Why a graphics card makes such a big difference for AI — the GPU handles the parallel computations that AI models require",
+          "That different AI models are made for different tasks — a code-focused model is not just \"stronger\", it's simply a different tool",
+          "How much hardware resources AI actually requires — the RTX 2060 with only 6 GB VRAM turned out to be a real bottleneck for larger models"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-azure-104",
+    "semester": "2",
+    "name": "Azure 104",
+    "tagline": "Azure Administrator Associate Preparation",
+    "course": "Semester 2 — Planning",
+    "status": {
+      "kind": "development",
+      "text": "In Development"
+    },
+    "icon": {
+      "type": "emoji",
+      "emoji": "☁️"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "Preparation and hands-on work toward the Microsoft Azure Administrator Associate (AZ-104) certification. The project focuses on two core areas: deploying and managing Azure compute resources, and administering Azure identities and governance."
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "☁️"
+            },
+            "name": "Microsoft Azure",
+            "desc": "Cloud platform — VMs, resource groups, identity services"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🔐"
+            },
+            "name": "Azure Entra ID",
+            "desc": "Identity and access management"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Topics",
+        "items": [
+          {
+            "title": "Deploy & Manage Compute Resources",
+            "desc": "Implement and manage virtual machines, scale sets, containers, and app services on Azure"
+          },
+          {
+            "title": "Identity & Governance Management",
+            "desc": "Manage Azure AD identities, RBAC, policies, subscriptions, and governance controls"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "The difference between Entra ID level and Resource level permissions — and why assigning roles at the right level is critical for secure access control",
+          "How Azure Load Balancer works — distributing incoming traffic across multiple VMs to ensure availability and reliability",
+          "Azure Application Proxy — enabling secure remote access to applications through the cloud without requiring a VPN"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-pi5-cluster",
+    "semester": "2",
+    "name": "Pi 5 Cluster",
+    "tagline": "K3s Load Balancer for Porte Ouverte LGK",
+    "course": "Semester 2 — Infrastructure",
+    "status": {
+      "kind": "completed",
+      "text": "Completed"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/pyCluster/Cluster.jpg",
+      "alt": "Pi 5 Cluster"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "We built a cluster of Raspberry Pi 5 computers linked together to host a load balancer for the Porte Ouverte open day at Lycée Guillaume Kroll. The idea was simple: instead of one device handling all the visitor traffic, multiple Pis share the load — so if one goes down, the others keep running."
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🍓"
+            },
+            "name": "Raspberry Pi 5",
+            "desc": "Small single-board computers connected together to form the cluster"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "⚙️"
+            },
+            "name": "K3s",
+            "desc": "Tool used to manage which Pi handles which task and distribute the work across the cluster"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🔀"
+            },
+            "name": "Load Balancer",
+            "desc": "Spreads incoming visitor requests across multiple devices so no single one gets overloaded"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Features",
+        "items": [
+          {
+            "title": "Traffic Distribution",
+            "desc": "Visitors are spread across multiple Pis so no single device has to handle everything alone"
+          },
+          {
+            "title": "Redundancy",
+            "desc": "If one Pi fails, the others continue running — the service stays up"
+          },
+          {
+            "title": "Built for Porte Ouverte",
+            "desc": "Specifically designed for the LGK open day where many visitors access the site at the same time"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "How to physically set up and connect multiple computers into a cluster",
+          "Why load balancing matters — and what happens when one node in a cluster fails",
+          "That K3s, while powerful, is complex to set up and debug — which led us to look for a simpler alternative"
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "Future Plans",
+        "items": [
+          "Rebuild the cluster using <strong>Docker Swarm</strong> instead of K3s — a simpler native Docker approach to clustering that fits our skill level better and is easier to maintain",
+          "Expand the number of nodes in the cluster to improve redundancy and available compute capacity",
+          "Run more real services on the cluster — not just a load balancer, but actual containerized applications deployed across multiple Pis",
+          "Document the full setup as a proper guide so it can be reproduced and handed over to future BTS students"
+        ]
+      },
+      {
+        "type": "screenshots",
+        "heading": "Photos",
+        "items": [
+          {
+            "src": "img/pyCluster/Cluster.jpg",
+            "alt": "Pi 5 Cluster hardware",
+            "caption": "The assembled Pi 5 cluster — multiple boards connected and rack-mounted"
+          },
+          {
+            "src": "img/pyCluster/dashboard.png",
+            "alt": "K3s dashboard",
+            "caption": "K3s dashboard showing cluster nodes and workload distribution"
+          },
+          {
+            "src": "img/pyCluster/present.jpg",
+            "alt": "Project presentation",
+            "caption": "Presenting the Pi cluster at Porte Ouverte LGK"
+          }
+        ]
+      },
+      {
+        "type": "downloads",
+        "heading": "Downloads",
+        "groups": [
+          {
+            "label": null,
+            "items": [
+              {
+                "href": "img/pyCluster/Pi_cluster_project_proposal (1).pdf",
+                "icon": "📄",
+                "title": "Project Proposal",
+                "desc": "Pi 5 Cluster project proposal (PDF)",
+                "newTab": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-vmware-proxmox",
+    "semester": "2",
+    "name": "VMware & Proxmox",
+    "tagline": "Hypervisor Deep-Dive with High Availability",
+    "course": "Semester 2 — Virtualization",
+    "status": {
+      "kind": "completed",
+      "text": "Completed"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/VmWare/proxmox-vs-esxi-1.png",
+      "alt": "VMware vs Proxmox"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "An in-depth study of two major hypervisor platforms — VMware and Proxmox VE — with a focus on High Availability (HA) configurations. The project explores how to keep virtual machines running with minimal downtime in case of node failure."
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🖥️"
+            },
+            "name": "VMware",
+            "desc": "Industry-standard hypervisor platform for enterprise virtualization"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "📦"
+            },
+            "name": "Proxmox VE",
+            "desc": "Open-source virtualization platform with clustering and HA support"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Topics",
+        "items": [
+          {
+            "title": "High Availability",
+            "desc": "Ensuring VM availability by automatically restarting VMs on another node in case of failure — minimizing service interruptions"
+          },
+          {
+            "title": "Hypervisor Comparison",
+            "desc": "Side-by-side comparison of VMware and Proxmox features, licensing, and HA capabilities"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "Differences between VMware and Proxmox HA implementation",
+          "Configuring cluster nodes and HA groups in Proxmox",
+          "How to set up and manage a VMware ESXi hypervisor from scratch",
+          "Why open-source tools like Proxmox can match or exceed enterprise solutions for many use cases"
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Conclusion",
+        "paragraphs": [
+          {
+            "html": "After working with both platforms, our group concluded that <strong>Proxmox</strong> is the better choice for our use case. It has a more modern and intuitive interface, is easier to set up and manage, and being fully open-source means no licensing costs. VMware is the industry standard and remains powerful, but for a student or home-lab environment, Proxmox delivers everything you need with less friction."
+          }
+        ]
+      },
+      {
+        "type": "team",
+        "heading": "Team",
+        "members": [
+          {
+            "name": "Max",
+            "role": "VMware — complete configuration · VMware video editing (partial)"
+          },
+          {
+            "name": "Eric",
+            "role": "Proxmox — full configuration"
+          },
+          {
+            "name": "Sven",
+            "role": "Video editing (primary)"
+          }
+        ]
+      },
+      {
+        "type": "downloads",
+        "heading": "Downloads & Resources",
+        "groups": [
+          {
+            "label": "Assignment",
+            "items": [
+              {
+                "href": "Downloads/vircl/Project_Server Virtualization Systems (1).docx",
+                "icon": "📄",
+                "title": "Server Virtualization Systems",
+                "desc": "Project assignment document (DOCX)",
+                "newTab": false
+              }
+            ]
+          },
+          {
+            "label": "Documentation",
+            "items": [
+              {
+                "href": "Downloads/vircl/Documentation_Final(old).docx",
+                "icon": "📄",
+                "title": "Project Documentation",
+                "desc": "Full project documentation (DOCX)",
+                "newTab": false
+              },
+              {
+                "href": "Downloads/vircl/pve-cut_3.mp4",
+                "icon": "🎬",
+                "title": "Video Proxmox",
+                "desc": "Proxmox VE walkthrough video (MP4)",
+                "newTab": true
+              },
+              {
+                "href": "Downloads/vircl/esxi-cut_1.mp4",
+                "icon": "🎬",
+                "title": "Video VMware",
+                "desc": "VMware ESXi walkthrough video (MP4)",
+                "newTab": true
+              },
+              {
+                "href": "Downloads/vircl/high-availability-presentation.html",
+                "icon": "🌐",
+                "title": "Presentation",
+                "desc": "High Availability presentation (HTML)",
+                "newTab": true
+              }
+            ]
+          },
+          {
+            "label": "Meetings",
+            "items": [
+              {
+                "href": "Downloads/vircl/Meeting Report 1 (2).dotx",
+                "icon": "📝",
+                "title": "Meeting Report 1",
+                "desc": "First project meeting notes",
+                "newTab": false
+              },
+              {
+                "href": "Downloads/vircl/Meeting Report 2.docx",
+                "icon": "📝",
+                "title": "Meeting Report 2",
+                "desc": "Second project meeting notes (DOCX)",
+                "newTab": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-security",
+    "semester": "2",
+    "name": "Security & Incident Response",
+    "tagline": "Threat Awareness, Crisis Preparation & Attack Response",
+    "course": "Semester 2 — Security Course",
+    "status": {
+      "kind": "completed",
+      "text": "Completed"
+    },
+    "icon": {
+      "type": "emoji",
+      "emoji": "🔒"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "A dedicated security course covering real-world threats, how attacks unfold in practice, and how an organization should prepare for and respond to a crisis situation. The course focused on threat awareness — understanding attack vectors and recognizing early warning signs — and on the structured response side: what to do, who decides what, and how to recover and harden systems afterwards."
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Topics",
+        "items": [
+          {
+            "title": "Threat Vectors & Attack Types",
+            "desc": "Common attack methods — phishing, ransomware, social engineering, privilege escalation — and how they are used in real breaches"
+          },
+          {
+            "title": "Crisis Preparation",
+            "desc": "How organizations prepare before an attack: incident response plans, communication chains, and backup strategies"
+          },
+          {
+            "title": "Incident Detection & Response",
+            "desc": "Recognizing signs of an active attack, containing the damage, and the correct steps to take during a live incident"
+          },
+          {
+            "title": "Recovery & Post-Incident Hardening",
+            "desc": "Steps to restore systems safely after an attack and prevent the same vector from being used again"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "How real attacks are structured — attackers usually spend significant time inside a network before anyone notices",
+          "The difference between a well-prepared organization and one that improvises during a breach — preparation determines the outcome",
+          "What an incident response plan contains and why having one documented before anything happens is critical",
+          "That the human element (social engineering, phishing) is often the weakest link — technical defenses alone are not enough",
+          "How to think about risk: not just what can go wrong, but how likely it is and what the impact would be"
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Practical Work — TryHackMe",
+        "items": [
+          {
+            "title": "Sakura Room",
+            "desc": "OSINT (Open Source Intelligence) challenge — tracking a threat actor using publicly available information and digital footprints"
+          },
+          {
+            "title": "Hands-On Platform",
+            "desc": "TryHackMe provides browser-based labs where security concepts are applied in real simulated environments rather than just theory"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Live Simulation — Incident Response Exercise",
+        "items": [
+          {
+            "title": "Two-Group Format",
+            "desc": "Class split into two competing teams, each independently working through the same incident scenario in parallel"
+          },
+          {
+            "title": "Escalating Information",
+            "desc": "New clues and updates released every 15 minutes — sometimes as simulated press calls — forcing teams to re-evaluate their approach"
+          },
+          {
+            "title": "Real-World Decision Making",
+            "desc": "Teams had to agree on next steps with incomplete information — exactly how a real incident response team operates under stress"
+          }
+        ],
+        "intro": "The teacher ran a live incident response simulation where the class was split into two groups. Every 15 minutes, new information was released — or the pressure was raised through simulated press calls — forcing both teams to continuously adapt their response strategy. The exercise tested not just technical knowledge, but decision-making under time pressure with incomplete information."
+      }
+    ]
+  },
+  {
+    "id": "project-devoteam",
+    "semester": "2",
+    "name": "DevoTeam — French Interview Preparation",
+    "tagline": "Professional French CV, Cover Letter & Intro Video",
+    "course": "Semester 2 — Professional French",
+    "status": {
+      "kind": "completed",
+      "text": "Completed"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/fr/Dev_logo_rgb.png",
+      "alt": "DevoTeam",
+      "fit": "contain",
+      "whiteBg": true
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "As part of the French professional communication module, we prepared for a formal interview simulation with DevoTeam Luxembourg. The preparation included writing a professional French CV and cover letter, and recording a French-language self-introduction video. The exercise built confidence in written and spoken professional French in a real company context."
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "What Was Prepared",
+        "items": [
+          {
+            "title": "French CV",
+            "desc": "Adapted and formatted a professional CV in French following standard French formatting conventions"
+          },
+          {
+            "title": "Cover Letter",
+            "desc": "Wrote a French lettre de motivation — structured introduction, motivation, and closing — targeting an IT position"
+          },
+          {
+            "title": "Introduction Video",
+            "desc": "Recorded a short French self-introduction video to practise spoken professional French before the interview"
+          }
+        ]
+      },
+      {
+        "type": "downloads",
+        "heading": "Downloads",
+        "groups": [
+          {
+            "label": null,
+            "items": [
+              {
+                "href": "Downloads/devoTeam/FR%20CV%20Simon%20Max.pdf",
+                "icon": "📄",
+                "title": "French CV",
+                "desc": "CV Simon Max — version française (PDF)",
+                "newTab": true
+              },
+              {
+                "href": "Downloads/devoTeam/FR%20Lettre%20de%20motivation.pdf",
+                "icon": "✉️",
+                "title": "Lettre de motivation",
+                "desc": "Cover letter in French (PDF)",
+                "newTab": true
+              },
+              {
+                "href": "Downloads/devoTeam/fr-video.mp4",
+                "icon": "🎬",
+                "title": "Introduction Video",
+                "desc": "French self-introduction video (MP4)",
+                "newTab": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "heading": "Conclusion",
+        "paragraphs": [
+          {
+            "html": "Mein Französisch steht mir sehr im Weg wenn ich was beschreiben will, ich will deswegen in den Sommerferien mich mehr mit der Sprache beschäftigen sodass ich besser werde."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-rad-system",
+    "semester": "2",
+    "name": "School Bike System",
+    "tagline": "PHP Web App for School Bicycle & Spinning Management",
+    "course": "Semester 2 — PHP",
+    "status": {
+      "kind": "development",
+      "text": "In Development"
+    },
+    "icon": {
+      "type": "emoji",
+      "emoji": "🚲"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "A PHP-based web application for managing the school's bicycle program at Lycée Guillaume Kroll, including the spinning bikes used for fitness classes. The system tracks bike availability and gives an overview of the school's bike fleet. Students cannot yet make reservations — the reservation functionality is still in development."
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🐘"
+            },
+            "name": "PHP",
+            "desc": "Server-side scripting language for building the web application logic"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🗄️"
+            },
+            "name": "Database",
+            "desc": "Storing bike inventory and reservation data"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🌐"
+            },
+            "name": "HTML / CSS",
+            "desc": "Frontend interface for the reservation and management views"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Features",
+        "items": [
+          {
+            "title": "Bike Inventory",
+            "desc": "Track the school's regular bikes and spinning bikes — availability status and overview"
+          },
+          {
+            "title": "Reservation System",
+            "desc": "Planned reservation functionality for students and teachers — currently in development, not yet accessible"
+          },
+          {
+            "title": "PHP Backend",
+            "desc": "Server-side logic handles form submissions, database queries and session management"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "How the magnets in spinning bikes work — the resistance mechanism and the physics behind it",
+          "Building a PHP website from scratch — server-side scripting, form handling and database interaction",
+          "Working in a large team — coordinating tasks, avoiding conflicts, and dividing responsibilities clearly",
+          "Working with GitHub in a team setting — branches, pull requests, and managing a shared codebase",
+          "That software needs to be written for the long run — clear structure and documentation so future developers can continue the work years later"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-grading-dino",
+    "semester": "1",
+    "name": "Grading Dino",
+    "tagline": "Secure Grade Management System",
+    "course": "Proma & Pytwo",
+    "status": {
+      "kind": "completed",
+      "text": "Completed"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/gradingDino/ProjektLogo.png",
+      "alt": "Grading Dino"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "A modern grade management system designed for professors to efficiently manage and track student grades. Built with Django and PostgreSQL, the system provides a secure, scalable solution with comprehensive administrative features and robust data protection."
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/gradingDino/django.png",
+              "alt": "Django"
+            },
+            "name": "Django",
+            "desc": "Python web framework — handles login, security and database access out of the box"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/gradingDino/postgresql.jpg",
+              "alt": "PostgreSQL"
+            },
+            "name": "PostgreSQL",
+            "desc": "Reliable relational database for storing grades and user data"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/gradingDino/docker.png",
+              "alt": "Docker"
+            },
+            "name": "Docker",
+            "desc": "Containerized deployment with Docker Compose"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/gradingDino/Argon2.png",
+              "alt": "Argon2"
+            },
+            "name": "Argon2",
+            "desc": "Advanced password hashing (University of Luxembourg)"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/gradingDino/Pico.png",
+              "alt": "Pico.css"
+            },
+            "name": "Pico.css",
+            "desc": "Minimalist CSS framework with semantic HTML"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Features",
+        "items": [
+          {
+            "title": "Grade Management",
+            "desc": "Professors can add, edit, and view student grades through a clean web interface"
+          },
+          {
+            "title": "Login & Access Control",
+            "desc": "User accounts with different roles — only authorized people can access the data"
+          },
+          {
+            "title": "Security",
+            "desc": "Common web security risks are handled automatically by the Django framework"
+          },
+          {
+            "title": "Secure Passwords",
+            "desc": "Passwords are stored encrypted using Argon2 — a modern hashing algorithm recommended for security"
+          },
+          {
+            "title": "Easy Deployment",
+            "desc": "The whole system starts with a single command using Docker Compose"
+          }
+        ]
+      },
+      {
+        "type": "team",
+        "heading": "Team",
+        "members": [
+          {
+            "name": "Guillaume",
+            "role": "Developer"
+          },
+          {
+            "name": "Sven",
+            "role": "Developer · Documentation · Design"
+          },
+          {
+            "name": "Erik",
+            "role": "Documentation · User Stories"
+          },
+          {
+            "name": "Max",
+            "role": "Documentation · User Stories"
+          }
+        ]
+      },
+      {
+        "type": "downloads",
+        "heading": "Downloads",
+        "groups": [
+          {
+            "label": null,
+            "items": [
+              {
+                "href": "Downloads/gradingDino/document.pdf",
+                "icon": "📄",
+                "title": "Documentation",
+                "desc": "Project documentation (PDF)",
+                "newTab": false
+              },
+              {
+                "href": "img/gradingDino/ProjektLogo.png",
+                "icon": "🖼️",
+                "title": "Preview Image",
+                "desc": "Project screenshot (PNG)",
+                "newTab": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-lme",
+    "semester": "1",
+    "name": "Luxembourg Media Engineering",
+    "tagline": "Web Development & Hosting Services",
+    "course": "PROMA",
+    "status": {
+      "kind": "development",
+      "text": "In Development"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/lme/lme_logo.png",
+      "alt": "LME"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "LME is a PROMA project offering professional web development services using Laravel. We provide comprehensive solutions including website creation, hosting, and management services for businesses and organizations. Our focus is on delivering modern, scalable web applications with reliable infrastructure."
+          },
+          {
+            "html": "Future Vision: Building LME into a real registered company offering professional web development and hosting services to clients across Luxembourg.",
+            "muted": true
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/lme/Laravel.svg.png",
+              "alt": "Laravel"
+            },
+            "name": "Laravel",
+            "desc": "PHP framework for robust web applications"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/lme/mysql.png",
+              "alt": "MySQL"
+            },
+            "name": "MySQL",
+            "desc": "Relational database management system"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/lme/coolify.png",
+              "alt": "Coolify"
+            },
+            "name": "Coolify",
+            "desc": "Self-hosted deployment platform"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/lme/proxmox_logo.png",
+              "alt": "Proxmox"
+            },
+            "name": "Proxmox VE",
+            "desc": "Virtualization management platform"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/lme/proxmoxBackup.jpg",
+              "alt": "Proxmox Backup"
+            },
+            "name": "Proxmox Backup",
+            "desc": "Enterprise backup solution"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/lme/cloudflare.png",
+              "alt": "Cloudflare"
+            },
+            "name": "Cloudflare",
+            "desc": "CDN and security services"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/lme/hetzner.png",
+              "alt": "Hetzner"
+            },
+            "name": "Hetzner",
+            "desc": "Cloud hosting infrastructure provider"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Service Offerings",
+        "items": [
+          {
+            "title": "Website Creation",
+            "desc": "Professional Laravel-based website development"
+          },
+          {
+            "title": "Web Hosting",
+            "desc": "Reliable hosting solutions"
+          },
+          {
+            "title": "Website Management",
+            "desc": "Ongoing maintenance and support services"
+          },
+          {
+            "title": "Custom Solutions",
+            "desc": "Tailored web applications for specific needs"
+          }
+        ]
+      },
+      {
+        "type": "team",
+        "heading": "Team",
+        "members": [
+          {
+            "name": "Sven",
+            "role": "Developer"
+          },
+          {
+            "name": "Max",
+            "role": "Infrastructure"
+          },
+          {
+            "name": "Erik",
+            "role": "Legal Documentation"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "Working with VMs in Proxmox — creating, configuring and managing virtual machines",
+          "Managing domains with Cloudflare — DNS records, proxying and security settings",
+          "Setting up Coolify and hosting websites on self-managed infrastructure"
+        ]
+      },
+      {
+        "type": "downloads",
+        "heading": "Downloads",
+        "groups": [
+          {
+            "label": null,
+            "items": [
+              {
+                "href": "Downloads/lme/LME Project Proposal.pdf",
+                "icon": "📄",
+                "title": "Project Proposal",
+                "desc": "LME project proposal (PDF)",
+                "newTab": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-ssd",
+    "semester": "1",
+    "name": "SSD Presentation",
+    "tagline": "Technical Presentation on SSD Technology",
+    "course": "CLOIF",
+    "status": {
+      "kind": "completed",
+      "text": "Completed"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/ssd/ssd.png",
+      "alt": "LME"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "A comprehensive technical presentation covering Solid State Drive (SSD) technology, architecture, and performance characteristics. The presentation explores various aspects of SSD technology including storage technology, performance metrics, and practical applications in modern computing environments."
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Tools Used",
+        "items": [
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/ssd/ppt-icon.png",
+              "alt": "PowerPoint"
+            },
+            "name": "PowerPoint",
+            "desc": "Professional presentation software for creating slides"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Topics",
+        "items": [
+          {
+            "title": "SSD Architecture",
+            "desc": "Internal structure and components of SSDs"
+          },
+          {
+            "title": "Performance Metrics",
+            "desc": "Speed comparisons and benchmarks"
+          },
+          {
+            "title": "Technology Comparison",
+            "desc": "SSD vs HDD advantages and use cases"
+          },
+          {
+            "title": "Practical Applications",
+            "desc": "Real-world usage scenarios and recommendations"
+          }
+        ]
+      },
+      {
+        "type": "downloads",
+        "heading": "Downloads",
+        "groups": [
+          {
+            "label": null,
+            "items": [
+              {
+                "href": "Downloads/ssd/SSD.pptx",
+                "icon": "",
+                "title": "Presentation",
+                "desc": "SSD presentation slides (PPTX)",
+                "newTab": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-dfs",
+    "semester": "1",
+    "name": "DFS Shared Workfolder",
+    "tagline": "Windows Distributed File System Implementation",
+    "course": "OSYCL",
+    "status": {
+      "kind": "completed",
+      "text": "Completed"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/dfs/icon.jpg",
+      "alt": "DFS"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "Implementation of a Windows Distributed File System (DFS) environment with shared workfolders for enterprise file management. The project demonstrates configuration of DFS Namespace and Replication services integrated with Active Directory for centralized file access and redundancy across multiple servers."
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🪟"
+            },
+            "name": "Windows Server",
+            "desc": "Server operating system platform"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "📁"
+            },
+            "name": "DFS Namespace",
+            "desc": "Unified file system namespace structure"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🔄"
+            },
+            "name": "DFS Replication",
+            "desc": "Automatically keeps files in sync across multiple servers"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🔐"
+            },
+            "name": "Active Directory",
+            "desc": "Directory services and authentication"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Features",
+        "items": [
+          {
+            "title": "Centralized Access",
+            "desc": "Unified namespace for simplified file access"
+          },
+          {
+            "title": "Automatic Replication",
+            "desc": "Real-time file synchronization across servers"
+          },
+          {
+            "title": "High Availability",
+            "desc": "Redundancy and failover capabilities"
+          },
+          {
+            "title": "AD Integration",
+            "desc": "Seamless authentication and permissions management"
+          }
+        ]
+      },
+      {
+        "type": "team",
+        "heading": "Team",
+        "members": [
+          {
+            "name": "Max · Erik",
+            "role": "System Administrator"
+          },
+          {
+            "name": "Sven",
+            "role": "Presentation"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "Windows Server DFS — setting up namespaces and replication between servers",
+          "Managing user rights and share permissions in a Windows Server environment"
+        ]
+      },
+      {
+        "type": "downloads",
+        "heading": "Downloads",
+        "groups": [
+          {
+            "label": null,
+            "items": [
+              {
+                "href": "Downloads/dfs/Demonstration DFS.pdf",
+                "icon": "📄",
+                "title": "Documentation",
+                "desc": "DFS demonstration guide (PDF)",
+                "newTab": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-carnotes",
+    "semester": "1",
+    "name": "CarNotes",
+    "tagline": "Vehicle Maintenance Tracking System",
+    "course": "ITTAU",
+    "status": {
+      "kind": "completed",
+      "text": "Completed"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/carnotes/carnotes.png",
+      "alt": "CarNotes"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "CarNotes is a comprehensive car management application built with Microsoft PowerApps that enables users to track vehicle maintenance, schedule appointments, and manage service intervals. The system features automated email notifications via Power Automate to remind users of upcoming maintenance tasks and SNCT (technical inspection) appointments."
+          },
+          {
+            "html": "Future Plans: Expanding the application with additional features including expense tracking, fuel consumption monitoring, service history reports, and multi-vehicle management capabilities to provide a complete automotive management solution.",
+            "muted": true
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "⚡"
+            },
+            "name": "PowerApps",
+            "desc": "Low-code application platform for custom business apps"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🔄"
+            },
+            "name": "Power Automate",
+            "desc": "Workflow automation for email notifications"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🏢"
+            },
+            "name": "Dataverse",
+            "desc": "Integration with Microsoft ecosystem"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Features",
+        "items": [
+          {
+            "title": "Maintenance Tracking",
+            "desc": "Record and manage vehicle maintenance history and notes"
+          },
+          {
+            "title": "Service Intervals",
+            "desc": "Track maintenance intervals and schedule upcoming services"
+          },
+          {
+            "title": "SNCT Appointments",
+            "desc": "Manage technical inspection appointments and reminders"
+          },
+          {
+            "title": "Email Notifications",
+            "desc": "Automated reminders for upcoming maintenance via Power Automate"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "How Power Automate and PowerApps work together to build functional apps",
+          "Building a complete app on the Power Platform from data model to UI"
+        ]
+      },
+      {
+        "type": "screenshots",
+        "heading": "Screenshots",
+        "items": [
+          {
+            "src": "Downloads/carnotes/first.png",
+            "alt": "CarNotes vehicle list",
+            "caption": "Vehicle overview — list of registered cars with photo and model name"
+          },
+          {
+            "src": "Downloads/carnotes/second.png",
+            "alt": "CarNotes maintenance note detail",
+            "caption": "Maintenance note detail — SNCT entry for a Peugeot showing notes, due date and reminder status"
+          },
+          {
+            "src": "Downloads/carnotes/dritte.png",
+            "alt": "CarNotes vehicle edit form",
+            "caption": "Vehicle edit form — enter brand, model, color, engine specs and attach a car photo"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-python-monitor",
+    "semester": "1",
+    "name": "Python Monitor",
+    "tagline": "Server Log Analyzer — Discontinued",
+    "course": "PYTWO",
+    "status": {
+      "kind": "completed",
+      "text": "Discontinued"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/python/python-icon.png",
+      "alt": "Python Auth.log Monitor"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "A Python-based monitoring tool that analyzes server authentication logs (auth.log) to track connection attempts. The application provides real-time visibility into who is attempting to connect to the server, which user accounts are being targeted, and the originating IP addresses of connection attempts."
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🐍"
+            },
+            "name": "Python",
+            "desc": "Core programming language for log analysis"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "📄"
+            },
+            "name": "Log Parsing",
+            "desc": "Real-time authentication log file monitoring"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🔍"
+            },
+            "name": "Pattern Matching",
+            "desc": "Regular expressions for extracting connection data"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Features",
+        "items": [
+          {
+            "title": "Connection Monitoring",
+            "desc": "Track all authentication attempts to the server"
+          },
+          {
+            "title": "User Analysis",
+            "desc": "Identify targeted user accounts in connection attempts"
+          },
+          {
+            "title": "IP Tracking",
+            "desc": "Display source IP addresses of connection attempts"
+          },
+          {
+            "title": "Security Overview",
+            "desc": "Comprehensive dashboard for server access monitoring"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-truenas",
+    "semester": "2",
+    "name": "TrueNAS Community Server",
+    "tagline": "Self-Hosted NAS Platform & Software Stack",
+    "course": "OSYCL",
+    "status": {
+      "kind": "completed",
+      "text": "Completed"
+    },
+    "icon": {
+      "type": "emoji",
+      "emoji": "🗄️"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "We built and configured a TrueNAS Community server from scratch — including physically assembling the server hardware ourselves. The project covers the full process from hardware assembly and OS installation through storage pool configuration, network shares, and deployment of additional self-hosted software services."
+          },
+          {
+            "html": "Authors: Eric &amp; Max.",
+            "muted": true
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🔧"
+            },
+            "name": "Custom Hardware Build",
+            "desc": "Server assembled from components by Eric & Max"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🗄️"
+            },
+            "name": "TrueNAS Community",
+            "desc": "Open-source NAS operating system based on FreeBSD"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "💾"
+            },
+            "name": "ZFS",
+            "desc": "Advanced file system and volume manager"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "📦"
+            },
+            "name": "Self-Hosted Apps",
+            "desc": "Additional services deployed on the server"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Features",
+        "items": [
+          {
+            "title": "Server Setup",
+            "desc": "Full TrueNAS installation and initial configuration"
+          },
+          {
+            "title": "Storage Management",
+            "desc": "Pool creation, datasets, and quota configuration"
+          },
+          {
+            "title": "Network Shares",
+            "desc": "SMB/NFS share setup for file access across the network"
+          },
+          {
+            "title": "Additional Software",
+            "desc": "Deployment and configuration of community apps and services"
+          }
+        ]
+      },
+      {
+        "type": "team",
+        "heading": "Team",
+        "members": [
+          {
+            "name": "Max",
+            "role": "Documentation · Configuration"
+          },
+          {
+            "name": "Sven",
+            "role": "Hardware · Installation · RAID Controller Configuration"
+          },
+          {
+            "name": "Erik",
+            "role": "Installation · Configuration"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "Creating and managing network shares and user permissions in TrueNAS",
+          "Setting up a software RAID — understanding RAID levels and ZFS storage pools"
+        ]
+      },
+      {
+        "type": "downloads",
+        "heading": "Downloads",
+        "groups": [
+          {
+            "label": null,
+            "items": [
+              {
+                "href": "Downloads/TrueNas/Server_Documentation.pdf",
+                "icon": "📄",
+                "title": "Server Documentation",
+                "desc": "Full server setup documentation (PDF)Authors: Eric & Max",
+                "newTab": false
+              },
+              {
+                "href": "Downloads/TrueNas/TrueNAS.pptx",
+                "icon": "📊",
+                "title": "TrueNAS Presentation",
+                "desc": "Project presentation slides (PPTX)",
+                "newTab": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-azure",
+    "semester": "1",
+    "name": "Azure Technical Meeting",
+    "tagline": "Cloud Topics Research & Peer Teaching Session",
+    "course": "TBUCO",
+    "status": {
+      "kind": "completed",
+      "text": "Completed"
+    },
+    "icon": {
+      "type": "emoji",
+      "emoji": "☁️"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "As part of the TBUCO technical meeting, each student independently researched assigned Azure topics and figured out how they work. The findings were then presented and explained to classmates in a collaborative meeting format, going through each topic hands-on together. Architecture diagrams were created in Lucidchart to visually document the setups."
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Tools Used",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "☁️"
+            },
+            "name": "Microsoft Azure",
+            "desc": "Cloud platform and services covered in the session"
+          },
+          {
+            "icon": {
+              "type": "img",
+              "src": "img/ssd/ppt-icon.png",
+              "alt": "PowerPoint"
+            },
+            "name": "PowerPoint",
+            "desc": "Presentation material for the technical meeting"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🎨"
+            },
+            "name": "Lucidchart",
+            "desc": "Architecture diagram creation and documentation"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Topics Presented",
+        "items": [
+          {
+            "title": "VM Connectivity",
+            "desc": "Azure Bastion, External SSH, Cloud Shell, and Jump Host connection methods"
+          },
+          {
+            "title": "Web Hosting with a VM",
+            "desc": "nginx as reverse proxy and web server, private/public IP setup"
+          },
+          {
+            "title": "Auto-Shutdown",
+            "desc": "Configuring automatic VM shutdown schedules in Azure"
+          },
+          {
+            "title": "Free Account VMs",
+            "desc": "Creating virtual machines within Azure free tier limits and restrictions"
+          },
+          {
+            "title": "Azure Resource Visualizer",
+            "desc": "Reading and interpreting resource diagrams and infrastructure layouts"
+          },
+          {
+            "title": "Lucidchart Architecture Diagram",
+            "desc": "Creating detailed cloud architecture diagrams to document the infrastructure"
+          }
+        ]
+      },
+      {
+        "type": "team",
+        "heading": "Team",
+        "members": [
+          {
+            "name": "Erik",
+            "role": "VM Connectivity · Web Hosting · Azure Resource Visualizer"
+          },
+          {
+            "name": "Max",
+            "role": "Auto Shutdown · Free Account · Lucidchart"
+          }
+        ]
+      },
+      {
+        "type": "list",
+        "heading": "What I Learned",
+        "items": [
+          "How to prepare a technical topic thoroughly — testing everything yourself before presenting",
+          "Gained hands-on Azure experience across VMs, networking, auto-shutdown and free tier limits",
+          "Anticipating questions and being able to explain complex cloud concepts clearly"
+        ]
+      },
+      {
+        "type": "downloads",
+        "heading": "Downloads",
+        "groups": [
+          {
+            "label": null,
+            "items": [
+              {
+                "href": "Downloads/TBUCO-Tecnical-meeting/Azure_Presentation_Proposal (1).docx",
+                "icon": "📄",
+                "title": "Presentation Proposal",
+                "desc": "Azure presentation proposal document (DOCX)Authors: Erik & Max",
+                "newTab": false
+              },
+              {
+                "href": "Downloads/TBUCO-Tecnical-meeting/Cloud Architecture.pdf",
+                "icon": "🗺️",
+                "title": "Cloud Architecture Diagram",
+                "desc": "Lucidchart diagram documenting the full Azure infrastructure layout — showing virtual machines, network topology, resource groups, and service connections designed during the technical meeting (PDF)",
+                "newTab": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "project-portfolio",
+    "semester": "1",
+    "name": "Portfolio Website",
+    "tagline": "Modern Personal Portfolio Platform",
+    "course": "TBUCO",
+    "status": {
+      "kind": "future",
+      "text": "Future Project"
+    },
+    "icon": {
+      "type": "img",
+      "src": "img/portfolio/portfolio.jpg",
+      "alt": "Portfolio Website"
+    },
+    "sections": [
+      {
+        "type": "text",
+        "heading": "Overview",
+        "paragraphs": [
+          {
+            "html": "This portfolio website serves as a comprehensive showcase of technical skills, projects, and professional experience. Built with modern web technologies, it features a clean, responsive design with dynamic animations and an intuitive user interface."
+          },
+          {
+            "html": "Future Enhancement: Transform the website from a static hardcoded solution into a dynamic platform powered by a database backend. This would enable content management through an admin panel, allowing projects, skills, and experience to be updated without modifying code directly. The evolution would include a proper CMS architecture with RESTful APIs for easier maintenance and scalability.",
+            "muted": true
+          }
+        ]
+      },
+      {
+        "type": "tech",
+        "heading": "Current Technology Stack",
+        "items": [
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🌐"
+            },
+            "name": "HTML5",
+            "desc": "Semantic markup and structure"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "🎨"
+            },
+            "name": "CSS3",
+            "desc": "Modern styling with custom properties and animations"
+          },
+          {
+            "icon": {
+              "type": "emoji",
+              "emoji": "⚡"
+            },
+            "name": "JavaScript",
+            "desc": "Interactive features and dynamic content"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Key Features",
+        "items": [
+          {
+            "title": "Project Showcase",
+            "desc": "Dynamic filtering system for technical projects"
+          },
+          {
+            "title": "Skills Display",
+            "desc": "Comprehensive overview of technical capabilities"
+          },
+          {
+            "title": "Modern Animations",
+            "desc": "Smooth transitions and interactive elements"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "heading": "Future Technology Stack",
+        "items": [
+          {
+            "title": "Backend Framework",
+            "desc": "Laravel backend architecture"
+          },
+          {
+            "title": "Database",
+            "desc": "MySQL for content management"
+          },
+          {
+            "title": "Admin Panel",
+            "desc": "CMS interface for easy content updates"
+          }
+        ]
+      }
+    ]
+  }
+]

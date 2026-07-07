@@ -1,0 +1,26 @@
+---
+// Certificate / badge card on the skills page (from src/data/skills.json).
+const { cert, psIcon = false } = Astro.props;
+const url = (href) => (/^(https?:|\/)/.test(href) ? href : '/' + href.replace(/^\.?\//, ''));
+---
+<div class:list={['skill-category', 'certificate-card', { 'attempted-cert': cert.attempted }]}>
+  <div class="category-header">
+    <div class:list={['cert-image-container', { 'ps-icon': psIcon }]}>
+      <img src={url(cert.img)} alt={cert.title} class="cert-badge-img" loading="lazy" />
+    </div>
+    <h3 class="category-title">{cert.title}</h3>
+  </div>
+  <div class="skill-description">
+    <p>{cert.desc}</p>
+  </div>
+  <div class="cert-meta">
+    <span class="cert-issuer">{cert.issuer}</span>
+    {cert.date && <span class="cert-date">{cert.date}</span>}
+    {cert.status && !cert.date && (
+      <span class:list={['cert-status', cert.attempted ? 'attempted' : 'active']}>{cert.status}</span>
+    )}
+  </div>
+  {cert.link && (
+    <a href={cert.link} target="_blank" rel="noopener" class="cert-view-link">{cert.linkText ?? 'View Credential →'}</a>
+  )}
+</div>

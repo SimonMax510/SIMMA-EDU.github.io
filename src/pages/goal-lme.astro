@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+const milestones = [
+  { state: 'completed', marker: '✓', title: 'Start', status: 'Initial Setup' },
+  { state: 'upcoming active', marker: '→', title: 'Development', status: 'In Progress' },
+  { state: 'future', marker: '3', title: 'Testing', status: 'Future' },
+  { state: 'future', marker: '4', title: 'Launch', status: 'Future' },
+  { state: 'future', marker: '★', title: 'Release', status: 'Goal' },
+];
+
+const learning = [
+  {
+    icon: '🏗️', title: 'Infrastructure Setup',
+    items: [
+      'Setting up Proxmox VE for virtualization',
+      'Configuring Proxmox Backup for data protection',
+      'Implementing Coolify for deployment automation',
+      'Network configuration and security',
+    ],
+  },
+  {
+    icon: '💼', title: 'Business Fundamentals',
+    items: ['Company registration process', 'Business planning and strategy', 'Project management'],
+  },
+  {
+    icon: '🔧', title: 'Web Development',
+    items: ['Laravel framework', 'MySQL database', 'Nginx'],
+  },
+  {
+    icon: '🌍', title: 'Hosting & Deployment',
+    items: [
+      'Domain management and DNS configuration',
+      'SSL certificate setup',
+      'Server monitoring',
+      'Backup strategies',
+    ],
+  },
+];
+
+const challenges = [
+  { n: '01', title: 'Teamwork', text: 'Working effectively in a team environment and communicating with colleagues to achieve shared goals.' },
+  { n: '02', title: 'Client Acquisition', text: 'Building a client base and establishing credibility as a new web development and hosting service provider in the Luxembourg market.' },
+  { n: '03', title: 'Resource Management', text: 'Balancing school commitments with business development while managing limited financial resources and time effectively.' },
+  { n: '04', title: 'Network Infrastructure', text: 'Designing and implementing a robust network infrastructure.' },
+  { n: '05', title: 'Legal & Administrative', text: 'Navigating business registration, tax obligations, and legal requirements for running a company in Luxembourg.' },
+];
+---
+<BaseLayout title="Build & Lead LME | Max Simon">
+  <PageHeader crumb="lme" title="🚀 Build & Lead LME" subtitle="Luxembourg Media Engineering Journey" />
+
+  <main class="goal-detail-container">
+
+    <section class="progress-section">
+      <h2 class="section-title">Progress Overview</h2>
+      <div class="milestone-path">
+        {milestones.map((m, i) => (
+          <>
+            {i > 0 && <div class:list={['milestone-line', { active: i === 1 }]}></div>}
+            <div class:list={['milestone', ...m.state.split(' ')]}>
+              <div class="milestone-marker">{m.marker}</div>
+              <div class="milestone-content">
+                <h3>{m.title}</h3>
+                <p class="milestone-status">{m.status}</p>
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
+    </section>
+
+    <section class="learning-section">
+      <h2 class="section-title">What I've Learned</h2>
+      <div class="learning-grid">
+        {learning.map((card) => (
+          <div class="learning-card">
+            <div class="learning-icon">{card.icon}</div>
+            <h3>{card.title}</h3>
+            <ul>
+              {card.items.map((li) => <li>{li}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="challenges-section">
+      <h2 class="section-title">Current Challenges</h2>
+      <div class="challenges-grid">
+        {challenges.map((c) => (
+          <div class="challenge-card">
+            <div class="challenge-number">{c.n}</div>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

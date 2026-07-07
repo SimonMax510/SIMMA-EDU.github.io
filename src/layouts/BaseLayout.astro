@@ -1,0 +1,42 @@
+---
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const {
+  title,
+  description = 'Max Simon — BTS Cloud Computing student in Luxembourg. Projects, skills and certifications in cloud infrastructure, virtualization and self-hosting.',
+  active = null,
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="grain-overlay"></div>
+  <Nav active={active} />
+  <slot />
+  <Footer />
+
+  <!-- Screenshot lightbox -->
+  <div id="lightbox">
+    <div id="lightbox-overlay"></div>
+    <button id="lightbox-close" aria-label="Close">✕</button>
+    <img id="lightbox-img" alt="" />
+  </div>
+
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

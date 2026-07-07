@@ -1,0 +1,230 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+// One entry per semester tab. To add Semester 3 later: update its tab
+// (state/status) and replace the "Coming Soon" sections with real content.
+const tabs = [
+  { sem: '1', state: 'completed', marker: '✓', title: 'Semester 1', status: 'Completed' },
+  { sem: '2', state: 'upcoming active', marker: '▶', title: 'Semester 2', status: 'Almost Done' },
+  { sem: '3', state: 'future', marker: '3', title: 'Semester 3', status: 'Future' },
+  { sem: '4', state: 'future', marker: '4', title: 'Semester 4', status: 'Future' },
+];
+
+const s1Learning = [
+  { title: 'Cloud Infrastructure', items: ['Microsoft Azure fundamentals and services', 'Virtual machine configuration and management', 'Networking and security'] },
+  { title: 'System Administration', items: ['Windows Server installation and configuration', 'Active Directory and DFS implementation', 'User and permission management'] },
+  { title: 'Programming', items: ['Python programming fundamentals', 'Django web framework basics', 'Database integration with PostgreSQL'] },
+  { title: 'Project Management', items: ['How to plan and execute projects', 'How to work in a team', 'Project documentation and reporting'] },
+  { title: 'Self-Presentation', items: ['How to present myself professionally', 'Public speaking and pitching ideas', 'Professional communication skills'] },
+  { title: 'Networking', items: ['Cisco Packet Tracer', 'Network topology design', 'Network protocols and standards'] },
+];
+
+const s1Reflection = [
+  { n: '', title: 'Public Speaking', text: "At the beginning of the semester, holding presentations was genuinely difficult for me. I was quite shy and felt a lot of anxiety standing in front of an audience. Over the course of the semester I pushed through that discomfort and my confidence has improved noticeably — something I'm proud of." },
+  { n: '', title: 'Team Communication', text: 'My ability to communicate and coordinate within a team has grown significantly. The TrueNAS Scale project was a clear step forward compared to the Grading Dino project — collaboration was more structured and efficient. That said, there is still room to improve: I need to make better use of planning tools like Microsoft Planner and Git to keep the whole team properly aligned.' },
+  { n: '', title: 'Problem-Solving Mindset', text: "One of the most valuable lessons this semester was learning to dig into problems rather than work around them. Instead of switching to an easier path when something doesn't work, I now try to understand the root cause and find a proper solution. This shift in mindset has made me a more reliable and thorough technician." },
+  { n: '', title: 'Looking Ahead', text: "I'm genuinely looking forward to Semester 2 and the projects it will bring — especially working more with Proxmox and deeper infrastructure topics. The first semester built a solid foundation and I feel ready to take on more complex challenges." },
+];
+
+const s2Goals = [
+  { n: '01', title: 'Better Planning', text: 'Achieved through consistent use of Microsoft Planner and GitHub Projects — breaking work into tasks, tracking progress, and keeping the team aligned across multiple projects.' },
+  { n: '02', title: 'Excel Associate & Excel Expert', text: 'Did not find time to complete these certifications this semester. Planning to complete both Excel Associate and Excel Expert in Semester 3.' },
+];
+
+const s2Learning = [
+  { title: 'IT Security', items: ['Incident Response — structured process for detecting and handling attacks', 'Threat awareness and attack vector analysis', 'Practical exercises on TryHackMe (e.g. Sakura Room)', 'Post-incident hardening and recovery'] },
+  { title: 'Networking — Real Hardware', items: ['Working with physical routers and Cisco switches', 'Switch configuration and VLAN setup in the lab', 'Network topology design and testing in Cisco Packet Tracer'] },
+  { title: 'Docker & Containerization', items: ['Docker containers — building images, running and managing containers', 'Docker Compose — multi-service setups from a single YAML file', 'Volumes, networking and container lifecycle management'] },
+  { title: 'Project Management Methods', items: ['OKR (Objectives and Key Results) — goal-oriented frameworks', 'KPI (Key Performance Indicators) — measuring progress toward goals', 'Milestones — marking key progress points in a project plan', 'GTD (Getting Things Done) — task organization and prioritization', 'GitHub Planning — managing work items and project boards on GitHub'] },
+  { title: 'Cloud & Infrastructure', items: ['Azure compute resources — deploying and managing VMs and services', 'Azure identity & governance — RBAC, policies, and AD management', 'AWS infrastructure fundamentals (workshop with Charlier Arnaud)', 'High Availability in VMware and Proxmox'] },
+  { title: 'Kubernetes & Containers', items: ['K3s (lightweight Kubernetes) on Raspberry Pi 5 cluster', 'Load balancer setup and traffic routing with K3s'] },
+  { title: 'Scripting & Automation', items: ['PowerShell — moving, creating and manipulating data and files', 'Bash scripting on Linux — file operations, log parsing, service management'] },
+  { title: 'PHP Development', items: ['PHP programming — building a school bicycle management system', 'More focus on the hardware and physical side of the bike project'] },
+  { title: 'French Professional Writing', items: ['Writing formal French CVs (Curriculum Vitae)', 'Writing French cover letters (lettre de motivation)', 'How to respond to typical interview and professional questions in French', 'Creating a self-introduction video in French'] },
+];
+
+const s2Reflection = [
+  { n: '', title: 'English Skills', text: 'My written and spoken English has noticeably improved over this semester — through technical documentation, presentations, and professional interactions.' },
+  { n: '', title: 'Presenting to the Class', text: 'Presenting has become noticeably more natural this semester. The VMware & Proxmox High Availability presentation was a clear example — I was able to explain complex infrastructure topics confidently in front of the class. Compared to the beginning of the BTS I am significantly less nervous, including in external settings like the DevoTeam visit where I had to introduce myself professionally.' },
+  { n: '', title: 'Planning & Organisation', text: "Planning has become more structured this semester. Working through the AZ-104 certification path on Pluralsight alongside school projects forced me to plan my learning time carefully. I'm now better at splitting large goals into trackable steps and keeping progress visible through GitHub Projects and Microsoft Planner." },
+  { n: '', title: 'Less Nervous in Professional Situations', text: 'One of the clearest improvements this semester was becoming more comfortable in professional environments. The DevoTeam company visit was a good example — I was able to introduce myself and engage in conversation without the anxiety I would have felt at the start of the BTS.' },
+];
+
+const s2Interview = [
+  { n: '6/20', title: 'Professional Interview Simulation', text: 'One of the Semester 2 assessments was a French professional interview simulation — a format used in Luxembourg BTS programs to prepare students for real job interviews. My result was 6/20. The score was disappointing, but the feedback was precise and directly actionable, which made it one of the most useful exercises of the semester.' },
+  { n: '01', title: 'Too Passive — Waiting Instead of Contributing', text: "I gave short answers and waited for the next question rather than driving the conversation. The problem is not that I'm unmotivated — I genuinely am — but the interviewer can only read what they see. Sitting back and answering minimally reads as disinterest, even when that's not the reality. I need to change the behaviour, not just the intention." },
+  { n: '02', title: 'Answers Too Short and Too Vague', text: 'Instead of developing my answers, I stayed at the surface level. One sentence where four were needed. For example: saying "I worked on Proxmox" when the correct answer is "We built a VMware and Proxmox high-availability setup in class — I configured the virtual machines, set up the failover, and then presented the full architecture to the class." One answer tells a story and shows competence; the other gives nothing to work with.' },
+  { n: '03', title: 'Projects and Technical Work Not Communicated', text: "I have a running homelab, a self-hosted AI stack, a K3s Raspberry Pi cluster, and a VMware/Proxmox HA demonstration built in school. None of this came up during the interview. These are precisely the projects that differentiate a BTS student — I simply didn't bring them into the conversation when they were directly relevant." },
+  { n: '→', title: "What I'm Working On", text: 'Structure every answer as Problem → What I did → Result, in 4–5 sentences rather than one. I prepared for the standard questions — who am I, what are my strengths — but the issue was depth and spontaneity: not automatically connecting my projects to the topic at hand. The goal is to make that link feel natural, not forced. Before each interview, research the company — their stack, their clients, their recent projects. On the language side: improve spoken French fluency, reduce filler pauses, and get comfortable with the passé composé in professional contexts.' },
+];
+
+const s2Summer = [
+  { n: '01', title: 'Improve French', text: 'Actively work on improving my French throughout the summer using YouTube, Project Voltaire, and Duolingo. The goal is to become noticeably more comfortable with written and spoken French before Semester 3.' },
+  { n: '02', title: 'Self-Hosted AI', text: 'Deepen my understanding of how to host and manage AI models on my own hardware — exploring different model types, hardware requirements, and practical use cases for a fully self-hosted AI setup.' },
+];
+---
+<BaseLayout title="BTS Progress | Max Simon">
+  <PageHeader crumb="bts" title="BTS Progress" subtitle="BTS Cloud Computing Journey (2025 - 2027)" />
+
+  <main class="goal-detail-container">
+
+    <!-- Semester tab bar -->
+    <section class="progress-section">
+      <h2 class="section-title">Progress Overview</h2>
+      <div class="milestone-path">
+        {tabs.map((t, i) => (
+          <>
+            {i > 0 && <div class:list={['milestone-line', { active: i === 1 }]}></div>}
+            <div class:list={['milestone', 'sem-tab', ...t.state.split(' ')]} data-sem={t.sem}>
+              <div class="milestone-marker">{t.marker}</div>
+              <div class="milestone-content">
+                <h3>{t.title}</h3>
+                <p class="milestone-status">{t.status}</p>
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
+    </section>
+
+    <!-- ═══ Semester 1 ═══ -->
+    <section class="learning-section" data-semester="1">
+      <h2 class="section-title">What I've Learned</h2>
+      <div class="learning-grid">
+        {s1Learning.map((card) => (
+          <div class="learning-card">
+            <div class="learning-icon"></div>
+            <h3>{card.title}</h3>
+            <ul>{card.items.map((li) => <li>{li}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="challenges-section" data-semester="1">
+      <h2 class="section-title">Result</h2>
+      <div class="challenges-grid">
+        <div class="challenge-card">
+          <div class="challenge-number">✓</div>
+          <h3>Successfully Completed</h3>
+          <p>Semester 1 has been successfully completed. All subjects passed except TBUCO (Portfolio section), which I am still actively working on to achieve a better grade.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="challenges-section" data-semester="1">
+      <h2 class="section-title">Self-Reflection</h2>
+      <div class="challenges-grid">
+        {s1Reflection.map((c) => (
+          <div class="challenge-card">
+            <div class="challenge-number">{c.n}</div>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- ═══ Semester 2 ═══ -->
+    <section class="challenges-section" data-semester="2">
+      <h2 class="section-title">Goals</h2>
+      <div class="challenges-grid">
+        {s2Goals.map((c) => (
+          <div class="challenge-card">
+            <div class="challenge-number">{c.n}</div>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="learning-section" data-semester="2">
+      <h2 class="section-title">What I've Learned</h2>
+      <div class="learning-grid">
+        {s2Learning.map((card) => (
+          <div class="learning-card">
+            <div class="learning-icon"></div>
+            <h3>{card.title}</h3>
+            <ul>{card.items.map((li) => <li>{li}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="challenges-section" data-semester="2">
+      <h2 class="section-title">Self-Reflection</h2>
+      <div class="challenges-grid">
+        {s2Reflection.map((c) => (
+          <div class="challenge-card">
+            <div class="challenge-number">{c.n}</div>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="challenges-section" data-semester="2">
+      <h2 class="section-title">French Interview — Feedback &amp; Reflection</h2>
+      <div class="challenges-grid">
+        {s2Interview.map((c) => (
+          <div class="challenge-card">
+            <div class="challenge-number">{c.n}</div>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="challenges-section" data-semester="2">
+      <h2 class="section-title">Summer Goals (2026)</h2>
+      <div class="challenges-grid">
+        {s2Summer.map((c) => (
+          <div class="challenge-card">
+            <div class="challenge-number">{c.n}</div>
+            <h3>{c.title}</h3>
+            <p>{c.text}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="challenges-section" data-semester="2">
+      <h2 class="section-title">Result</h2>
+      <div class="challenges-grid">
+        <div class="challenge-card">
+          <div class="challenge-number">—</div>
+          <h3>Awaiting Final Results</h3>
+          <p>Several exams have not yet been completed, so it is not yet possible to confirm whether Semester 2 has been passed. Based on the work done and the progress made, I expect to pass.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Semester 3 & 4 ═══ -->
+    <section class="challenges-section" data-semester="3">
+      <h2 class="section-title">Coming Soon</h2>
+      <div class="challenges-grid">
+        <div class="challenge-card">
+          <div class="challenge-number">—</div>
+          <h3>Semester 3 starts in 2026</h3>
+          <p>Content for Semester 3 will be added once the semester begins. Check back later.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="challenges-section" data-semester="4">
+      <h2 class="section-title">Coming Soon</h2>
+      <div class="challenges-grid">
+        <div class="challenge-card">
+          <div class="challenge-number">—</div>
+          <h3>Semester 4 starts in 2027</h3>
+          <p>Content for Semester 4 will be added once the semester begins. Check back later.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

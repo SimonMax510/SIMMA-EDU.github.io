@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ProjectDetail from '../components/ProjectDetail.astro';
+import projects from '../data/projects.json';
+---
+<BaseLayout title="Projects | Max Simon" active="Projects">
+  <PageHeader crumb="projects" title="Technical Projects" subtitle="Real-world implementations and system architectures" />
+
+  <main class="projects-container">
+    <div class="category-selector">
+      <label for="projectFilter" class="selector-label">Filter:</label>
+      <select id="projectFilter" class="category-dropdown">
+        <option value="all" selected>All Projects</option>
+        <option value="completed">Completed</option>
+        <option value="development">In Development</option>
+        <option value="future">Future Projects</option>
+      </select>
+      <select id="semesterFilter" class="category-dropdown">
+        <option value="all" selected>All Semesters</option>
+        <option value="1">Semester 1</option>
+        <option value="2">Semester 2</option>
+      </select>
+    </div>
+
+    {projects.map((project) => <ProjectDetail project={project} />)}
+  </main>
+</BaseLayout>

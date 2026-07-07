@@ -1,0 +1,161 @@
+---
+// Renders one project accordion from src/data/projects.json.
+const { project } = Astro.props;
+
+// Data extracted from the old site uses repo-relative paths ("img/…", "Downloads/…").
+const url = (href) => (/^(https?:|mailto:|\/)/.test(href) ? href : '/' + href.replace(/^\.?\//, ''));
+
+const iconImgStyle = project.icon?.type === 'img'
+  ? `width:100%;height:100%;object-fit:${project.icon.fit ?? 'cover'};border-radius:12px;${project.icon.whiteBg ? 'padding:1rem;background:#fff;' : ''}`
+  : undefined;
+---
+<article
+  class="project-detail"
+  id={project.id}
+  data-status={project.status?.kind}
+  data-semester={project.semester}
+>
+  <div class="project-header-section">
+    <div class="project-icon-large">
+      {project.icon?.type === 'img'
+        ? <img src={url(project.icon.src)} alt={project.icon.alt} style={iconImgStyle} />
+        : <div class="tech-icon" style="font-size: 3rem;">{project.icon?.emoji}</div>}
+    </div>
+    <div class="project-meta">
+      <h2 class="project-name">{project.name}</h2>
+      <p class="project-tagline">{project.tagline}</p>
+      <p class="project-cours">{project.course}</p>
+      <div class="project-status">
+        <span class:list={['status-badge', `status-${project.status?.kind}`]}>{project.status?.text}</span>
+      </div>
+    </div>
+    <div class="project-toggle">▼</div>
+  </div>
+
+  <div class="project-body">
+    {project.sections.map((section) => {
+      if (section.type === 'text') {
+        return (
+          <div class="project-overview">
+            <h3 class="section-heading">{section.heading}</h3>
+            {section.paragraphs.map((p, i) => (
+              <p
+                class="overview-text"
+                style={`${i > 0 ? 'margin-top:0.75rem;' : ''}${p.muted ? 'font-style:italic;color:var(--color-text-dim);' : ''}`}
+                set:html={p.html}
+              />
+            ))}
+          </div>
+        );
+      }
+      if (section.type === 'tech') {
+        return (
+          <div class="tech-stack-section">
+            <h3 class="section-heading">{section.heading}</h3>
+            <div class="tech-grid">
+              {section.items.map((item) => (
+                <div class="tech-item">
+                  {item.icon.type === 'img'
+                    ? <img src={url(item.icon.src)} alt={item.icon.alt} class="tech-icon-img" />
+                    : <div class="tech-icon">{item.icon.emoji}</div>}
+                  <div class="tech-info">
+                    <h4>{item.name}</h4>
+                    <p>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      if (section.type === 'features') {
+        return (
+          <div class="features-section">
+            <h3 class="section-heading">{section.heading}</h3>
+            {section.intro && <p class="overview-text" style="margin-bottom:1.25rem;" set:html={section.intro} />}
+            <div class="features-grid">
+              {section.items.map((item, i) => (
+                <div class="feature-card">
+                  <div class="feature-number">{String(i + 1).padStart(2, '0')}</div>
+                  <h4>{item.title}</h4>
+                  <p>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      if (section.type === 'list') {
+        return (
+          <div class="learned-section">
+            <h3 class="section-heading">{section.heading}</h3>
+            <ul class="learned-list">
+              {section.items.map((item) => <li set:html={item} />)}
+            </ul>
+          </div>
+        );
+      }
+      if (section.type === 'team') {
+        return (
+          <div class="team-roles-section">
+            <h3 class="section-heading">{section.heading}</h3>
+            <div class="team-grid">
+              {section.members.map((m) => (
+                <div class="team-member">
+                  <span class="member-name">{m.name}</span>
+                  <span class="member-role">{m.role}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      if (section.type === 'screenshots') {
+        return (
+          <div class="screenshots-section">
+            <h3 class="section-heading">{section.heading}</h3>
+            <div class="screenshots-grid">
+              {section.items.map((s) => (
+                <div class="screenshot-item">
+                  <img src={url(s.src)} alt={s.alt} class="screenshot-img" loading="lazy" />
+                  <p class="screenshot-caption">{s.caption}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      }
+      if (section.type === 'downloads') {
+        return (
+          <div class="downloads-section">
+            <h3 class="section-heading">{section.heading}</h3>
+            {section.groups.map((group) => (
+              <>
+                {group.label && <h4 class="download-group-label">{group.label}</h4>}
+                <div class="downloads-grid">
+                  {group.items.map((d) => (
+                    <a
+                      href={url(d.href)}
+                      class="download-card"
+                      download={!d.newTab}
+                      target={d.newTab ? '_blank' : undefined}
+                      rel={d.newTab ? 'noopener' : undefined}
+                    >
+                      <div class="download-icon">{d.icon}</div>
+                      <div class="download-info">
+                        <h4 class="download-title">{d.title}</h4>
+                        <p class="download-description">{d.desc}</p>
+                      </div>
+                      <div class="download-arrow">→</div>
+                    </a>
+                  ))}
+                </div>
+              </>
+            ))}
+          </div>
+        );
+      }
+      return null;
+    })}
+  </div>
+</article>

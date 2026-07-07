@@ -1,0 +1,180 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CertCard from '../components/CertCard.astro';
+import skills from '../data/skills.json';
+---
+<BaseLayout title="Skills | Max Simon" active="Skills/Certificates">
+  <PageHeader crumb="skills" title="Skills & Certificates" subtitle="Technical competencies and professional credentials" />
+
+  <main class="skills-container">
+
+    <!-- Hard Skills -->
+    <section class="skills-section">
+      <div class="section-header" style="display:flex;align-items:flex-end;flex-wrap:wrap;gap:0.75rem;">
+        <div>
+          <h2 class="section-title-large">Hard Skills</h2>
+          <p class="section-description">Technical competencies and tools</p>
+        </div>
+        <label class="hs-tooltip-toggle" id="tipToggle" title="Show tooltips on hover">
+          <input type="checkbox" id="tipCheck" />
+          <div class="hs-toggle-track"><div class="hs-toggle-thumb"></div></div>
+          Hover Info
+        </label>
+      </div>
+
+      <div class="category-selector" style="margin-bottom:1rem;">
+        <select id="skillsSemester" class="category-dropdown">
+          <option value="all" selected>All Semesters</option>
+          <option value="1">Semester 1</option>
+          <option value="2">Semester 2</option>
+        </select>
+      </div>
+
+      <div class="hardskills-table">
+        <div class="hs-header">
+          <div class="hs-header-cell">Category</div>
+          <div class="hs-header-cell">Tools &amp; Technologies</div>
+          <div class="hs-header-cell">Related Projects</div>
+        </div>
+
+        {skills.hardskills.map((row) => (
+          <div class="hs-row" data-semester={row.semester}>
+            <div class="hs-label">
+              <span class="hs-icon">{row.icon}</span>
+              <span class="hs-name">{row.name}</span>
+            </div>
+            <div class="hs-tags">
+              {row.tags.map((tag) => <span class="hs-tag" data-tip={tag.tip}>{tag.label}</span>)}
+            </div>
+            <div class="hs-projects">
+              {row.projects.map((p) => <a href={'/' + p.href} class="hs-project-link">{p.label}</a>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Certificates -->
+    <section class="skills-section">
+      <div class="section-header">
+        <h2 class="section-title-large">Certifications</h2>
+        <p class="section-description">Professional Microsoft credentials and achievements</p>
+      </div>
+      <div class="skills-layout">
+        {skills.certificates.map((cert) => <CertCard cert={cert} />)}
+      </div>
+    </section>
+
+    <!-- Attempted certifications -->
+    <section class="skills-section">
+      <div class="section-header">
+        <h2 class="section-title-large">Certification Journey</h2>
+        <p class="section-description">Attempted certifications and continuous learning efforts</p>
+      </div>
+      <div class="skills-layout">
+        {skills.attempted.map((cert) => <CertCard cert={cert} />)}
+      </div>
+    </section>
+
+    <!-- Soft Skills -->
+    <section class="skills-section">
+      <div class="section-header">
+        <h2 class="section-title-large">Soft Skills</h2>
+        <p class="section-description">Personal strengths and working style</p>
+      </div>
+      <div class="soft-skills-grid">
+        {skills.softskills.map((s) => (
+          <div class="soft-skill-card" data-semester={s.semester}>
+            <h3 class="soft-skill-title">{s.title}</h3>
+            <p class="soft-skill-desc">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Pluralsight -->
+    <section class="skills-section">
+      <div class="section-header">
+        <h2 class="section-title-large">Pluralsight</h2>
+        <p class="section-description">Online learning achievements and skill assessments</p>
+      </div>
+
+      <div class="pluralsight-label">Badges</div>
+      <div class="skills-layout">
+        {skills.pluralsightBadges.map((cert) => <CertCard cert={cert} psIcon={true} />)}
+      </div>
+
+      <div class="pluralsight-label spaced">AZ-900 Course</div>
+      <div class="skill-iq-card">
+        <div class="skill-iq-left">
+          <img src="/Downloads/Pluralisght/az900/az900examPreparation.png" alt="AZ-900 Exam Preparation" class="skill-iq-screenshot screenshot-img" loading="lazy" />
+        </div>
+        <div class="skill-iq-right">
+          <div class="skill-iq-meta">Pluralsight · AZ-900</div>
+          <h3 class="skill-iq-title">AZ-900 Exam Preparation</h3>
+          <p class="skill-iq-note">
+            Completed the AZ-900 Microsoft Azure Fundamentals exam preparation course on Pluralsight,
+            covering core cloud concepts, Azure services, pricing, and compliance.
+          </p>
+          <a href="https://www.credly.com/badges/d1020d9d-d9e6-474d-b1cf-090eae7f51d3/linked_in_profile"
+             target="_blank" rel="noopener" class="cert-view-link" style="margin-top:0.5rem;">View Azure Fundamentals Certificate →</a>
+        </div>
+      </div>
+      <div class="skill-iq-card">
+        <div class="skill-iq-left">
+          <img src="/Downloads/Pluralisght/az900/coursHistory.png" alt="AZ-900 Course History" class="skill-iq-screenshot screenshot-img" loading="lazy" />
+        </div>
+        <div class="skill-iq-right">
+          <div class="skill-iq-meta">Pluralsight · Course History</div>
+          <h3 class="skill-iq-title">Course History</h3>
+          <p class="skill-iq-note">Overview of all completed AZ-900 related courses on Pluralsight</p>
+        </div>
+      </div>
+
+      <div class="pluralsight-label spaced">AZ-104 Path — In Progress</div>
+      <div class="skill-iq-card">
+        <div class="skill-iq-left skill-iq-progress">
+          <div>
+            <div class="pct">30%</div>
+            <div class="label">Path Complete</div>
+            <div class="bar-wrap"><div class="bar" style="width:30%;"></div></div>
+          </div>
+        </div>
+        <div class="skill-iq-right">
+          <div class="skill-iq-meta">Pluralsight · AZ-104</div>
+          <h3 class="skill-iq-title">Microsoft Azure Administrator (AZ-104)</h3>
+          <p class="skill-iq-note">
+            Currently working through the AZ-104 certification path on Pluralsight. 30% of the full path completed.
+            Courses studied so far:
+          </p>
+          <ul class="skill-iq-courses">
+            <li>Manage Azure Identities and Governance</li>
+            <li>Deploy and Manage Azure Compute Resources</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pluralsight-label spaced">Skill IQ</div>
+      <div class="skill-iq-card">
+        <div class="skill-iq-left">
+          <img src="/Downloads/Pluralisght/skill-iq/first.png" alt="Cloud Computing Fundamentals Skill IQ" class="skill-iq-screenshot" loading="lazy" />
+        </div>
+        <div class="skill-iq-right">
+          <div class="skill-iq-meta">Pluralsight · Skill IQ</div>
+          <h3 class="skill-iq-title">Cloud Computing Fundamentals</h3>
+          <div class="skill-iq-score-row">
+            <div class="skill-iq-bar-wrap"><div class="skill-iq-bar" style="width: 17%"></div></div>
+            <span class="skill-iq-pct">17%</span>
+          </div>
+          <span class="skill-iq-level">Novice</span>
+          <p class="skill-iq-note">
+            This result reflects where I currently stand — I am actively working to improve
+            this score and deepen my practical cloud computing knowledge
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>

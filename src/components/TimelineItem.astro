@@ -1,0 +1,36 @@
+---
+// One entry of the experience/visits timeline (from src/data/*.json).
+const { item } = Astro.props;
+---
+<div class="timeline-item" data-category={item.category} data-semester={item.semester}>
+  <div class="timeline-dot"></div>
+  <div class="timeline-content">
+    <div class="timeline-header">
+      <h3 class="timeline-title">{item.title}</h3>
+      <span class="timeline-duration">{item.duration}</span>
+    </div>
+    <p class="timeline-location">{item.location}</p>
+
+    {item.details.length > 0 && (
+      <ul class="timeline-details">
+        {item.details.map((d) => <li set:html={d} />)}
+      </ul>
+    )}
+
+    {item.sections.length > 0 && (
+      <>
+        <button class="timeline-toggle">Show Details ▼</button>
+        <div class="timeline-expandable">
+          {item.sections.map((sec) => (
+            <div class="timeline-section">
+              <h4 class="timeline-section-title">{sec.title}</h4>
+              <ul class="timeline-details">
+                {sec.items.map((li) => <li set:html={li} />)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </>
+    )}
+  </div>
+</div>

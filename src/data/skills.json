@@ -1,0 +1,488 @@
+{
+  "hardskills": [
+    {
+      "semester": "2",
+      "icon": "📦",
+      "name": "Virtualization",
+      "tags": [
+        {
+          "label": "Proxmox VE",
+          "tip": "Open-source hypervisor for running VMs and containers on bare metal"
+        },
+        {
+          "label": "VMware ESXi",
+          "tip": "Industry-standard enterprise hypervisor by VMware/Broadcom"
+        },
+        {
+          "label": "TrueNAS",
+          "tip": "Linux-based NAS operating system for network-attached storage"
+        },
+        {
+          "label": "Docker",
+          "tip": "Container runtime — lightweight isolated environments that share the host OS kernel"
+        },
+        {
+          "label": "Docker Compose",
+          "tip": "Tool for defining and running multi-container Docker applications from a single YAML file"
+        }
+      ],
+      "projects": [
+        {
+          "label": "LME",
+          "href": "projects.html#project-lme"
+        },
+        {
+          "label": "TrueNAS Server",
+          "href": "projects.html#project-truenas"
+        },
+        {
+          "label": "VMware & Proxmox",
+          "href": "projects.html#project-vmware-proxmox"
+        }
+      ]
+    },
+    {
+      "semester": "1",
+      "icon": "💻",
+      "name": "Hardware",
+      "tags": [
+        {
+          "label": "Workstations"
+        },
+        {
+          "label": "Patch Panels",
+          "tip": "Rack-mounted panel consolidating network cable connections in a server room"
+        }
+      ],
+      "projects": [
+        {
+          "label": "TrueNAS Server",
+          "href": "projects.html#project-truenas"
+        }
+      ]
+    },
+    {
+      "semester": "1",
+      "icon": "☁️",
+      "name": "Cloud",
+      "tags": [
+        {
+          "label": "Cloudflare",
+          "tip": "CDN and DNS provider with DDoS protection and global edge network"
+        },
+        {
+          "label": "Hetzner",
+          "tip": "German cloud and dedicated server hosting provider"
+        },
+        {
+          "label": "AZ-900",
+          "tip": "Microsoft Azure Fundamentals certification — core cloud concepts and Azure services"
+        }
+      ],
+      "projects": [
+        {
+          "label": "Azure Meeting",
+          "href": "projects.html#project-azure"
+        },
+        {
+          "label": "LME",
+          "href": "projects.html#project-lme"
+        }
+      ]
+    },
+    {
+      "semester": "2",
+      "icon": "☁️",
+      "name": "Cloud",
+      "tags": [
+        {
+          "label": "AZ-104",
+          "tip": "Microsoft Azure Administrator Associate certification — in progress"
+        },
+        {
+          "label": "AWS",
+          "tip": "Amazon Web Services — cloud platform by Amazon"
+        }
+      ],
+      "projects": [
+        {
+          "label": "Azure 104",
+          "href": "projects.html#project-azure-104"
+        }
+      ]
+    },
+    {
+      "semester": "1",
+      "icon": "🔌",
+      "name": "Networking",
+      "tags": [
+        {
+          "label": "Cisco Packet Tracer",
+          "tip": "Cisco's network simulation tool for designing and testing network topologies"
+        },
+        {
+          "label": "Real Hardware Switches & Routers",
+          "tip": "Configuring and working with physical switches and routers in the school network lab"
+        }
+      ],
+      "projects": [
+        {
+          "label": "TrueNAS Server",
+          "href": "projects.html#project-truenas"
+        },
+        {
+          "label": "DFS Workfolder",
+          "href": "projects.html#project-dfs"
+        }
+      ]
+    },
+    {
+      "semester": "1",
+      "icon": "🖥️",
+      "name": "Operating Systems",
+      "tags": [
+        {
+          "label": "Windows 10/11"
+        },
+        {
+          "label": "Windows Server",
+          "tip": "Microsoft server OS for managing users, files, AD and network services"
+        },
+        {
+          "label": "Ubuntu Server",
+          "tip": "Headless Linux server OS used for hosting and infrastructure"
+        },
+        {
+          "label": "Ubuntu Desktop"
+        },
+        {
+          "label": "Proxmox",
+          "tip": "Proxmox VE used as the bare-metal OS for virtual infrastructure"
+        }
+      ],
+      "projects": [
+        {
+          "label": "DFS Workfolder",
+          "href": "projects.html#project-dfs"
+        },
+        {
+          "label": "LME",
+          "href": "projects.html#project-lme"
+        },
+        {
+          "label": "TrueNAS Server",
+          "href": "projects.html#project-truenas"
+        }
+      ]
+    },
+    {
+      "semester": "1",
+      "icon": "⚙️",
+      "name": "Programming",
+      "tags": [
+        {
+          "label": "Python"
+        }
+      ],
+      "projects": [
+        {
+          "label": "Grading Dino",
+          "href": "projects.html#project-grading-dino"
+        },
+        {
+          "label": "Python Monitor",
+          "href": "projects.html#project-python-monitor"
+        }
+      ]
+    },
+    {
+      "semester": "2",
+      "icon": "⚙️",
+      "name": "Programming",
+      "tags": [
+        {
+          "label": "PowerShell",
+          "tip": "Microsoft scripting shell for Windows — managing users, services and system config from the terminal"
+        },
+        {
+          "label": "Bash",
+          "tip": "Linux shell scripting for file operations, log parsing and service management"
+        }
+      ],
+      "projects": [
+        {
+          "label": "VMware & Proxmox",
+          "href": "projects.html#project-vmware-proxmox"
+        }
+      ]
+    },
+    {
+      "semester": "2",
+      "icon": "🔒",
+      "name": "Security",
+      "tags": [
+        {
+          "label": "Threat Awareness",
+          "tip": "Understanding how attacks unfold and what signs to look for in a network"
+        },
+        {
+          "label": "Incident Response",
+          "tip": "Structured process for detecting, containing and recovering from a security incident"
+        },
+        {
+          "label": "Risk Analysis",
+          "tip": "Identifying and prioritizing potential threats before they materialize"
+        },
+        {
+          "label": "Post-Incident Hardening",
+          "tip": "Hardening systems and closing attack vectors after a security event"
+        },
+        {
+          "label": "TryHackMe",
+          "tip": "Hands-on cyber security learning platform — completed practical rooms including Sakura Room (OSINT)"
+        }
+      ],
+      "projects": [
+        {
+          "label": "Security Course",
+          "href": "projects.html#project-security"
+        },
+        {
+          "label": "Python Monitor",
+          "href": "projects.html#project-python-monitor"
+        }
+      ]
+    },
+    {
+      "semester": "1",
+      "icon": "🌐",
+      "name": "Web Development",
+      "tags": [
+        {
+          "label": "HTML"
+        },
+        {
+          "label": "CSS"
+        },
+        {
+          "label": "PHP",
+          "tip": "Server-side scripting language for building dynamic web applications"
+        },
+        {
+          "label": "JavaScript"
+        }
+      ],
+      "projects": [
+        {
+          "label": "Grading Dino",
+          "href": "projects.html#project-grading-dino"
+        },
+        {
+          "label": "LME",
+          "href": "projects.html#project-lme"
+        },
+        {
+          "label": "Portfolio",
+          "href": "projects.html#project-portfolio"
+        }
+      ]
+    },
+    {
+      "semester": "both",
+      "icon": "📊",
+      "name": "Project Management",
+      "tags": [
+        {
+          "label": "Scrum",
+          "tip": "Agile framework for iterative development using sprints and defined roles"
+        },
+        {
+          "label": "Kanban",
+          "tip": "Visual workflow method using boards and cards to manage tasks"
+        },
+        {
+          "label": "Microsoft Planner",
+          "tip": "Microsoft 365 task and project planning tool with board and list views"
+        }
+      ],
+      "projects": [
+        {
+          "label": "Grading Dino",
+          "href": "projects.html#project-grading-dino"
+        },
+        {
+          "label": "LME",
+          "href": "projects.html#project-lme"
+        },
+        {
+          "label": "Azure Meeting",
+          "href": "projects.html#project-azure"
+        }
+      ]
+    },
+    {
+      "semester": "2",
+      "icon": "📊",
+      "name": "Project Management",
+      "tags": [
+        {
+          "label": "OKR",
+          "tip": "Objectives and Key Results — Define goal-oriented objectives and their specific success criteria"
+        },
+        {
+          "label": "KPI",
+          "tip": "Key Performance Indicators — Measures to monitor progress toward OKRs"
+        },
+        {
+          "label": "Milestones",
+          "tip": "Key points in a project plan that mark progress and define phases"
+        },
+        {
+          "label": "GTD",
+          "tip": "Getting Things Done — Method for organizing and prioritizing tasks effectively"
+        }
+      ],
+      "projects": [
+        {
+          "label": "LME",
+          "href": "projects.html#project-lme"
+        }
+      ]
+    },
+    {
+      "semester": "1",
+      "icon": "🏢",
+      "name": "Microsoft 365",
+      "tags": [
+        {
+          "label": "Power Platform",
+          "tip": "Microsoft suite of low-code tools for apps, automation and analytics"
+        },
+        {
+          "label": "PowerApps",
+          "tip": "Microsoft tool for building custom business apps without traditional coding"
+        },
+        {
+          "label": "Power Automate",
+          "tip": "Microsoft workflow automation tool for connecting apps and services"
+        }
+      ],
+      "projects": [
+        {
+          "label": "CarNotes",
+          "href": "projects.html#project-carnotes"
+        },
+        {
+          "label": "DFS Workfolder",
+          "href": "projects.html#project-dfs"
+        }
+      ]
+    }
+  ],
+  "certificates": [
+    {
+      "img": "certificates/azure fundamentals.png",
+      "title": "Azure Fundamentals",
+      "desc": "Foundation-level knowledge of cloud services and Microsoft Azure.",
+      "issuer": "Microsoft Certified",
+      "attempted": false,
+      "status": "Active",
+      "link": "https://www.credly.com/badges/d1020d9d-d9e6-474d-b1cf-090eae7f51d3/linked_in_profile",
+      "linkText": "View Credential →"
+    },
+    {
+      "img": "certificates/word1.png",
+      "title": "Word Associate",
+      "desc": "Expertise in Microsoft Word with Microsoft 365 Apps.",
+      "issuer": "Microsoft Office Specialist",
+      "attempted": false,
+      "date": "Nov 2025 - Nov 2030",
+      "link": "https://www.credly.com/badges/d948da79-5839-4e60-9662-d44abba46877/linked_in_profile",
+      "linkText": "View Credential →"
+    },
+    {
+      "img": "certificates/powerpoint1.png",
+      "title": "PowerPoint Associate",
+      "desc": "Proficiency in creating presentations using Microsoft PowerPoint.",
+      "issuer": "Microsoft Office Specialist",
+      "attempted": false,
+      "date": "Oct 2025 - Oct 2030",
+      "link": "https://www.credly.com/badges/bc5e0ab9-c642-4708-bc90-c17e2b070f19/linked_in_profile",
+      "linkText": "View Credential →"
+    },
+    {
+      "img": "certificates/word2.png",
+      "title": "Word Expert",
+      "desc": "Advanced Microsoft Word expertise with Microsoft 365 Apps.",
+      "issuer": "Microsoft Office Specialist",
+      "attempted": false,
+      "status": "Active",
+      "link": "https://www.credly.com/badges/419b661e-2a8e-4f86-8172-75f500e02651",
+      "linkText": "View Credential →"
+    }
+  ],
+  "attempted": [
+    {
+      "img": "certificates/excel1.png",
+      "title": "Excel Associate",
+      "desc": "Microsoft Excel proficiency certification attempt.",
+      "issuer": "Microsoft Office Specialist",
+      "attempted": true,
+      "status": "Attempted"
+    }
+  ],
+  "pluralsightBadges": [
+    {
+      "img": "Downloads/Pluralisght/skill-iq/batch.png",
+      "title": "Azure Architecture and Services",
+      "desc": "AZ-900: Core Azure services, architecture components, and service guarantees.",
+      "issuer": "Pluralsight",
+      "attempted": false,
+      "status": "Completed",
+      "link": "https://app.pluralsight.com/achievements/share/4585afb5-5f9d-4143-add9-f18ffbcc7caf",
+      "linkText": "View Badge →"
+    },
+    {
+      "img": "Downloads/Pluralisght/skill-iq/batch.png",
+      "title": "Security, Management & Governance",
+      "desc": "AZ-900: Azure security features, identity services, and compliance tools.",
+      "issuer": "Pluralsight",
+      "attempted": false,
+      "status": "Completed",
+      "link": "https://app.pluralsight.com/achievements/share/06cf9a96-f686-44d7-a0b6-160854a57d54",
+      "linkText": "View Badge →"
+    },
+    {
+      "img": "Downloads/Pluralisght/skill-iq/batch.png",
+      "title": "Identity, Deployment & Management",
+      "desc": "AZ-900: Azure identity solutions, deployment tools, and management features.",
+      "issuer": "Pluralsight",
+      "attempted": false,
+      "status": "Completed",
+      "link": "https://app.pluralsight.com/achievements/share/aee76c7f-67d6-44b2-bcb5-ff32e6f25aaf",
+      "linkText": "View Badge →"
+    },
+    {
+      "img": "Downloads/Pluralisght/skill-iq/batch.png",
+      "title": "Foundational Cloud Concepts",
+      "desc": "AZ-900: Core cloud computing concepts, models, and terminology.",
+      "issuer": "Pluralsight",
+      "attempted": false,
+      "status": "Completed",
+      "link": "https://app.pluralsight.com/achievements/share/07535af4-384f-4dcc-a28b-18ec17dbd230",
+      "linkText": "View Badge →"
+    }
+  ],
+  "softskills": [
+    {
+      "semester": "both",
+      "title": "Self-Driven Learning",
+      "desc": "Learning doesn't stop when school does. Outside of class I actively run a homelab — currently building a fully self-hosted AI server at home to have my own AI assistant that helps with planning, reminders, and daily organisation. If something interests me, I build it."
+    },
+    {
+      "semester": null,
+      "title": "Persistence & Problem Focus",
+      "desc": "When something breaks or doesn't work as expected, my first instinct is to dig into the root cause — not switch to a different approach. I stay focused on the problem until I understand it. That said, I also know when a plan genuinely needs to change, and I can adapt when the situation calls for it."
+    }
+  ]
+}

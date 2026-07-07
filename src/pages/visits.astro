@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import TimelineItem from '../components/TimelineItem.astro';
+import visits from '../data/visits.json';
+---
+<BaseLayout title="Visits & Events | Max Simon" active="Visits & Events">
+  <PageHeader crumb="visits & events" title="Visits & Events" subtitle="Company visits, events & training" />
+
+  <main class="experience-container">
+    <div class="category-selector">
+      <label for="timelineCategory" class="selector-label">Category:</label>
+      <select id="timelineCategory" class="category-dropdown">
+        <option value="all" selected>All</option>
+        <option value="visit">Visits</option>
+        <option value="training">Training</option>
+        <option value="external">External</option>
+      </select>
+      <select id="timelineSemester" class="category-dropdown">
+        <option value="all" selected>All Semesters</option>
+        <option value="1">Semester 1</option>
+        <option value="2">Semester 2</option>
+      </select>
+    </div>
+
+    <div class="timeline">
+      {visits.map((item) => <TimelineItem item={item} />)}
+    </div>
+  </main>
+</BaseLayout>
