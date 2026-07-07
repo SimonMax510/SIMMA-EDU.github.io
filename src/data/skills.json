@@ -303,28 +303,7 @@
         {
           "label": "Microsoft Planner",
           "tip": "Microsoft 365 task and project planning tool with board and list views"
-        }
-      ],
-      "projects": [
-        {
-          "label": "Grading Dino",
-          "href": "projects.html#project-grading-dino"
         },
-        {
-          "label": "LME",
-          "href": "projects.html#project-lme"
-        },
-        {
-          "label": "Azure Meeting",
-          "href": "projects.html#project-azure"
-        }
-      ]
-    },
-    {
-      "semester": "2",
-      "icon": "📊",
-      "name": "Project Management",
-      "tags": [
         {
           "label": "OKR",
           "tip": "Objectives and Key Results — Define goal-oriented objectives and their specific success criteria"
@@ -344,8 +323,16 @@
       ],
       "projects": [
         {
+          "label": "Grading Dino",
+          "href": "projects.html#project-grading-dino"
+        },
+        {
           "label": "LME",
           "href": "projects.html#project-lme"
+        },
+        {
+          "label": "Azure Meeting",
+          "href": "projects.html#project-azure"
         }
       ]
     },
