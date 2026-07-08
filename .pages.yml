@@ -1,0 +1,495 @@
+# Pages CMS configuration — edit content at https://app.pagescms.org
+# Docs: https://pagescms.org/docs/
+
+media:
+  input: public/img
+  output: /img
+
+components:
+  # Icon used by projects and tech-stack items (either an emoji or an image)
+  icon:
+    label: Icon
+    type: object
+    fields:
+      - name: type
+        label: Icon type
+        type: select
+        options:
+          values: [emoji, img]
+      - name: emoji
+        label: Emoji (if type = emoji)
+        type: string
+        required: false
+      - name: src
+        label: Image (if type = img)
+        type: image
+        required: false
+      - name: alt
+        label: Alt text
+        type: string
+        required: false
+      - name: fit
+        label: Image fit (cover/contain)
+        type: string
+        required: false
+      - name: whiteBg
+        label: White background behind logo
+        type: boolean
+        required: false
+
+content:
+  # ── Projects ──────────────────────────────────────────
+  - name: projects
+    label: Projects
+    type: file
+    path: src/data/projects.json
+    format: json
+    list: true
+    view:
+      fields: [name, semester]
+    fields:
+      - name: id
+        label: ID (used for links, e.g. project-truenas)
+        type: string
+      - name: semester
+        label: Semester
+        type: select
+        options:
+          values: ["1", "2", "3", "4"]
+      - name: name
+        label: Project name
+        type: string
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: course
+        label: Course / context
+        type: string
+      - name: status
+        label: Status
+        type: object
+        fields:
+          - name: kind
+            label: Status type
+            type: select
+            options:
+              values: [completed, development, future]
+          - name: text
+            label: Badge text
+            type: string
+      - name: icon
+        component: icon
+      - name: sections
+        label: Sections
+        type: block
+        list: true
+        blockKey: type
+        blocks:
+          - name: text
+            label: Text section (overview, conclusion, …)
+            fields:
+              - name: heading
+                type: string
+              - name: paragraphs
+                label: Paragraphs
+                type: object
+                list: true
+                fields:
+                  - name: html
+                    label: Text (HTML allowed)
+                    type: text
+                  - name: muted
+                    label: Show muted/italic
+                    type: boolean
+                    required: false
+          - name: tech
+            label: Technology stack
+            fields:
+              - name: heading
+                type: string
+              - name: items
+                label: Technologies
+                type: object
+                list: true
+                fields:
+                  - name: icon
+                    component: icon
+                  - name: name
+                    type: string
+                  - name: desc
+                    type: string
+          - name: features
+            label: Feature cards
+            fields:
+              - name: heading
+                type: string
+              - name: intro
+                label: Intro text (optional, HTML allowed)
+                type: text
+                required: false
+              - name: items
+                label: Features
+                type: object
+                list: true
+                fields:
+                  - name: title
+                    type: string
+                  - name: desc
+                    type: text
+          - name: list
+            label: Bullet list (what I learned, future plans, …)
+            fields:
+              - name: heading
+                type: string
+              - name: items
+                label: Bullet points (HTML allowed)
+                type: text
+                list: true
+          - name: team
+            label: Team
+            fields:
+              - name: heading
+                type: string
+              - name: members
+                type: object
+                list: true
+                fields:
+                  - name: name
+                    type: string
+                  - name: role
+                    type: string
+          - name: screenshots
+            label: Screenshots / photos
+            fields:
+              - name: heading
+                type: string
+              - name: items
+                type: object
+                list: true
+                fields:
+                  - name: src
+                    label: Image
+                    type: image
+                  - name: alt
+                    type: string
+                  - name: caption
+                    type: string
+          - name: downloads
+            label: Downloads
+            fields:
+              - name: heading
+                type: string
+              - name: groups
+                label: Download groups
+                type: object
+                list: true
+                fields:
+                  - name: label
+                    label: Group label (optional)
+                    type: string
+                    required: false
+                  - name: items
+                    type: object
+                    list: true
+                    fields:
+                      - name: href
+                        label: File path (e.g. Downloads/…/file.pdf)
+                        type: string
+                      - name: icon
+                        label: Emoji icon
+                        type: string
+                      - name: title
+                        type: string
+                      - name: desc
+                        type: string
+                      - name: newTab
+                        label: Open in new tab instead of download
+                        type: boolean
+                        required: false
+
+  # ── Skills ────────────────────────────────────────────
+  - name: skills
+    label: Skills & Certificates
+    type: file
+    path: src/data/skills.json
+    format: json
+    fields:
+      - name: hardskills
+        label: Hard skills (table rows)
+        type: object
+        list: true
+        fields:
+          - name: semester
+            label: Semester
+            type: select
+            options:
+              values: ["1", "2", "3", "4", "both"]
+          - name: icon
+            label: Emoji icon
+            type: string
+          - name: name
+            label: Category
+            type: string
+          - name: tags
+            label: Tools & technologies
+            type: object
+            list: true
+            fields:
+              - name: label
+                type: string
+              - name: tip
+                label: Tooltip (optional)
+                type: string
+                required: false
+          - name: projects
+            label: Related projects
+            type: object
+            list: true
+            fields:
+              - name: label
+                type: string
+              - name: href
+                label: Link (e.g. projects.html#project-truenas)
+                type: string
+      - name: certificates
+        label: Certificates
+        type: object
+        list: true
+        fields:
+          - name: img
+            label: Badge image path
+            type: string
+          - name: title
+            type: string
+          - name: desc
+            type: text
+          - name: issuer
+            type: string
+          - name: status
+            type: string
+            required: false
+          - name: date
+            type: string
+            required: false
+          - name: link
+            label: Credential URL
+            type: string
+            required: false
+          - name: linkText
+            type: string
+            required: false
+          - name: attempted
+            type: boolean
+            required: false
+          - name: img
+            label: Badge image path
+            type: string
+          - name: title
+            type: string
+          - name: desc
+            type: text
+          - name: issuer
+            type: string
+          - name: status
+            type: string
+            required: false
+          - name: date
+            type: string
+            required: false
+          - name: link
+            label: Credential URL
+            type: string
+            required: false
+          - name: linkText
+            type: string
+            required: false
+          - name: attempted
+            type: boolean
+            required: false
+      - name: attempted
+        label: Attempted certifications
+        type: object
+        list: true
+        fields:
+          - name: img
+            label: Badge image path
+            type: string
+          - name: title
+            type: string
+          - name: desc
+            type: text
+          - name: issuer
+            type: string
+          - name: status
+            type: string
+            required: false
+          - name: date
+            type: string
+            required: false
+          - name: link
+            label: Credential URL
+            type: string
+            required: false
+          - name: linkText
+            type: string
+            required: false
+          - name: attempted
+            type: boolean
+            required: false
+      - name: pluralsightBadges
+        label: Pluralsight badges
+        type: object
+        list: true
+        fields:
+          - name: img
+            label: Badge image path
+            type: string
+          - name: title
+            type: string
+          - name: desc
+            type: text
+          - name: issuer
+            type: string
+          - name: status
+            type: string
+            required: false
+          - name: date
+            type: string
+            required: false
+          - name: link
+            label: Credential URL
+            type: string
+            required: false
+          - name: linkText
+            type: string
+            required: false
+          - name: attempted
+            type: boolean
+            required: false
+      - name: softskills
+        label: Soft skills
+        type: object
+        list: true
+        fields:
+          - name: semester
+            type: string
+            required: false
+          - name: title
+            type: string
+          - name: desc
+            type: text
+
+  # ── Experience ────────────────────────────────────────
+  - name: experience
+    label: Experience
+    type: file
+    path: src/data/experience.json
+    format: json
+    list: true
+    view:
+      fields: [title, category]
+    fields:
+      - name: category
+        label: Category
+        type: select
+        options:
+          values: [work, education, visit, training, external]
+      - name: semester
+        label: Semester (optional)
+        type: string
+        required: false
+      - name: title
+        type: string
+      - name: duration
+        label: Duration / badge
+        type: string
+      - name: location
+        type: string
+      - name: details
+        label: Bullet points (HTML allowed)
+        type: text
+        list: true
+      - name: sections
+        label: Expandable detail sections
+        type: object
+        list: true
+        fields:
+          - name: title
+            type: string
+          - name: items
+            label: Bullet points (HTML allowed)
+            type: text
+            list: true
+      - name: category
+        label: Category
+        type: select
+        options:
+          values: [work, education, visit, training, external]
+      - name: semester
+        label: Semester (optional)
+        type: string
+        required: false
+      - name: title
+        type: string
+      - name: duration
+        label: Duration / badge
+        type: string
+      - name: location
+        type: string
+      - name: details
+        label: Bullet points (HTML allowed)
+        type: text
+        list: true
+      - name: sections
+        label: Expandable detail sections
+        type: object
+        list: true
+        fields:
+          - name: title
+            type: string
+          - name: items
+            label: Bullet points (HTML allowed)
+            type: text
+            list: true
+
+  # ── Visits & Events ───────────────────────────────────
+  - name: visits
+    label: Visits & Events
+    type: file
+    path: src/data/visits.json
+    format: json
+    list: true
+    view:
+      fields: [title, category]
+    fields:
+      - name: category
+        label: Category
+        type: select
+        options:
+          values: [work, education, visit, training, external]
+      - name: semester
+        label: Semester (optional)
+        type: string
+        required: false
+      - name: title
+        type: string
+      - name: duration
+        label: Duration / badge
+        type: string
+      - name: location
+        type: string
+      - name: details
+        label: Bullet points (HTML allowed)
+        type: text
+        list: true
+      - name: sections
+        label: Expandable detail sections
+        type: object
+        list: true
+        fields:
+          - name: title
+            type: string
+          - name: items
+            label: Bullet points (HTML allowed)
+            type: text
+            list: true
