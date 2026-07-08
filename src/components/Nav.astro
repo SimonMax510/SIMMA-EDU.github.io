@@ -2,7 +2,7 @@
 const links = [
   { href: '/index.html', label: 'Home' },
   { href: '/projects.html', label: 'Projects' },
-  { href: '/skills.html', label: 'Skills/Certificates' },
+  { href: '/skills.html', label: 'Skills' },
   { href: '/experience.html', label: 'Experience' },
   { href: '/visits.html', label: 'Visits & Events' },
   { href: '/contact.html', label: 'Contact' },
@@ -12,11 +12,9 @@ const links = [
 const { active } = Astro.props;
 ---
 <nav class="nav-system">
-  <div class="nav-logo">
-    <span class="logo-bracket">[</span>
-    <span class="logo-text">MS</span>
-    <span class="logo-bracket">]</span>
-  </div>
+  <a href="/index.html" class="nav-logo" aria-label="Home">
+    <span class="logo-text">Max Simon</span><span class="logo-dot">.</span>
+  </a>
   <div class="nav-links">
     {links.map((link) => (
       <a href={link.href} class:list={['nav-link', { active: link.label === active }]}>{link.label}</a>
