@@ -24,6 +24,22 @@
         {
           "label": "Docker Compose",
           "tip": "Tool for defining and running multi-container Docker applications from a single YAML file"
+        },
+        {
+          "label": "K3s",
+          "tip": "Lightweight Kubernetes — ran a load balancer on a Raspberry Pi 5 cluster"
+        },
+        {
+          "label": "High Availability",
+          "tip": "HA clustering in VMware and Proxmox — automatic VM failover between nodes"
+        },
+        {
+          "label": "Proxmox Backup Server",
+          "tip": "Enterprise backup solution for the LME infrastructure"
+        },
+        {
+          "label": "ZFS",
+          "tip": "Storage pools and RAID configuration on the TrueNAS server"
         }
       ],
       "projects": [
@@ -38,6 +54,10 @@
         {
           "label": "VMware & Proxmox",
           "href": "projects.html#project-vmware-proxmox"
+        },
+        {
+          "label": "Pi 5 Cluster",
+          "href": "projects.html#project-pi5-cluster"
         }
       ]
     },
@@ -67,16 +87,24 @@
       "name": "Cloud",
       "tags": [
         {
+          "label": "AZ-900",
+          "tip": "Microsoft Azure Fundamentals certification — core cloud concepts and Azure services"
+        },
+        {
+          "label": "Azure Networking",
+          "tip": "Virtual networks and connectivity for Azure VMs"
+        },
+        {
+          "label": "Auto-Shutdown Policies",
+          "tip": "Cost control by scheduling automatic VM shutdown"
+        },
+        {
           "label": "Cloudflare",
           "tip": "CDN and DNS provider with DDoS protection and global edge network"
         },
         {
           "label": "Hetzner",
           "tip": "German cloud and dedicated server hosting provider"
-        },
-        {
-          "label": "AZ-900",
-          "tip": "Microsoft Azure Fundamentals certification — core cloud concepts and Azure services"
         }
       ],
       "projects": [
@@ -97,11 +125,43 @@
       "tags": [
         {
           "label": "AZ-104",
-          "tip": "Microsoft Azure Administrator Associate certification — in progress"
+          "tip": "Microsoft Azure Administrator Associate certification — in progress (30% of Pluralsight path)"
+        },
+        {
+          "label": "Azure Portal",
+          "tip": "Web-based management console for deploying and administering Azure resources"
+        },
+        {
+          "label": "Azure CLI",
+          "tip": "Command-line interface for managing Azure resources from Bash"
+        },
+        {
+          "label": "Azure PowerShell",
+          "tip": "PowerShell modules for scripting Azure administration tasks"
+        },
+        {
+          "label": "Entra ID",
+          "tip": "Microsoft identity platform — users, groups and access management"
+        },
+        {
+          "label": "RBAC",
+          "tip": "Role-Based Access Control — assigning permissions at the right scope (Entra ID vs resource level)"
+        },
+        {
+          "label": "Azure VMs",
+          "tip": "Deploying and managing virtual machines, scale sets and compute resources"
+        },
+        {
+          "label": "Load Balancer",
+          "tip": "Distributing incoming traffic across multiple VMs for availability"
+        },
+        {
+          "label": "Application Proxy",
+          "tip": "Secure remote access to applications through the cloud without a VPN"
         },
         {
           "label": "AWS",
-          "tip": "Amazon Web Services — cloud platform by Amazon"
+          "tip": "Amazon Web Services fundamentals — hands-on workshop with the AWS console"
         }
       ],
       "projects": [
@@ -112,7 +172,7 @@
       ]
     },
     {
-      "semester": "1",
+      "semester": "both",
       "icon": "🔌",
       "name": "Networking",
       "tags": [
@@ -123,6 +183,18 @@
         {
           "label": "Real Hardware Switches & Routers",
           "tip": "Configuring and working with physical switches and routers in the school network lab"
+        },
+        {
+          "label": "VLANs",
+          "tip": "Segmenting networks — switch configuration and VLAN setup in the lab"
+        },
+        {
+          "label": "Routing & Switching",
+          "tip": "Configuring physical Cisco switches and routers"
+        },
+        {
+          "label": "Network Topology Design",
+          "tip": "Designing and testing network layouts in Cisco Packet Tracer"
         }
       ],
       "projects": [
@@ -177,11 +249,48 @@
     },
     {
       "semester": "1",
+      "icon": "🗂️",
+      "name": "System Administration",
+      "tags": [
+        {
+          "label": "Active Directory",
+          "tip": "Windows domain services — users, groups and permissions"
+        },
+        {
+          "label": "DFS",
+          "tip": "Distributed File System — shared workfolders with replication"
+        },
+        {
+          "label": "User & Permission Management",
+          "tip": "Account provisioning and access control on Windows Server"
+        },
+        {
+          "label": "Windows Server 2022",
+          "tip": "Server OS used during the ITIC Douanes internships"
+        }
+      ],
+      "projects": [
+        {
+          "label": "DFS Workfolder",
+          "href": "projects.html#project-dfs"
+        }
+      ]
+    },
+    {
+      "semester": "1",
       "icon": "⚙️",
       "name": "Programming",
       "tags": [
         {
           "label": "Python"
+        },
+        {
+          "label": "Django",
+          "tip": "Python web framework — login, security and database access out of the box"
+        },
+        {
+          "label": "PostgreSQL",
+          "tip": "Relational database used in the Grading Dino project"
         }
       ],
       "projects": [
@@ -207,12 +316,20 @@
         {
           "label": "Bash",
           "tip": "Linux shell scripting for file operations, log parsing and service management"
+        },
+        {
+          "label": "Git & GitHub",
+          "tip": "Branches, pull requests and managing a shared codebase in a team"
         }
       ],
       "projects": [
         {
           "label": "VMware & Proxmox",
           "href": "projects.html#project-vmware-proxmox"
+        },
+        {
+          "label": "School Bike System",
+          "href": "projects.html#project-rad-system"
         }
       ]
     },
@@ -240,6 +357,14 @@
         {
           "label": "TryHackMe",
           "tip": "Hands-on cyber security learning platform — completed practical rooms including Sakura Room (OSINT)"
+        },
+        {
+          "label": "OSINT",
+          "tip": "Open Source Intelligence — tracked a threat actor using public digital footprints (Sakura Room)"
+        },
+        {
+          "label": "Social Engineering Awareness",
+          "tip": "Recognizing phishing and manipulation — the human attack vector"
         }
       ],
       "projects": [
@@ -254,7 +379,7 @@
       ]
     },
     {
-      "semester": "1",
+      "semester": "both",
       "icon": "🌐",
       "name": "Web Development",
       "tags": [
@@ -270,6 +395,18 @@
         },
         {
           "label": "JavaScript"
+        },
+        {
+          "label": "Laravel",
+          "tip": "PHP framework used for LME client projects"
+        },
+        {
+          "label": "Astro",
+          "tip": "Static site generator — this portfolio is built with it"
+        },
+        {
+          "label": "Nginx",
+          "tip": "Web server used for hosting LME sites"
         }
       ],
       "projects": [
@@ -319,6 +456,10 @@
         {
           "label": "GTD",
           "tip": "Getting Things Done — Method for organizing and prioritizing tasks effectively"
+        },
+        {
+          "label": "GitHub Projects",
+          "tip": "Managing work items and project boards on GitHub"
         }
       ],
       "projects": [
@@ -352,6 +493,14 @@
         {
           "label": "Power Automate",
           "tip": "Microsoft workflow automation tool for connecting apps and services"
+        },
+        {
+          "label": "Word",
+          "tip": "MOS certified — Associate and Expert level"
+        },
+        {
+          "label": "PowerPoint",
+          "tip": "MOS certified — Associate level"
         }
       ],
       "projects": [
@@ -362,6 +511,43 @@
         {
           "label": "DFS Workfolder",
           "href": "projects.html#project-dfs"
+        }
+      ]
+    },
+    {
+      "semester": "2",
+      "icon": "🤖",
+      "name": "AI & Self-Hosting",
+      "tags": [
+        {
+          "label": "Ollama",
+          "tip": "Running LLMs locally on own GPU hardware"
+        },
+        {
+          "label": "AnythingLLM",
+          "tip": "Self-hosted chat interface with document knowledge base"
+        },
+        {
+          "label": "RAG",
+          "tip": "Retrieval Augmented Generation — fed the AI 685 pages of Proxmox documentation"
+        },
+        {
+          "label": "GPU Computing",
+          "tip": "Understanding VRAM limits and why GPUs accelerate AI workloads"
+        },
+        {
+          "label": "Telegram Bot",
+          "tip": "Chat with the self-hosted AI from anywhere via Telegram"
+        }
+      ],
+      "projects": [
+        {
+          "label": "OwnAI",
+          "href": "projects.html#project-ownai"
+        },
+        {
+          "label": "TrueNAS Server",
+          "href": "projects.html#project-truenas"
         }
       ]
     }
